@@ -1,3 +1,3 @@
 # GECLY-
-# Gavin was here
-hi
+
+The SRC, DOC, and DATA folders go here.
