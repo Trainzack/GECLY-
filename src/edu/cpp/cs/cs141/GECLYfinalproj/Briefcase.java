@@ -6,7 +6,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  * Programming Final Project
  *
- * edu.cpp.cs.cs141.GECLYfinalproj.Ninja-Assassin Game
+ * Ninja-Assassin Game
  *
  * Team GECLY Info:
  * Gavin Kremer
