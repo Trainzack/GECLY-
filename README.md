@@ -1,3 +1,3 @@
 # GECLY-
 
-This is Gavin's test branch. Ignore for now.
+This is our amazing project. Please do not commit to the master branch without a pull request.
