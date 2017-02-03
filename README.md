@@ -1,3 +1,3 @@
 # GECLY-
 
-The SRC, DOC, and DATA folders go here.
+This is Gavin's test branch. Ignore for now.
