@@ -1,3 +1,3 @@
 # GECLY-
 
-This is our amazing project. Please do not commit to the master branch without a pull request.
+This is the master branch. Please do not commit anything to this without a pull request.
