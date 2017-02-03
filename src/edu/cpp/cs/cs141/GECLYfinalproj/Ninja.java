@@ -1,10 +1,12 @@
+package edu.cpp.cs.cs141.GECLYfinalproj;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodríguez
  *
  * Programming Final Project
  *
- * Ninja-Assassin Game
+ * edu.cpp.cs.cs141.GECLYfinalproj.Ninja-Assassin Game
  *
  * Team GECLY Info:
  * Gavin Kremer
@@ -14,5 +16,5 @@
  * Yan Huang (Lilli)
  *
  */
-public abstract class WorldItem {
+public class Ninja extends Agent{
 }
