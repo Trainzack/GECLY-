@@ -14,5 +14,5 @@
  * Yan Huang (Lilli)
  *
  */
-public class Grid {
+public class ExtraBullet extends WorldItem{
 }

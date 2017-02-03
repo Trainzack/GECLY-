@@ -14,5 +14,5 @@
  * Yan Huang (Lilli)
  *
  */
-public class Grid {
+public abstract class Agent {
 }

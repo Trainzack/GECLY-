@@ -14,5 +14,6 @@
  * Yan Huang (Lilli)
  *
  */
-public class Grid {
+public class ConsoleInterface extends UserInterface{
+
 }
