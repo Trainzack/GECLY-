@@ -1,3 +1,5 @@
+package edu.cpp.cs.cs141.GECLYfinalproj;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodríguez
@@ -14,5 +16,5 @@
  * Yan Huang (Lilli)
  *
  */
-public class Camo extends WorldItem{
+public class Invincibility extends WorldItem{
 }
