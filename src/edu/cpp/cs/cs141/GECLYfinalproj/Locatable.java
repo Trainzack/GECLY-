@@ -16,5 +16,35 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * Yan Huang (Lilli)
  *
  */
+
+
+/**
+ * Locatable is an interface designed for objects that appear on the main game grid. It contains methods for retrieving 
+ * 
+ * @author eli
+ *
+ */
 public interface Locatable {
+	
+	/**
+	 * Returns the ASCII character used to display this object when the game is played in the console. Whether the tile is visible to the player can be specified.
+	 * 
+	 * Examples: 'A','r','*',' '.
+	 * 
+	 * @param visible whether the player can see the grid square that contains this object
+	 * @return the character used to display this object, or null if this object should not be displayed
+	 */
+	public char getASCIIDisplayCharacter(boolean visible);
+	
+	/**
+	 * Returns the Unicode character used to display this object when the game is played in the console. Whether the tile is visible to the player can be specified.
+	 * 
+	 * Examples: '♕','♿','⚑','♦'.
+	 * 
+	 * @param visible whether the player can see the grid square that contains this object
+	 * @return the character used to display this object, or null if this object should not be displayed
+	 */
+	public char getUnicodeDisplayCharacter(boolean visible);
+	
+	
 }
