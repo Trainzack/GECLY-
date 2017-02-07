@@ -57,6 +57,36 @@ public abstract class Agent implements Locatable{
     public abstract void kill();
 
 
+    /**
+     *This is the constructor for {@link Agent} which basically assigns the representations and the {@link #locale}
+     */
+    Agent(){
+
+    }
+    /**
+     * Getter for {@link #ASCIIRep}
+     * @return value of {@link #ASCIIRep}
+     */
+    public char getASCIIRep() {
+        return ASCIIRep;
+    }
+
+    /**
+     * Getter for {@link #UnicodeRep}
+     * @return value of {@link #UnicodeRep}
+     */
+    public char getUnicodeRep() {
+        return UnicodeRep;
+    }
+
+    /**
+     * Getter for {@link #locale}
+     * @return value of {@link #locale}
+     */
+    public Grid getLocale() {
+        return locale;
+    }
+
     @Override
     public char getASCIIDisplayCharacter(boolean visible) {
         return 0;
