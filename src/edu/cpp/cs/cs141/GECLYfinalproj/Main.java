@@ -16,10 +16,19 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * Yan Huang (Lilli)
  *
  */
+
+/**
+ * This class is the main class where the game will start when the method
+ * {@link #UserInterface.startGame()} is called. This method will implement 
+ * UserInterface and all its methods.
+ * 
+ * @author Yan Huang
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Hello Package");
+		UserInterface.startGame();
 	}
 
 }
