@@ -54,7 +54,7 @@ public abstract class Agent implements Locatable{
      * This method will handle the {@link Agent}'s death, which will be radically different depending on which
      * agent is using it, so it is abstract.
      */
-    public abstract void killThis();
+    public abstract void kill();
 
 
     @Override
