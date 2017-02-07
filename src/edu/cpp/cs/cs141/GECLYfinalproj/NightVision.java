@@ -16,5 +16,28 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * Yan Huang (Lilli)
  *
  */
+
+/**
+ * The NightVision class represents the character's night vision power up. This power up will enhance the player's
+ * line of vision and allow them to see mmore than the usual 2 blocks ahead.
+ * 
+ * @author Clara Nguyen
+ */
 public class NightVision extends WorldItem{
+	
+	/**
+	 * The NightVision constructor employs the superclass constructor to set the values for all the attributes in the
+	 * WorldItem abstract class.
+	 */
+	public NightVision() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void apply() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
