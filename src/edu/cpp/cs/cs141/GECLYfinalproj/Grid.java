@@ -46,7 +46,7 @@ public class Grid {
      * @return found object.
      */
     public Locatable getObject(int pos1, int pos2){
-        return something;
+        return boardState[pos1][pos2];
     }
 
     /**
