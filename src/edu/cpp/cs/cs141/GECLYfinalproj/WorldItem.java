@@ -32,7 +32,7 @@ public abstract class WorldItem implements Locatable {
 	private String name;
 	
 	/**
-	 * This Grid object field represents the grid that the object's are on.
+	 * This Grid object field represents the grid that the object's are on .
 	 */
 	private Grid locale;
 	
