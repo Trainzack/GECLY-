@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 
+import java.io.File;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodríguez
@@ -24,7 +26,7 @@ public class Engine {
 	private Player player;
 	
 	/**
-	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid()}. 
+	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid()} or {@link Engine#loadGame()}. 
 	 */
 	private Grid grid;
 	
@@ -32,6 +34,24 @@ public class Engine {
 	 * The number of turns that have taken place since play has started.
 	 */
 	private int turnCount;
+	
+	
+	/**
+	 * Creates a new instance of the engine for a new game.
+	 */
+	public Engine() {
+		
+	}
+	
+	/**
+	 * Creates a new instance of the engine from a save file.
+	 * 
+	 * @param save the save file to load from
+	 */
+	public Engine(File save) {
+		
+	}
+	
 	
 	/**
 	 * Makes and returns an array of booleans, each representing whether that square is visible to the player. Used by a {@link UserInterface} to figure out what to display to the player.
@@ -56,9 +76,17 @@ public class Engine {
 	}
 	
 	/**
-	 * Saves the game-state by using the FileManager to record the {@link #grid}.
+	 * Saves the game-state by using the FileManager to record the {@link #grid}, and other miscellaneous attributes like {@link #turnCount}.
 	 */
 	public void saveGame() {
+		
+	}
+	
+	
+	/**
+	 * Loads the gamestate using the FileManager, and initializes the {@link #grid}, and other miscellaneous attributes like {@link #turnCount}.  
+	 */
+	public void loadGame() {
 		
 	}
 	
