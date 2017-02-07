@@ -46,5 +46,9 @@ public interface Locatable {
 	 */
 	public char getUnicodeDisplayCharacter(boolean visible);
 	
+	//TODO: Add methods for retrieving images for these items
+	
+	//Question: Do we want methods for getting the location of this object, the distance to another object, and the grid that this object is currently on?
+	
 	
 }
