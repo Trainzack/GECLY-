@@ -27,7 +27,7 @@ public class NightVision extends WorldItem{
 	
 	/**
 	 * The NightVision constructor employs the superclass constructor to set the values for all the attributes in the
-	 * WorldItem abstract class.
+	 * WorldItem abstract class .
 	 */
 	public NightVision() {
 		super();
