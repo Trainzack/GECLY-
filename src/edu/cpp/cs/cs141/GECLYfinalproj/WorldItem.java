@@ -26,8 +26,14 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 public abstract class WorldItem implements Locatable {
 	
+	/**
+	 * The String name field represents the name of the world item.
+	 */
 	private String name;
 	
+	/**
+	 * This Grid object field represents the grid that the object's are on.
+	 */
 	private Grid locale;
 	
 	/* (non-Javadoc)
@@ -48,6 +54,10 @@ public abstract class WorldItem implements Locatable {
 		return 0;
 	}
 	
+	/**
+	 * This method applies the item to the character. It is abstract so that it can be applied uniquely
+	 * to the different classes that extend this abstract class.
+	 */
 	public abstract void apply();
 	
 }
