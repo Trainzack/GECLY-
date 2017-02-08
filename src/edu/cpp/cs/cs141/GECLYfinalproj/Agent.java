@@ -37,11 +37,6 @@ public abstract class Agent implements Locatable{
     private char UnicodeRep;
 
     /**
-     * This field represents the locale of the {@link Agent}, AKA the {@link Grid} they are located in.
-     */
-    private Grid locale;
-
-    /**
      * This method will handle the {@link Agent}'s movement, and return wether or not the move was successful
      * (for if they try to move out of bounds for example.)
      * @return if the move was successful or not.
@@ -79,12 +74,9 @@ public abstract class Agent implements Locatable{
         return UnicodeRep;
     }
 
-    /**
-     * Getter for {@link #locale}
-     * @return value of {@link #locale}
-     */
-    public Grid getLocale() {
-        return locale;
+    @Override
+    public Location getLocation(Locatable object) {
+        return null;
     }
 
     @Override

@@ -31,6 +31,11 @@ public class Room implements Locatable{
     private WorldItem contents;
 
     @Override
+    public Location getLocation(Locatable object) {
+        return null;
+    }
+
+    @Override
     public char getASCIIDisplayCharacter(boolean visible) {
         return 0;
     }
