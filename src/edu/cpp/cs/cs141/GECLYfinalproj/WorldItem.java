@@ -41,11 +41,6 @@ public abstract class WorldItem implements Locatable {
      */
     private char UnicodeRep;
 
-	/**
-	 * This Grid object field represents the grid that the object's are on.
-	 */
-	private Grid locale;
-
     /**
      * This method applies the item to the character. It is abstract so that it can be applied uniquely
      * to the different classes that extend this abstract class.
@@ -83,15 +78,10 @@ public abstract class WorldItem implements Locatable {
 		return UnicodeRep;
 	}
 
-	/**
-	 * Getter for {@link #locale}
-	 * @return value of {@link #locale}
-	 */
-	public Grid getLocale() {
-		return locale;
+	@Override
+	public Location getLocation(Locatable object) {
+		return null;
 	}
-
-
 
 	@Override
 	public char getASCIIDisplayCharacter(boolean visible) {

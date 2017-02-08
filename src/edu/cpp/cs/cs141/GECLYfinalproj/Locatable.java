@@ -25,7 +25,13 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 public interface Locatable {
-	
+
+
+	/**
+	 * This method represents the
+	 */
+	public Location getLocation(Locatable object);
+
 	/**
 	 * Returns the ASCII character used to display this object when the game is played in the console. Whether the tile is visible to the player can be specified.
 	 * 
