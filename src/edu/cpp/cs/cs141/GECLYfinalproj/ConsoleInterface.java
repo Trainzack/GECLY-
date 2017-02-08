@@ -1,5 +1,6 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -30,6 +31,16 @@ public class ConsoleInterface extends UserInterface{
      * This field represents the Scanner that the user will use to interact with the UI.
      */
     private Scanner SWIFT = new Scanner(System.in);
+    
+    /**
+     * The PrintWriter that will be used for output (works the same as System.out). Note that we will need to make considerations for Unicode support by using an OutputStreamWriter with the right encoding as a first argument. If that doesn't work at runtime, we can default to ASCII by setting {@link #UnicodeEnabled}.
+     */
+    private PrintWriter SystemOutput;
+    
+    /**
+     * Whether or not output can contain Unicode.
+     */
+    private boolean UnicodeEnabled;
 
     /**
      * This method will print a method in the console.
