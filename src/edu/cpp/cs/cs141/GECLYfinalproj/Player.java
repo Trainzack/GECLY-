@@ -37,22 +37,22 @@ public class Player extends Agent implements Locatable{
     private int ammo;
 
     /**
-     * This field represents the amound of turns the {@link Player} has of invincibility, which is applied by {@link Invincibility}.
+     * This field represents the amound of turns the {@link Player} has of invincibility, which is applied by {@link edu.cpp.cs.cs141.GECLYfinalproj.powerups.Invincibility}.
      */
     private int invincibilityCount;
 
     /**
-     * This field represents if the {@link Player} has the effect of {@link Radar}.
+     * This field represents if the {@link Player} has the effect of {@link edu.cpp.cs.cs141.GECLYfinalproj.powerups.Radar}.
      */
     private boolean hasRadar;
 
     /**
-     * This field represents if the {@link Player} has the effect of {@link NightVision}.
+     * This field represents if the {@link Player} has the effect of {@link edu.cpp.cs.cs141.GECLYfinalproj.powerups.NightVision}.
      */
     private boolean hasAdvancedNight;
 
     /**
-     * This field represents if the {@link Player} has the effect of {@link Camo}
+     * This field represents if the {@link Player} has the effect of {@link edu.cpp.cs.cs141.GECLYfinalproj.powerups.Camo}.
      */
     private boolean hasCamo;
 
