@@ -29,6 +29,10 @@ import java.util.Scanner;
  *
  * @author Gavin Kremer, Eli Zupke
  */
+/**
+ * @author eli
+ *
+ */
 public class ConsoleInterface extends UserInterface{
 
     /**
@@ -80,6 +84,26 @@ public class ConsoleInterface extends UserInterface{
 			}
     	}
     }
+    
+    
+    /* (non-Javadoc)
+     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
+     */
+    public void startGame(){
+    	
+    }
+
+    /* (non-Javadoc)
+     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
+     */
+    public void updateBoardState(){
+    	
+    }
+    
+    
+    
+    
+    
     
     
     /**
