@@ -50,5 +50,10 @@ public interface Locatable {
 	
 	//Question: Do we want methods for getting the location of this object, the distance to another object, and the grid that this object is currently on?
 	
-	
+	/**
+	 * Returns a {@link Location} object that represents where the object is on a particular grid.
+	 * 
+	 * @return the Location that this object is at
+	 */
+	public Location getLocation();
 }
