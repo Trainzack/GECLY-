@@ -1,4 +1,7 @@
-package edu.cpp.cs.cs141.GECLYfinalproj;
+package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
+
+import edu.cpp.cs.cs141.GECLYfinalproj.Locatable;
+import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -18,24 +21,24 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 
 /**
- * This class represents the object {@link ExtraBullet} that is to be used and collected by the
- * player's character in the game. {@link ExtraBullet} extends {@link WorldItem} because
+ * This class represents the object {@link Camo} that is to be used by the
+ * player's character in the game. {@link Camo} extends {@link WorldItem} because
  * it is an item in the game and implements {@link Locatable} which marks the item as
  * a locatable object.
  * 
  * @author Yan Huang
  *
  */
-public class ExtraBullet extends WorldItem{
-
+public class Camo extends WorldItem{
+	
 	/**
-	 * This is the {@link ExtraBullet} constructor that uses {@link WorldItem}'s
+	 * This is the {@link Camo} constructor that uses {@link WorldItem}'s
 	 * constructor.
 	 */
-	public ExtraBullet(){
+	public Camo(){
 		super();
 	}
-	
+
 	@Override
 	public void apply() {
 		// TODO Auto-generated method stub

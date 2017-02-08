@@ -1,4 +1,6 @@
-package edu.cpp.cs.cs141.GECLYfinalproj;
+package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
+
+import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
  * CS 141: Intro to Programming and Problem Solving

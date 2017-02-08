@@ -1,4 +1,6 @@
-package edu.cpp.cs.cs141.GECLYfinalproj;
+package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
+
+import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -18,18 +20,18 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 
 /**
- * The NightVision class represents the character's night vision power up. This power up will enhance the player's
- * line of vision and allow them to see mmore than the usual 2 blocks ahead.
+ * The Invincibility class represents the character's invincibility power up. The invincibility power up will allow the 
+ * the player to be invulnerable to stabbing for five turns.
  * 
  * @author Clara Nguyen
  */
-public class NightVision extends WorldItem{
+public class Invincibility extends WorldItem{
 	
 	/**
-	 * The NightVision constructor employs the superclass constructor to set the values for all the attributes in the
+	 * The Invincibility constructor employs the superclass constructor to set the values for all the attributes in the
 	 * WorldItem abstract class.
 	 */
-	public NightVision() {
+	public Invincibility() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

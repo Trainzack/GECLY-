@@ -55,7 +55,7 @@ public abstract class WorldItem implements Locatable {
     /**
      * This is the constructor for {@link WorldItem}
      */
-    WorldItem(){
+    public WorldItem(){
 
     }
 
