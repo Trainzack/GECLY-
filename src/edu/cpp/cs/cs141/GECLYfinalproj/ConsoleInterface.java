@@ -174,7 +174,12 @@ public class ConsoleInterface extends UserInterface{
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				if(!visibility[i][l]){
-					System.out.print("[■]");
+					if(unicodeEnabled){
+						System.out.print("[■]");
+					}
+					else{
+						System.out.print("[*]");
+					}
 				}
 				else{
 					if(tempboard.getObject(i,l)==null) {
