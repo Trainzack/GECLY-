@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * This class represents the game engine and is where all of the game logic and operations take place in.
  *
- * @author Gavin Kremer
+ * @author Gavin Kremer, Eli Zupke
  */
 public class Engine {
 	
@@ -83,7 +83,10 @@ public class Engine {
 	public boolean[][] getVisibilityArray(byte direction) {
 		return null;
 	}
-	
+
+	public Grid getBoard(){
+	    return this.board;
+    }
 	/**
 	 * This method instantiates the {@link Grid} object for a new game. It also handles the placement of all {@link Locatable} objects.
 	 */
@@ -100,12 +103,6 @@ public class Engine {
             items.add(new Radar());
             board = new Grid();
             board.stack(player,ninjas,items);
-            for(int i = 0;i<9;++i){
-                for(int l = 0;l<9;++l){
-                    System.out.println(board.getObject(i,l));
-                }
-            }
-            System.out.println(board.getBoardState().toString());
         }
 	}
 	

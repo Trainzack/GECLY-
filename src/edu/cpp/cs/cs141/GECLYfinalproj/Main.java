@@ -28,8 +28,18 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 public class Main {
 
 	public static void main(String[] args) {
+		GavinsGridTest();
+		//UserInterface.startGame();
+	}
+
+	public static void GavinsGridTest(){
 		Engine engine = new Engine();
 		engine.setupGrid(false);
+		for(int i = 0;i<9;++i){
+			for(int l = 0;l<9;++l){
+				System.out.println(engine.getBoard().getObject(i,l));
+			}
+		}
 	}
 
 }

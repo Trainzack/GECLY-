@@ -17,7 +17,10 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import org.omg.CORBA.INITIALIZE;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -95,9 +98,15 @@ public class Grid {
         for (int i = 0;i<ninjalist.size();++i){
             int pos1 = RNG.nextInt(9);
             int pos2 = RNG.nextInt(9);
+            int[] coords = {pos1, pos2};
             Locatable spot = boardState[pos1][pos2];
             if(spot == null){
-                boardState[pos1][pos2] = ninjalist.get(i);
+                if(!checkForNearPlayer(pos1,pos2)){
+                    boardState[pos1][pos2] = ninjalist.get(i);
+                }
+                else{
+                    --i;
+                }
                 }
             else{
                 --i;
@@ -108,7 +117,12 @@ public class Grid {
             int pos2 = RNG.nextInt(9);
             Locatable spot = boardState[pos1][pos2];
             if(spot == null){
-                boardState[pos1][pos2] = itemlist.get(i);
+                if(!checkForNearPlayer(pos1,pos2)){
+                    boardState[pos1][pos2] = itemlist.get(i);
+                }
+                else{
+                    --i;
+                }
             }
             else{
                 if (spot instanceof Room){
@@ -121,6 +135,58 @@ public class Grid {
         }
     }
 
+    public boolean checkForNearPlayer(int pos1, int pos2){
+        try {
+            if (boardState[pos1 - 1][pos2] instanceof Player) {
+                return true;
+            }
+        }
+        catch(IndexOutOfBoundsException ex){
+            //nothing is supposed to happen here.
+        }
+        try {
+            if (boardState[pos1][pos2 - 1] instanceof Player) {
+                return true;
+            }
+        }
+        catch(IndexOutOfBoundsException ex){
+            //nothing is supposed to happen here.
+        }
+        try {
+            if (boardState[pos1 - 1][pos2 - 1] instanceof Player) {
+                return true;
+            }
+        }
+        catch(IndexOutOfBoundsException ex){
+            //nothing is supposed to happen here.
+        }
+        try {
+            if (boardState[pos1 + 1][pos2] instanceof Player) {
+                return true;
+            }
+        }
+        catch(IndexOutOfBoundsException ex){
+            //nothing is supposed to happen here.
+        }
+        try {
+            if (boardState[pos1][pos2 + 1] instanceof Player) {
+                return true;
+            }
+        }
+        catch(IndexOutOfBoundsException ex){
+            //nothing is supposed to happen here.
+        }
+        try {
+            if (boardState[pos1 + 1][pos2 + 1] instanceof Player) {
+                return true;
+            }
+        }
+        catch(IndexOutOfBoundsException ex){
+            //nothing is supposed to happen here.
+        }
+
+        return false;
+    }
     public void addbrief(int room){
         switch (room){
             case 0:
