@@ -33,11 +33,12 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 public class Camo extends WorldItem{
 	
 	/**
-	 * This is the {@link Camo} constructor that uses {@link WorldItem}'s
-	 * constructor.
+	 * This is the {@link Camo} constructor
 	 */
 	public Camo(){
-		super();
+
+		this.setASCIIRep('C');
+		this.setUnicodeRep('✿');
 	}
 
 	@Override
@@ -47,7 +48,6 @@ public class Camo extends WorldItem{
 
 	@Override
 	public void apply() {
-		// TODO Auto-generated method stub
 		
 	}
 }

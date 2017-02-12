@@ -58,11 +58,13 @@ public abstract class Agent implements Locatable{
 
 
     /**
-     *This is the constructor for {@link Agent} which basically assigns the representations.
+     *This is the constructor for {@link Agent}.
      */
     Agent(){
+        this.location = new Location();
 
     }
+
     /**
      * Getter for {@link #ASCIIRep}
      * @return value of {@link #ASCIIRep}
@@ -71,6 +73,21 @@ public abstract class Agent implements Locatable{
         return ASCIIRep;
     }
 
+    /**
+     * Setter for {@link #ASCIIRep}
+     * @param c value of {@link #ASCIIRep}
+     */
+    public void setASCIIRep(char c){
+        this.ASCIIRep = c;
+    }
+
+    /**
+     * Setter for {@link #UnicodeRep}
+     * @param c value for {@link #UnicodeRep}
+     */
+    public void setUnicodeRep(char c){
+        this.UnicodeRep = c;
+    }
     /**
      * Getter for {@link #UnicodeRep}
      * @return value of {@link #UnicodeRep}
@@ -81,16 +98,24 @@ public abstract class Agent implements Locatable{
 
     @Override
     public Location getLocation() {
-        return null;
+        return this.location;
     }
 
     @Override
     public char getASCIIDisplayCharacter(boolean visible) {
-        return 0;
+        if(visible){
+            return this.getASCIIRep();
+        }
+        return '*';
     }
 
     @Override
     public char getUnicodeDisplayCharacter(boolean visible) {
-        return 0;
+        if(visible){
+        return this.getUnicodeRep();
+        }
+        return '■';
+
+
     }
 }

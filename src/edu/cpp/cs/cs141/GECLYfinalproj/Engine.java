@@ -56,7 +56,7 @@ public class Engine {
 	 * Creates a new instance of the engine for a new game.
 	 */
 	public Engine() {
-		
+		setupGrid(false);
 	}
 	
 	/**
@@ -81,7 +81,8 @@ public class Engine {
 	 * @return an array of booleans, with true meaning that square is visible to the player and false meaning that that square is not visible to the player.
 	 */
 	public boolean[][] getVisibilityArray(byte direction) {
-		return null;
+	    VisibilityArray array = new VisibilityArray(player, direction);
+		return array.getVisibility();
 	}
 
 	public Grid getBoard(){
@@ -103,6 +104,9 @@ public class Engine {
             items.add(new Radar());
             board = new Grid();
             board.stack(player,ninjas,items);
+        }
+        else{
+            //TODO alternative when from a save.
         }
 	}
 	

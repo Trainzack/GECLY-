@@ -55,6 +55,22 @@ public abstract class WorldItem implements Locatable {
     }
 
 	/**
+	 * Setter for {@link #ASCIIRep}
+	 * @param c value for {@link #ASCIIRep}
+	 */
+	public void setASCIIRep(char c){
+		this.ASCIIRep = c;
+	}
+
+	/**
+	 * Setter for {@link #UnicodeRep}
+	 * @param c value for {@link #UnicodeRep}
+	 */
+	public void setUnicodeRep(char c){
+		this.UnicodeRep = c;
+	}
+
+	/**
 	 * Getter for {@link #name}
 	 * @return value of {@link #name}
 	 */
@@ -85,13 +101,17 @@ public abstract class WorldItem implements Locatable {
 
 	@Override
 	public char getASCIIDisplayCharacter(boolean visible) {
-		return 0;
+		if(visible){
+			return this.getASCIIRep();
+		}
+		return '*';
 	}
 
 	@Override
 	public char getUnicodeDisplayCharacter(boolean visible) {
-		return 0;
+		if (visible) {
+			return this.getUnicodeRep();
+		}
+		return '■';
 	}
-
-	
 }

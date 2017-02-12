@@ -33,8 +33,8 @@ public class NightVision extends WorldItem{
 	 * WorldItem abstract class.
 	 */
 	public NightVision() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.setASCIIRep('V');
+		this.setUnicodeRep('☪');
 	}
 
 
@@ -45,7 +45,6 @@ public class NightVision extends WorldItem{
 
 	@Override
 	public void apply() {
-		// TODO Auto-generated method stub
 		
 	}
 	

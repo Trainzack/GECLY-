@@ -33,7 +33,9 @@ public class Radar extends WorldItem{
 	 * WorldItem abstract class.
 	 */
 	public Radar() {
-		super();
+
+		this.setASCIIRep('R');
+		this.setUnicodeRep('⚨');
 	}
 
 
@@ -44,7 +46,6 @@ public class Radar extends WorldItem{
 
 	@Override
 	public void apply() {
-		// TODO Auto-generated method stub
 		
 	}
 }

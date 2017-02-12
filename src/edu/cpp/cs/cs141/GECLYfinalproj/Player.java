@@ -65,6 +65,16 @@ public class Player extends Agent implements Locatable{
      * This is the constructor for {@link Player}, which will super the constructor from {@link Agent}.
      */
     Player(){
+        super();
+        this.lives = 3;
+        this.ammo = 1;
+        this.invincibilityCount = 0;
+        this.hasRadar = false;
+        this.hasAdvancedNight = false;
+        this.hasCamo = false;
+        this.hasCase = false;
+        this.setASCIIRep('P');
+        this.setUnicodeRep('★');
     }
 
     /**
@@ -81,6 +91,37 @@ public class Player extends Agent implements Locatable{
 
     }
 
+    /**
+     * Getter for {@link #hasRadar}
+     * @return value of {@link #hasRadar}
+     */
+    public boolean hasRadar(){
+        return this.hasRadar;
+    }
+
+    /**
+     * Getter for {@link #hasCamo}
+     * @return value of {@link #hasCamo}
+     */
+    public boolean hasCamo(){
+        return this.hasCamo;
+    }
+
+    /**
+     * Getter for {@link #hasAdvancedNight}
+     * @return value of {@link #hasAdvancedNight}
+     */
+    public boolean hasNightVision(){
+        return this.hasAdvancedNight;
+    }
+
+    /**
+     * Getter for {@link #hasCase}
+     * @return value of {@link #hasCase}
+     */
+    public boolean hasCase(){
+        return this.hasCase;
+    }
 
     @Override
     public void kill() {

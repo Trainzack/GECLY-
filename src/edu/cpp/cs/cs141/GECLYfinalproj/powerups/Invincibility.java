@@ -33,8 +33,8 @@ public class Invincibility extends WorldItem{
 	 * WorldItem abstract class.
 	 */
 	public Invincibility() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.setASCIIRep('I');
+		this.setUnicodeRep('⚡');
 	}
 
 	@Override
@@ -44,7 +44,6 @@ public class Invincibility extends WorldItem{
 
 	@Override
 	public void apply() {
-		// TODO Auto-generated method stub
 		
 	}
 	
