@@ -28,10 +28,12 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 public class Main {
 
 	public static void main(String[] args) {
-		GavinsGridTest();
+		//GavinsPrinttest();
+		//GavinsGridTest();
 		//UserInterface.startGame();
 	}
 
+	//I left these methods in for now so you guys can test it if you want. Will delete for final release.
 	public static void GavinsGridTest(){
 		Engine engine = new Engine();
 		engine.setupGrid(false);
@@ -41,6 +43,11 @@ public class Main {
 			}
 		}
 	}
-
+	public static void GavinsPrinttest(){
+		ConsoleInterface GavinsInt = new ConsoleInterface();
+		GavinsInt.startGame();
+		GavinsInt.setDebugging(false);
+		GavinsInt.displayGrid();
+	}
 }
 

@@ -50,6 +50,11 @@ public class ConsoleInterface extends UserInterface{
      */
     private boolean unicodeEnabled;
 
+	/**
+	 * This field represents whether debug mode is on or not.
+	 */
+	private boolean isDebugging;
+
 
     /**
      * Initializes this object's {@link #userInput}, {@link #systemOutput}, and whether {@link #unicodeEnabled}.
@@ -86,12 +91,12 @@ public class ConsoleInterface extends UserInterface{
     }
     
     
-    /* (non-Javadoc)
+    /*/* (non-Javadoc)
      * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
-     */
+     *
     public void startGame(){
     	
-    }
+    }*/
 
     /* (non-Javadoc)
      * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
@@ -99,22 +104,22 @@ public class ConsoleInterface extends UserInterface{
     public void updateBoardState(){
     	
     }
-    
-    
-    
-    
-    
-    
-    
+
+	/**
+	 * Setter for {@link #isDebugging}
+	 * @param setting value of {@link #isDebugging}
+	 */
+	public void setDebugging(boolean setting){
+    	this.isDebugging = setting;
+	}
+
     /**
      * This method will print a method in the console.
      */
     public void showMessage(String message){
     	systemOutput.println(message);
     }
-    
-    
-    
+
     /**
 	 * Creates a menu based off of an array of strings, and returns the array index of the string stat was selected.
 	 * 
@@ -156,6 +161,55 @@ public class ConsoleInterface extends UserInterface{
 			}
 		}
 		
+	}
+
+	/**
+	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
+	 * based on whether debugging mode is on or not. This could probably be shortened in the future. Currently you must manually define the
+	 * direction player is looking on line 191, but that will change once the actual game loop is implemented.
+	 */
+	public void displayGrid(){
+		if (isDebugging){
+			Grid tempboard = this.engine.getBoard();
+			for (int i = 0;i<9;++i){
+				for(int l =0;l<9;++l){
+					if(tempboard.getObject(i,l) == null){
+						System.out.print("[ ]");
+					}
+					else {
+						char rep = tempboard.getObject(i,l).getUnicodeDisplayCharacter(true);
+						System.out.print("[" + rep + "]");
+					}
+					if (l == 8) {
+						System.out.print("\n");
+					}
+				}
+			}
+		}
+		else{
+			Grid tempboard = this.engine.getBoard();
+			boolean[][] visibility = engine.getVisibilityArray((byte)0);
+			for (int i = 0;i<9;++i){
+				for (int l = 0; l<9;++l){
+					if(!visibility[i][l]){
+						System.out.print("[■]");
+					}
+					else{
+						if(tempboard.getObject(i,l)==null) {
+							System.out.print("[ ]");
+						}
+						else {
+							char rep = tempboard.getObject(i, l).getUnicodeDisplayCharacter(true);
+							System.out.print("[" + rep + "]");
+						}
+					}
+					if (l == 8){
+						System.out.print("\n");
+
+					}
+				}
+			}
+		}
 	}
 
 

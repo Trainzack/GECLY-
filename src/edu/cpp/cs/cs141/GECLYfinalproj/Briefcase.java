@@ -33,7 +33,8 @@ public class Briefcase extends WorldItem{
 	 * constructor.
 	 */
 	public Briefcase(){
-		super();
+		this.setASCIIRep('B');
+		this.setUnicodeRep('♜');
 	}
 
 
@@ -44,7 +45,6 @@ public class Briefcase extends WorldItem{
 
 	@Override
 	public void apply() {
-		// TODO Auto-generated method stub
 	}
 	
 }

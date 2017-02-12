@@ -29,6 +29,8 @@ public class Ninja extends Agent implements Locatable{
      * This is the constructor for {@link Ninja}.
      */
     Ninja(){
+        this.setASCIIRep('N');
+        this.setUnicodeRep('♾');
 
     }
     @Override

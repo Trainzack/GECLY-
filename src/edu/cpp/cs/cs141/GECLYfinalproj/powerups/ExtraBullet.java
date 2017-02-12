@@ -33,11 +33,11 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 public class ExtraBullet extends WorldItem{
 
 	/**
-	 * This is the {@link ExtraBullet} constructor that uses {@link WorldItem}'s
-	 * constructor.
+	 * This is the {@link ExtraBullet} constructor
 	 */
 	public ExtraBullet(){
-		super();
+		this.setASCIIRep('E');
+		this.setUnicodeRep('➡');
 	}
 
 	@Override

@@ -17,10 +17,8 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
-import org.omg.CORBA.INITIALIZE;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -44,11 +42,6 @@ public class Grid {
      */
     private Locatable[][] boardState = new Locatable[BOARDSIZE][BOARDSIZE];
 
-    /**
-     * This field represents a list of base objects that will be placed on the grid if it is being initialized
-     * for the first time.
-     */
-    private static ArrayList<Locatable> baseObjects = new ArrayList<>(81);
     /**
      * This method takes in coordinated and then returns the object located at those coordinates.
      * @param pos1 First array index to search.
@@ -77,22 +70,33 @@ public class Grid {
 
     }
 
+    /**
+     * Getter for {@link #boardState}
+     * @return value of {@link #boardState}
+     */
     public Locatable[][] getBoardState(){
         return this.boardState;
     }
 
+    /**
+     * This method basically stacks the board with all of the default objects, and will be used when starting a brand new game.
+     * @param player Player to be inserted into the grid.
+     * @param ninjalist Ninjas to be inserted into the grid.
+     * @param itemlist Items to be inserted into the grid.
+     */
     public void stack(Player player,ArrayList<Ninja> ninjalist ,ArrayList<WorldItem> itemlist){
         Random RNG = new Random();
-        boardState[0][0] = player;
-        boardState[1][2] = new Room();
-        boardState[1][5] = new Room();
-        boardState[1][8] = new Room();
-        boardState[4][2] = new Room();
-        boardState[4][5] = new Room();
-        boardState[4][8] = new Room();
-        boardState[7][2] = new Room();
-        boardState[7][5] = new Room();
-        boardState[7][8] = new Room();
+        boardState[8][0] = player;
+        player.getLocation().setPos(8,0);
+        boardState[1][1] = new Room();
+        boardState[1][4] = new Room();
+        boardState[1][7] = new Room();
+        boardState[4][1] = new Room();
+        boardState[4][4] = new Room();
+        boardState[4][7] = new Room();
+        boardState[7][1] = new Room();
+        boardState[7][4] = new Room();
+        boardState[7][7] = new Room();
         int briefno = RNG.nextInt(9);
         addbrief(briefno);
         for (int i = 0;i<ninjalist.size();++i){
@@ -104,13 +108,9 @@ public class Grid {
                 if(!checkForNearPlayer(pos1,pos2)){
                     boardState[pos1][pos2] = ninjalist.get(i);
                 }
-                else{
-                    --i;
-                }
-                }
-            else{
-                --i;
-            }
+                else{--i;}
+               }
+            else{--i;}
         }
         for (int i = 0;i < itemlist.size();++i){
             int pos1 = RNG.nextInt(9);
@@ -120,102 +120,54 @@ public class Grid {
                 if(!checkForNearPlayer(pos1,pos2)){
                     boardState[pos1][pos2] = itemlist.get(i);
                 }
-                else{
-                    --i;
-                }
+                else{--i;}
             }
             else{
                 if (spot instanceof Room){
                     ((Room) spot).setContents(itemlist.get(0));
                 }
-                else{
-                    --i;
-                }
+                else{--i;}
             }
         }
     }
 
+    /**
+     * This method checks if the given coordinates are one square away from the player or not.
+     * @param pos1 First dimmension to search.
+     * @param pos2 Second dimmension to search.
+     * @return whether coordinates are next to player or not.
+     */
     public boolean checkForNearPlayer(int pos1, int pos2){
-        try {
-            if (boardState[pos1 - 1][pos2] instanceof Player) {
-                return true;
-            }
-        }
-        catch(IndexOutOfBoundsException ex){
-            //nothing is supposed to happen here.
-        }
-        try {
-            if (boardState[pos1][pos2 - 1] instanceof Player) {
-                return true;
-            }
-        }
-        catch(IndexOutOfBoundsException ex){
-            //nothing is supposed to happen here.
-        }
-        try {
-            if (boardState[pos1 - 1][pos2 - 1] instanceof Player) {
-                return true;
-            }
-        }
-        catch(IndexOutOfBoundsException ex){
-            //nothing is supposed to happen here.
-        }
-        try {
-            if (boardState[pos1 + 1][pos2] instanceof Player) {
-                return true;
-            }
-        }
-        catch(IndexOutOfBoundsException ex){
-            //nothing is supposed to happen here.
-        }
-        try {
-            if (boardState[pos1][pos2 + 1] instanceof Player) {
-                return true;
-            }
-        }
-        catch(IndexOutOfBoundsException ex){
-            //nothing is supposed to happen here.
-        }
-        try {
-            if (boardState[pos1 + 1][pos2 + 1] instanceof Player) {
-                return true;
-            }
-        }
-        catch(IndexOutOfBoundsException ex){
-            //nothing is supposed to happen here.
-        }
-
+        try {if (boardState[pos1 - 1][pos2] instanceof Player) {return true;}}
+        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
+        try {if (boardState[pos1][pos2 - 1] instanceof Player) {return true;}}
+        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
+        try {if (boardState[pos1 - 1][pos2 - 1] instanceof Player) {return true;}}
+        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
+        try {if (boardState[pos1 + 1][pos2] instanceof Player) {return true;}}
+        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
+        try {if (boardState[pos1][pos2 + 1] instanceof Player) {return true;}}
+        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
+        try {if (boardState[pos1 + 1][pos2 + 1] instanceof Player) {return true;}}
+        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
         return false;
     }
+
+    /**
+     * This function takes a random integer and then adds the briefcase to the corresponding room.
+     * @param room Room number to add briefcase to.
+     */
     public void addbrief(int room){
         switch (room){
-            case 0:
-                ((Room) boardState[1][2]).setContents(new Briefcase());
-                break;
-            case 1:
-                ((Room) boardState[1][5]).setContents(new Briefcase());
-                break;
-            case 2:
-                ((Room) boardState[1][8]).setContents(new Briefcase());
-                break;
-            case 3:
-                ((Room) boardState[4][2]).setContents(new Briefcase());
-                break;
-            case 4:
-                ((Room) boardState[4][5]).setContents(new Briefcase());
-                break;
-            case 5:
-                ((Room) boardState[4][8]).setContents(new Briefcase());
-                break;
-            case 6:
-                ((Room) boardState[7][2]).setContents(new Briefcase());
-                break;
-            case 7:
-                ((Room) boardState[7][5]).setContents(new Briefcase());
-                break;
-            case 8:
-                ((Room) boardState[7][8]).setContents(new Briefcase());
-                break;
+            case 0:((Room) boardState[1][1]).setContents(new Briefcase());break;
+            case 1:((Room) boardState[1][4]).setContents(new Briefcase());break;
+            case 2:((Room) boardState[1][7]).setContents(new Briefcase());break;
+            case 3:((Room) boardState[4][1]).setContents(new Briefcase());break;
+            case 4:((Room) boardState[4][4]).setContents(new Briefcase());break;
+            case 5:((Room) boardState[4][7]).setContents(new Briefcase());break;
+            case 6:((Room) boardState[7][1]).setContents(new Briefcase());break;
+            case 7:((Room) boardState[7][4]).setContents(new Briefcase());break;
+            case 8:((Room) boardState[7][7]).setContents(new Briefcase());break;
 
         }
     }

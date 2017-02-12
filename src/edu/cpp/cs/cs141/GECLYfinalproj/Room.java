@@ -30,6 +30,40 @@ public class Room implements Locatable{
      */
     private WorldItem contents;
 
+    /**
+     * This field represents the ASCII character identifying the object.
+     */
+    private char ASCIIRep;
+
+    /**
+     * This field represents the Unicode character identifying the object.
+     */
+    private char UnicodeRep;
+
+    /**
+     * This is the constructor for {@link Room}
+     */
+    Room(){
+        this.ASCIIRep = 'R';
+        this.UnicodeRep = '◫';
+    }
+
+    /**
+     * Getter for {@link #ASCIIRep}
+     * @return value of {@link #ASCIIRep}
+     */
+    public char getASCIIRep(){
+        return this.ASCIIRep;
+    }
+
+    /**
+     * Getter for {@link #UnicodeRep}
+     * @return value of {@link #UnicodeRep}
+     */
+    public char getUnicodeRep(){
+        return this.UnicodeRep;
+    }
+
     @Override
     public Location getLocation() {
         return null;
@@ -37,14 +71,24 @@ public class Room implements Locatable{
 
     @Override
     public char getASCIIDisplayCharacter(boolean visible) {
-        return 0;
+        if(visible){
+            return this.getASCIIRep();
+        }
+        return '*';
     }
 
     @Override
     public char getUnicodeDisplayCharacter(boolean visible) {
-        return 0;
+        if (visible) {
+            return this.getUnicodeRep();
+        }
+        return '■';
     }
 
+    /**
+     * Setter for {@link #contents}
+     * @param item value for {@link #contents}
+     */
     public void setContents(WorldItem item){
         this.contents = item;
     }
