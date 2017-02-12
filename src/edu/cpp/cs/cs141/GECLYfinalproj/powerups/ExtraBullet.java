@@ -1,6 +1,7 @@
 package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
 
 import edu.cpp.cs.cs141.GECLYfinalproj.Locatable;
+import edu.cpp.cs.cs141.GECLYfinalproj.Location;
 import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
@@ -38,7 +39,12 @@ public class ExtraBullet extends WorldItem{
 	public ExtraBullet(){
 		super();
 	}
-	
+
+	@Override
+	public Location getLocation() {
+		return null;
+	}
+
 	@Override
 	public void apply() {
 		// TODO Auto-generated method stub

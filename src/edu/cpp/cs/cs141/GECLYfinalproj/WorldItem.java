@@ -79,7 +79,7 @@ public abstract class WorldItem implements Locatable {
 	}
 
 	@Override
-	public Location getLocation(Locatable object) {
+	public Location getLocation() {
 		return null;
 	}
 

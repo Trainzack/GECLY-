@@ -1,6 +1,7 @@
 package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
 
 import edu.cpp.cs.cs141.GECLYfinalproj.Locatable;
+import edu.cpp.cs.cs141.GECLYfinalproj.Location;
 import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
@@ -37,6 +38,11 @@ public class Camo extends WorldItem{
 	 */
 	public Camo(){
 		super();
+	}
+
+	@Override
+	public Location getLocation() {
+		return null;
 	}
 
 	@Override

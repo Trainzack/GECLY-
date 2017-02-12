@@ -7,7 +7,6 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 public class Location {
 
-
     /**
      * This field represents the locale of the {@link Locatable} object, AKA the {@link Grid} they are located in.
      */

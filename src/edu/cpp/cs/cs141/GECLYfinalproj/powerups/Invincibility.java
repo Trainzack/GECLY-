@@ -1,5 +1,6 @@
 package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
 
+import edu.cpp.cs.cs141.GECLYfinalproj.Location;
 import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
@@ -34,6 +35,11 @@ public class Invincibility extends WorldItem{
 	public Invincibility() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Location getLocation() {
+		return null;
 	}
 
 	@Override

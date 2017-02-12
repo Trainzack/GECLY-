@@ -1,5 +1,6 @@
 package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
 
+import edu.cpp.cs.cs141.GECLYfinalproj.Location;
 import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
@@ -33,6 +34,12 @@ public class Radar extends WorldItem{
 	 */
 	public Radar() {
 		super();
+	}
+
+
+	@Override
+	public Location getLocation() {
+		return null;
 	}
 
 	@Override

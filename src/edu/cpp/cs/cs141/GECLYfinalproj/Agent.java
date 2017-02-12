@@ -27,6 +27,11 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 public abstract class Agent implements Locatable{
 
     /**
+     * This field represents the location of the object on the {@link Grid}
+     */
+    private Location location;
+
+    /**
      * This field represents the ASCII character which represents the {@link Agent}.
      */
     private char ASCIIRep;
@@ -53,7 +58,7 @@ public abstract class Agent implements Locatable{
 
 
     /**
-     *This is the constructor for {@link Agent} which basically assigns the representations and the {@link #locale}
+     *This is the constructor for {@link Agent} which basically assigns the representations.
      */
     Agent(){
 
@@ -75,7 +80,7 @@ public abstract class Agent implements Locatable{
     }
 
     @Override
-    public Location getLocation(Locatable object) {
+    public Location getLocation() {
         return null;
     }
 
