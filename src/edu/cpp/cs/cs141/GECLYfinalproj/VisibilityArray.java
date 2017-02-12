@@ -13,7 +13,7 @@ public class VisibilityArray {
      * @param player player for reference.
      * @param direction direction player is looking.
      */
-    VisibilityArray(Player player,byte direction){
+    VisibilityArray(Player player,byte direction,boolean isDebug){
         this.visibility = new boolean[9][9];
         for (int i =0;i<9;++i){
             for (int l =0;l<9;++l){
@@ -33,7 +33,7 @@ public class VisibilityArray {
                     visibility[i][l] = true;
                     continue;
                 }
-                visibility[i][l] = false;
+                visibility[i][l] = isDebug;
             }
         }
         switch (direction){

@@ -169,44 +169,31 @@ public class ConsoleInterface extends UserInterface{
 	 * direction player is looking on line 191, but that will change once the actual game loop is implemented.
 	 */
 	public void displayGrid(){
-		if (isDebugging){
-			Grid tempboard = this.engine.getBoard();
-			for (int i = 0;i<9;++i){
-				for(int l =0;l<9;++l){
-					if(tempboard.getObject(i,l) == null){
+		Grid tempboard = this.engine.getBoard();
+		boolean[][] visibility = engine.getVisibilityArray((byte)0,isDebugging);
+		for (int i = 0;i<9;++i){
+			for (int l = 0; l<9;++l){
+				if(!visibility[i][l]){
+					System.out.print("[■]");
+				}
+				else{
+					if(tempboard.getObject(i,l)==null) {
 						System.out.print("[ ]");
 					}
 					else {
-						char rep = tempboard.getObject(i,l).getUnicodeDisplayCharacter(true);
+						char rep;
+						if(unicodeEnabled){
+							rep = tempboard.getObject(i, l).getUnicodeDisplayCharacter(true);
+						}
+						else{
+							rep = tempboard.getObject(i, l).getASCIIDisplayCharacter(true);
+						}
 						System.out.print("[" + rep + "]");
 					}
-					if (l == 8) {
-						System.out.print("\n");
-					}
 				}
-			}
-		}
-		else{
-			Grid tempboard = this.engine.getBoard();
-			boolean[][] visibility = engine.getVisibilityArray((byte)0);
-			for (int i = 0;i<9;++i){
-				for (int l = 0; l<9;++l){
-					if(!visibility[i][l]){
-						System.out.print("[■]");
-					}
-					else{
-						if(tempboard.getObject(i,l)==null) {
-							System.out.print("[ ]");
-						}
-						else {
-							char rep = tempboard.getObject(i, l).getUnicodeDisplayCharacter(true);
-							System.out.print("[" + rep + "]");
-						}
-					}
-					if (l == 8){
-						System.out.print("\n");
+				if (l == 8){
+					System.out.print("\n");
 
-					}
 				}
 			}
 		}
