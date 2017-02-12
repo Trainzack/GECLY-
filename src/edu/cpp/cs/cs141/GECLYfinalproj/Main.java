@@ -28,7 +28,8 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 public class Main {
 
 	public static void main(String[] args) {
-		UserInterface.startGame();
+		Engine engine = new Engine();
+		engine.setupGrid(false);
 	}
 
 }

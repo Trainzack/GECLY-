@@ -36,6 +36,12 @@ public class Briefcase extends WorldItem{
 		super();
 	}
 
+
+	@Override
+	public Location getLocation() {
+		return null;
+	}
+
 	@Override
 	public void apply() {
 		// TODO Auto-generated method stub

@@ -43,7 +43,6 @@ public abstract class UserInterface {
      */
     public void startGame(){
     	engine = new Engine();
-    	engine.setupGrid();
     }
 
     /**

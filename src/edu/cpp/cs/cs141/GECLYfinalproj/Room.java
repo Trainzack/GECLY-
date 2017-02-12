@@ -31,7 +31,7 @@ public class Room implements Locatable{
     private WorldItem contents;
 
     @Override
-    public Location getLocation(Locatable object) {
+    public Location getLocation() {
         return null;
     }
 
@@ -45,6 +45,9 @@ public class Room implements Locatable{
         return 0;
     }
 
+    public void setContents(WorldItem item){
+        this.contents = item;
+    }
     /**
      * Getter for {@link #contents}
      * @return value of {@link #contents}
