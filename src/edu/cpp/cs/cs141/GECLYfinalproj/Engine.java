@@ -82,6 +82,70 @@ public class Engine {
 	 */
 	public boolean[][] getVisibilityArray(byte direction,boolean isDebug) {
 	    VisibilityArray array = new VisibilityArray(player, direction,isDebug);
+	    
+	    boolean[][] visibility = new boolean[9][9];
+        for (int i =0;i<9;++i){
+            for (int l =0;l<9;++l){
+            	boolean thisSquareVisible = isDebug;
+                if (board.getObject(i, l) == player) {
+                	thisSquareVisible = true;
+                } else if (board.getObject(i, l) instanceof Room) {
+                	thisSquareVisible = true;
+                }
+            }
+        }
+        int pX = player.getLocation().getX();//Store these method calls to save writing and speed up the program
+        int pY = player.getLocation().getY();
+        int[] x = new int[4]; //This is the list of x locations to check;
+        int[] y = new int[4]; //This is the list of y locations to check;
+        switch (direction){
+
+            case 0://This should probably be covered by some math magic.
+            	x[0] = pX -1;
+            	y[0] = pY;
+            	x[1] = pX-2;
+            	y[1] = pY;
+            	//From here are coordinates covered by night vision
+            	x[2] = pX -2;
+            	y[2] = pY +1;
+            	x[3] = pX -2;
+            	y[3] = pY -1;
+                break;
+            case 1:
+                try{visibility[player.getLocation().getX()][player.getLocation().getY()+1] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                try{visibility[player.getLocation().getX()][player.getLocation().getY()+2] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                if(player.hasNightVision()){
+                    try{visibility[player.getLocation().getX()+1][player.getLocation().getY()+2] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                    try{visibility[player.getLocation().getX()+-1][player.getLocation().getY()+2] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                }
+                break;
+            case 2:
+                try{visibility[player.getLocation().getX()+1][player.getLocation().getY()] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                try{visibility[player.getLocation().getX()+2][player.getLocation().getY()] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                if(player.hasNightVision()){
+                    try{visibility[player.getLocation().getX()+2][player.getLocation().getY()+1] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                    try{visibility[player.getLocation().getX()+2][player.getLocation().getY()-1] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                }
+                break;
+            case 3:
+                try{visibility[player.getLocation().getX()][player.getLocation().getY()-1] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                try{visibility[player.getLocation().getX()][player.getLocation().getY()-2] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                if(player.hasNightVision()){
+                    try{visibility[player.getLocation().getX()+1][player.getLocation().getY()-2] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                    try{visibility[player.getLocation().getX()-1][player.getLocation().getY()-2] = true;}catch(IndexOutOfBoundsException ex){/*nothing here*/}
+                }
+                break;
+            default:
+                break;
+                
+
+        }
+        int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
+        for (int i = 0; i < goal; i++ ) {
+        	try{visibility[x[i]][y[i]] = true;} catch(IndexOutOfBoundsException ex){/*nothing here*/}
+        }
+
+	    
 		return array.getVisibility();
 	}
 
