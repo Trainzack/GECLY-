@@ -34,10 +34,11 @@ public class Main {
 
 	//I left this method in for now so you guys can test it if you want. Will delete for final release. change line 39 to false to see without debug mode.
 	public static void GavinsPrinttest(){
-		ConsoleInterface GavinsInt = new ConsoleInterface();
-		GavinsInt.startGame();
-		GavinsInt.setDebugging(true);
-		GavinsInt.displayGrid();
+		ConsoleInterface gavinsInt = new ConsoleInterface();
+		gavinsInt.startGame();
+		gavinsInt.showMessage("Debug mode enabled?");
+		gavinsInt.setDebugging(gavinsInt.displayMenu());
+		gavinsInt.displayGrid();
 	}
 }
 
