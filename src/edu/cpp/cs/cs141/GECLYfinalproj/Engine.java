@@ -95,7 +95,7 @@ public class Engine {
             }
         }
         int pRow = player.getLocation().getRow();//Store these method calls to save writing and speed up the program
-        int pCol = player.getLocation().getY();
+        int pCol = player.getLocation().getCol();
         int[] Row = new int[4]; //This is the list of Row locations to check;
         int[] Col = new int[4]; //
         //312
