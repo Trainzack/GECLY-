@@ -53,12 +53,36 @@ public class Grid {
     }
 
     /**
-     * This method sets the object located at set of coordinates.
+     * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
      * @param pos1 First array index to search.
      * @param pos2 Second array index to search.
+     * @return whether the object was moved successfully
      */
-    public void setPos(int pos1, int pos2,Locatable item) {
-        this.boardState[pos1][pos2] = item;
+    public boolean setPos(int pos1, int pos2,Locatable item) {
+        
+    	if (!testValidPos(pos1, pos2)) return false;
+        
+    	if (boardState[pos1][pos2] != null) return false;
+    	
+    	this.boardState[pos1][pos2] = item;
+    	item.getLocation().setPos(pos1, pos2);
+    	//set location locale?
+    	return true;
+        
+    }
+    
+    /**
+     * Tests to see if a position is a valid spot on the grid.
+     * 
+     * @param pos1
+     * @param pos2
+     * @return whether the position is a valid location on the array.
+     */
+    public boolean testValidPos(int pos1, int pos2) {
+        if (pos1 >= BOARDSIZE || pos2 >= BOARDSIZE || pos1 < 0 || pos2 < 0) {
+        	return false;
+        }
+        return true;
     }
 
     /**
