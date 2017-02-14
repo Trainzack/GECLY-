@@ -1,11 +1,13 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 
+import java.io.Serializable;
+
 /**
  * This class represents the location of a {@link Locatable} object for use with the engine.
  *
  * @author Gavin Kremer
  */
-public class Location {
+public class Location implements Serializable {
 
     /**
      * This field represents the locale of the {@link Locatable} object, AKA the {@link Grid} they are located in.

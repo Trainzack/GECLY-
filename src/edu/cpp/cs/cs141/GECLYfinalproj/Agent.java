@@ -17,6 +17,8 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import java.io.Serializable;
+
 /**
  * This class represents an agent in the game (enemies and the player) and is the parent class for
  * {@link Player} and {@link Ninja}.
@@ -24,7 +26,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * @author Gavin Kremer
  */
 
-public abstract class Agent implements Locatable{
+public abstract class Agent implements Locatable,Serializable{
 
     /**
      * This field represents the location of the object on the {@link Grid}

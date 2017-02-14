@@ -17,6 +17,10 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
+import java.io.*;
+
 /**
  * This class deals with the saving and loading of a game. It will reference the class Grid which has the board of the
  * game and the positions of the players, enemies, and items. This class will transfer all of the data in the Grid
@@ -42,5 +46,29 @@ public class FileManager {
      */
     public static void loadSaveOptions() {
 
+    }
+
+    public static void writeSave(String filename,Grid board){
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(board);
+            oos.close();
+        }
+        catch(IOException X){
+            System.out.println("The game could not be saved.");
+        }
+    }
+
+    public static Grid readSave(String filename){
+        try{
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            return (Grid) ois.readObject();
+        }
+        catch(Exception X){
+            System.out.println("Corrupt save.");
+        }
+        return null;
     }
 }
