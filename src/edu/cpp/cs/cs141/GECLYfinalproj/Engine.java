@@ -81,7 +81,7 @@ public class Engine {
 	 * @return an array of booleans, with true meaning that square is visible to the player and false meaning that that square is not visible to the player.
 	 */
 	public boolean[][] getVisibilityArray(byte direction,boolean isDebug) {
-	    
+		
 	    boolean[][] visibility = new boolean[9][9];
         for (int i =0;i<9;++i){
             for (int l =0;l<9;++l){

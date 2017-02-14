@@ -137,6 +137,16 @@ public class ConsoleInterface extends UserInterface{
 	}
 	
 	/**
+	 * Displays a yes/no choice to the player, and returns the result as a boolean.
+	 * 
+	 * @return true if 'yes', false if 'no'
+	 */
+	public boolean displayMenu() {
+		String[] choices = {"Yes", "No"};
+		return (displayMenu(choices) == 0);
+	}
+	
+	/**
 	 * Waits for the user to enter a valid number that is inside the specified range, then returns the result. Used for letting the player select menu choices.
 	 * 
 	 * @param min the smallest number that will be accepted
@@ -173,34 +183,56 @@ public class ConsoleInterface extends UserInterface{
 		boolean[][] visibility = engine.getVisibilityArray((byte)0,isDebugging);
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
+				
+				Locatable spotObject = tempboard.getObject(i, l);
+				
 				if(!visibility[i][l]){
-					if(unicodeEnabled){
-						System.out.print("[■]");
-					}
-					else{
-						System.out.print("[*]");
-					}
+					systemOutput.print(getObjectRep());
 				}
 				else{
-					if(tempboard.getObject(i,l)==null) {
-						System.out.print("[ ]");
-					}
-					else {
-						char rep;
-						if(unicodeEnabled){
-							rep = tempboard.getObject(i, l).getUnicodeDisplayCharacter(true);
-						}
-						else{
-							rep = tempboard.getObject(i, l).getASCIIDisplayCharacter(true);
-						}
-						System.out.print("[" + rep + "]");
-					}
-				}
-				if (l == 8){
-					System.out.print("\n");
-
+					systemOutput.print(getObjectRep(spotObject));
 				}
 			}
+			systemOutput.print("\n");
+		}
+	}
+	
+	/**
+	 * Decides what one square should look like, based on the contents of the {@link Grid} at this position. 
+	 * 
+	 * @param l The locatable to get the representation of 
+	 * @return A string representing the entire square the object resides in
+	 */
+	private String getObjectRep(Locatable l) {
+		
+		char rep; //This stores what the inner part of the square should look like
+		
+		if (l == null) {	//This square is empty
+			rep = ' ';
+		} else {			//This square has something in it
+			
+			if(unicodeEnabled){
+				rep = l.getUnicodeDisplayCharacter(true);
+			}
+			else{
+				rep = l.getASCIIDisplayCharacter(true);
+			}
+		}
+
+		return "[" + rep + "]";
+	}
+	
+	/**
+	 * Decides what one square should look like, under the assumption that the square cnnot be seen.
+	 * 
+	 * @return A string representing a blank square
+	 */
+	private String getObjectRep() {
+		if(unicodeEnabled){
+			return "[■]";
+		}
+		else{
+			return "[*]";
 		}
 	}
 
