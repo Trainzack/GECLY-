@@ -26,7 +26,7 @@ import java.util.Random;
  * This class represents the grid that the game takes place on and all of the objects interact with each other in,
  * one of the fundamental parts of the game.
  *
- * @author Gavin Kremer
+ * @author Gavin Kremer, Eli Zupke
  */
 
 public class Grid implements Serializable{
@@ -44,29 +44,29 @@ public class Grid implements Serializable{
     private Locatable[][] boardState = new Locatable[BOARDSIZE][BOARDSIZE];
 
     /**
-     * This method takes in coordinated and then returns the object located at those coordinates.
-     * @param pos1 First array index to search.
-     * @param pos2 Second array index to search.
+     * This method returns the object located at certain coordinates.
+     * @param row The row of the target square
+     * @param col The column of the target square
      * @return found object.
      */
-    public Locatable getObject(int pos1, int pos2){
-        return boardState[pos1][pos2];
+    public Locatable getObject(int row, int col){
+        return boardState[row][col];
     }
 
     /**
      * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
-     * @param pos1 First array index to search.
-     * @param pos2 Second array index to search.
+     * @param row The row of the target square
+     * @param col The column of the target square
      * @return whether the object was moved successfully
      */
-    public boolean setPos(int pos1, int pos2,Locatable item) {
+    public boolean setPos(int row, int col,Locatable item) {
         
-    	if (!testValidPos(pos1, pos2)) return false;
+    	if (!testValidPos(row, col)) return false;
         
-    	if (boardState[pos1][pos2] != null) return false;
+    	if (boardState[row][col] != null) return false;
     	
-    	this.boardState[pos1][pos2] = item;
-    	item.getLocation().setPos(pos1, pos2);
+    	this.boardState[row][col] = item;
+    	item.getLocation().setPos(row, col);
     	//set location locale?
     	return true;
         
