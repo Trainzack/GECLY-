@@ -54,12 +54,36 @@ public class Grid implements Serializable{
     }
 
     /**
-     * This method sets the object located at set of coordinates.
+     * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
      * @param pos1 First array index to search.
      * @param pos2 Second array index to search.
+     * @return whether the object was moved successfully
      */
-    public void setPos(int pos1, int pos2,Locatable item) {
-        this.boardState[pos1][pos2] = item;
+    public boolean setPos(int pos1, int pos2,Locatable item) {
+        
+    	if (!testValidPos(pos1, pos2)) return false;
+        
+    	if (boardState[pos1][pos2] != null) return false;
+    	
+    	this.boardState[pos1][pos2] = item;
+    	item.getLocation().setPos(pos1, pos2);
+    	//set location locale?
+    	return true;
+        
+    }
+    
+    /**
+     * Tests to see if a position is a valid spot on the grid.
+     * 
+     * @param pos1
+     * @param pos2
+     * @return whether the position is a valid location on the array.
+     */
+    public boolean testValidPos(int pos1, int pos2) {
+        if (pos1 >= BOARDSIZE || pos2 >= BOARDSIZE || pos1 < 0 || pos2 < 0) {
+        	return false;
+        }
+        return true;
     }
 
     /**
@@ -72,11 +96,11 @@ public class Grid implements Serializable{
     }
 
     /**
-     * Getter for {@link #boardState}
+     * Gets a copy of the internal array used to represent the Grid's boardstate.
      * @return value of {@link #boardState}
      */
-    public Locatable[][] getBoardState(){
-        return this.boardState;
+    public Locatable[][] getBoardState(){//TODO: Do we really need this?
+        return this.boardState.clone();
     }
 
     /**
@@ -89,17 +113,19 @@ public class Grid implements Serializable{
         Random RNG = new Random();
         boardState[8][0] = player;
         player.getLocation().setPos(8,0);
-        boardState[1][1] = new Room();
-        boardState[1][4] = new Room();
-        boardState[1][7] = new Room();
-        boardState[4][1] = new Room();
-        boardState[4][4] = new Room();
-        boardState[4][7] = new Room();
-        boardState[7][1] = new Room();
-        boardState[7][4] = new Room();
-        boardState[7][7] = new Room();
+        
+        ArrayList<Room> rooms = new ArrayList<Room>();
+        
+        for (int row = 1; row < 8; row += 3) {
+        	for (int col = 1; col < 8; col += 3) {
+        		Room addedRoom = new Room();
+        		boardState[row][col] = addedRoom;
+        		rooms.add(addedRoom);
+        	}
+        }
         int briefno = RNG.nextInt(9);
-        addbrief(briefno);
+        rooms.get(briefno).setContents(new Briefcase());
+
         for (int i = 0;i<ninjalist.size();++i){
             int pos1 = RNG.nextInt(9);
             int pos2 = RNG.nextInt(9);
@@ -133,43 +159,19 @@ public class Grid implements Serializable{
     }
 
     /**
-     * This method checks if the given coordinates are one square away from the player or not.
-     * @param pos1 First dimmension to search.
-     * @param pos2 Second dimmension to search.
+     * This method checks if the given coordinates are one square away from the player or not (including diagonally).
+     * @param row The row of the square to look at
+     * @param col The column of the square to look at
      * @return whether coordinates are next to player or not.
      */
-    public boolean checkForNearPlayer(int pos1, int pos2){
-        try {if (boardState[pos1 - 1][pos2] instanceof Player) {return true;}}
-        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
-        try {if (boardState[pos1][pos2 - 1] instanceof Player) {return true;}}
-        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
-        try {if (boardState[pos1 - 1][pos2 - 1] instanceof Player) {return true;}}
-        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
-        try {if (boardState[pos1 + 1][pos2] instanceof Player) {return true;}}
-        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
-        try {if (boardState[pos1][pos2 + 1] instanceof Player) {return true;}}
-        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
-        try {if (boardState[pos1 + 1][pos2 + 1] instanceof Player) {return true;}}
-        catch(IndexOutOfBoundsException ex){/*nothing is supposed to happen here*/}
-        return false;
-    }
-
-    /**
-     * This function takes a random integer and then adds the briefcase to the corresponding room.
-     * @param room Room number to add briefcase to.
-     */
-    public void addbrief(int room){
-        switch (room){
-            case 0:((Room) boardState[1][1]).setContents(new Briefcase());break;
-            case 1:((Room) boardState[1][4]).setContents(new Briefcase());break;
-            case 2:((Room) boardState[1][7]).setContents(new Briefcase());break;
-            case 3:((Room) boardState[4][1]).setContents(new Briefcase());break;
-            case 4:((Room) boardState[4][4]).setContents(new Briefcase());break;
-            case 5:((Room) boardState[4][7]).setContents(new Briefcase());break;
-            case 6:((Room) boardState[7][1]).setContents(new Briefcase());break;
-            case 7:((Room) boardState[7][4]).setContents(new Briefcase());break;
-            case 8:((Room) boardState[7][7]).setContents(new Briefcase());break;
-
+    public boolean checkForNearPlayer(int row, int col){
+        for (int cRow = row -1; cRow < row + 2; cRow++) {
+        	for (int cCol = col - 1; cCol < col + 2; cCol++) {
+        		if (testValidPos(cRow, cCol) && boardState[cRow][cCol] instanceof Player) {
+        			return true;
+        		}
+        	}
         }
+        return false;
     }
 }
