@@ -17,6 +17,8 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import java.io.Serializable;
+
 /**
  * This class represents all the items found in the game like the power ups and the briefcase. This
  * abstract class holds all the necessary attributes for the actual items' classes extending this class, like 
@@ -24,7 +26,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  * @author Clara Nguyen, Gavin Kremer
  */
-public abstract class WorldItem implements Locatable {
+public abstract class WorldItem implements Locatable,Serializable {
 	
 	/**
 	 * The String name field represents the name of the world item.

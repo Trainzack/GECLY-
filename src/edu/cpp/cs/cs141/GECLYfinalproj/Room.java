@@ -17,12 +17,14 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import java.io.Serializable;
+
 /**
  * This class represents a room which can contain the briefcase or an item in the game.
  *
  * @author Gavin Kremer
  */
-public class Room implements Locatable{
+public class Room implements Locatable,Serializable{
 
     /**
      * This field represents the contents of the {@link Room}, which can be the {@link Briefcase} or

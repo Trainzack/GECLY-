@@ -17,6 +17,8 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import java.io.Serializable;
+
 /**
  * This class represents the object {@link Briefcase} that is to be collected by the
  * player's character in the game. {@link Briefcase} extends {@link WorldItem} because
@@ -26,7 +28,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * @author Yan Huang
  *
  */
-public class Briefcase extends WorldItem{
+public class Briefcase extends WorldItem implements Serializable{
 	
 	/**
 	 * This is the {@link Briefcase} constructor that uses {@link WorldItem}'s

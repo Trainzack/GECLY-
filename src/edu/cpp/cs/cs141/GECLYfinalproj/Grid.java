@@ -18,6 +18,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -28,7 +29,7 @@ import java.util.Random;
  * @author Gavin Kremer
  */
 
-public class Grid {
+public class Grid implements Serializable{
 
     /**
      * This field represents the size of the board and is a constant that will be used when creating the board.

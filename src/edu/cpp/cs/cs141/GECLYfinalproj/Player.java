@@ -17,13 +17,15 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  *
  */
 
+import java.io.Serializable;
+
 /**
  * This class represents the Player of the game which is a subclass of the {@link Agent} abstract class.
  * There should only ever be one instance of this class in the game at a time.
  *
  * @author Gavin Kremer
  */
-public class Player extends Agent implements Locatable{
+public class Player extends Agent implements Locatable,Serializable{
 
     /**
      * This field represents the amount of the lives the {@link Player} has, which will be modified by the {@link #kill()}
