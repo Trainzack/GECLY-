@@ -26,7 +26,7 @@ import java.util.Random;
  * This class represents the grid that the game takes place on and all of the objects interact with each other in,
  * one of the fundamental parts of the game.
  *
- * @author Gavin Kremer
+ * @author Gavin Kremer, Eli Zupke
  */
 
 public class Grid implements Serializable{
@@ -44,29 +44,29 @@ public class Grid implements Serializable{
     private Locatable[][] boardState = new Locatable[BOARDSIZE][BOARDSIZE];
 
     /**
-     * This method takes in coordinated and then returns the object located at those coordinates.
-     * @param pos1 First array index to search.
-     * @param pos2 Second array index to search.
+     * This method returns the object located at certain coordinates.
+     * @param row The row of the target square
+     * @param col The column of the target square
      * @return found object.
      */
-    public Locatable getObject(int pos1, int pos2){
-        return boardState[pos1][pos2];
+    public Locatable getObject(int row, int col){
+        return boardState[row][col];
     }
 
     /**
      * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
-     * @param pos1 First array index to search.
-     * @param pos2 Second array index to search.
+     * @param row The row of the target square
+     * @param col The column of the target square
      * @return whether the object was moved successfully
      */
-    public boolean setPos(int pos1, int pos2,Locatable item) {
+    public boolean setPos(int row, int col,Locatable item) {
         
-    	if (!testValidPos(pos1, pos2)) return false;
+    	if (!testValidPos(row, col)) return false;
         
-    	if (boardState[pos1][pos2] != null) return false;
+    	if (boardState[row][col] != null) return false;
     	
-    	this.boardState[pos1][pos2] = item;
-    	item.getLocation().setPos(pos1, pos2);
+    	this.boardState[row][col] = item;
+    	item.getLocation().setPos(row, col);
     	//set location locale?
     	return true;
         
@@ -106,10 +106,10 @@ public class Grid implements Serializable{
     /**
      * This method basically stacks the board with all of the default objects, and will be used when starting a brand new game.
      * @param player Player to be inserted into the grid.
-     * @param ninjalist Ninjas to be inserted into the grid.
+     * @param ninjaList Ninjas to be inserted into the grid.
      * @param itemlist Items to be inserted into the grid.
      */
-    public void stack(Player player,ArrayList<Ninja> ninjalist ,ArrayList<WorldItem> itemlist){
+    public void stack(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemlist){
         Random RNG = new Random();
         boardState[8][0] = player;
         player.getLocation().setPos(8,0);
@@ -125,48 +125,49 @@ public class Grid implements Serializable{
         }
         int briefno = RNG.nextInt(9);
         rooms.get(briefno).setContents(new Briefcase());
-
-        for (int i = 0;i<ninjalist.size();++i){
+        
+        ArrayList<Ninja> ninjasToAdd = (ArrayList<Ninja>)ninjaList.clone();
+        
+        while (ninjasToAdd.size()>0) {
             int pos1 = RNG.nextInt(9);
             int pos2 = RNG.nextInt(9);
             int[] coords = {pos1, pos2};
             Locatable spot = boardState[pos1][pos2];
-            if(spot == null){
-                if(!checkForNearPlayer(pos1,pos2)){
-                    boardState[pos1][pos2] = ninjalist.get(i);
+            if(spot == null) {
+                if(!checkForNearPlayer(pos1,pos2,3)){
+                    boardState[pos1][pos2] = ninjasToAdd.remove(0);
                 }
-                else{--i;}
-               }
-            else{--i;}
+            }
         }
-        for (int i = 0;i < itemlist.size();++i){
+        for (int i = 0;i < itemlist.size();){
             int pos1 = RNG.nextInt(9);
             int pos2 = RNG.nextInt(9);
             Locatable spot = boardState[pos1][pos2];
             if(spot == null){
-                if(!checkForNearPlayer(pos1,pos2)){
+                if(!checkForNearPlayer(pos1,pos2,3)){
                     boardState[pos1][pos2] = itemlist.get(i);
+                    i++;
                 }
-                else{--i;}
             }
             else{
                 if (spot instanceof Room){
                     ((Room) spot).setContents(itemlist.get(0));
+                    i++;
                 }
-                else{--i;}
             }
         }
     }
 
     /**
-     * This method checks if the given coordinates are one square away from the player or not (including diagonally).
+     * This method checks if the given coordinates are a certain (Manhattan) distance away from the player or not (including diagonally).
      * @param row The row of the square to look at
      * @param col The column of the square to look at
+     * @param d How big the search square should be
      * @return whether coordinates are next to player or not.
      */
-    public boolean checkForNearPlayer(int row, int col){
-        for (int cRow = row -1; cRow < row + 2; cRow++) {
-        	for (int cCol = col - 1; cCol < col + 2; cCol++) {
+    public boolean checkForNearPlayer(int row, int col, int d){
+        for (int cRow = row - d; cRow <= row + d; cRow++) {
+        	for (int cCol = col - d; cCol <= col + d; cCol++) {
         		if (testValidPos(cRow, cCol) && boardState[cRow][cCol] instanceof Player) {
         			return true;
         		}
@@ -174,4 +175,14 @@ public class Grid implements Serializable{
         }
         return false;
     }
+    
+    /**
+     * This method checks if the given coordinates are one square away from the player or not (including diagonally).
+     * @param row The row of the square to look at
+     * @param col The column of the square to look at
+     * @return whether coordinates are next to player or not.
+     */
+    public boolean checkForNearPlayer (int row, int col) {
+    	return checkForNearPlayer(row, col, 1);
+	}
 }
