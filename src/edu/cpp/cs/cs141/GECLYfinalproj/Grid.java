@@ -95,11 +95,11 @@ public class Grid {
     }
 
     /**
-     * Getter for {@link #boardState}
+     * Gets a copy of the internal array used to represent the Grid's boardstate.
      * @return value of {@link #boardState}
      */
-    public Locatable[][] getBoardState(){
-        return this.boardState;
+    public Locatable[][] getBoardState(){//TODO: Do we really need this?
+        return this.boardState.clone();
     }
 
     /**
