@@ -36,12 +36,12 @@ public class Engine {
     /**
      * A list that will hold all of the ninjas, which will dynamically change over the course of the game and initialization.
      */
-	private ArrayList<Ninja> ninjas = new ArrayList<>();
+	private ArrayList<Ninja> ninjas = new ArrayList<>();//TODO: Do we really need this after initialization? -EAZ
 
     /**
      * A list that will hold all of the items, which once again will dynamically change over the course of the game and initialization.
      */
-	private ArrayList<WorldItem> items = new ArrayList<>();
+	private ArrayList<WorldItem> items = new ArrayList<>();//TODO: Do we really need this after initialization? -EAZ
 	/**
 	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid(boolean fromSave)} or {@link Engine#loadGame()}.
 	 */
@@ -81,8 +81,53 @@ public class Engine {
 	 * @return an array of booleans, with true meaning that square is visible to the player and false meaning that that square is not visible to the player.
 	 */
 	public boolean[][] getVisibilityArray(byte direction,boolean isDebug) {
-	    VisibilityArray array = new VisibilityArray(player, direction,isDebug);
-		return array.getVisibility();
+	    
+	    boolean[][] visibility = new boolean[9][9];
+        for (int i =0;i<9;++i){
+            for (int l =0;l<9;++l){
+            	boolean thisSquareVisible = isDebug;
+                if (board.getObject(i, l) == player) {
+                	thisSquareVisible = true;
+                } else if (board.getObject(i, l) instanceof Room) {
+                	thisSquareVisible = true;
+                }
+                visibility[i][l] = thisSquareVisible;
+            }
+        }
+        int pX = player.getLocation().getX();//Store these method calls to save writing and speed up the program
+        int pY = player.getLocation().getY();
+        int[] x = new int[4]; //This is the list of x locations to check;
+        int[] y = new int[4]; //
+        //312
+        //.0.
+        //.p.
+        switch (direction){//TODO: Javadoc description direction values don't match actual values?
+
+            case 0://This should probably be covered by some math or looping, rather than this switch statement hell.
+            	x[0] = pX -1;	y[0] = pY;			x[1] = pX-2;	y[1] = pY;
+            	//From here are coordinates covered by night vision
+            	x[2] = pX -2;	y[2] = pY +1;		x[3] = pX -2;	y[3] = pY -1;
+                break;
+            case 1:
+            	x[0] = pX;		y[0] = pY + 1;		x[1] = pX;		y[1] = pY + 2;
+            	x[2] = pX +1;	y[2] = pY + 2;		x[3] = pX -1;	y[3] = pY + 2;
+            case 2:
+            	x[0] = pX +1;	y[0] = pY;			x[1] = pX +2;	y[1] = pY;
+            	x[2] = pX +2;	y[2] = pY +1;		x[3] = pX +2;	y[3] = pY -1;
+                break;
+            case 3:
+            	x[0] = pX;		y[0] = pY - 1;		x[1] = pX;		y[1] = pY - 2;
+            	x[2] = pX +1;	y[2] = pY - 2;		x[3] = pX -1;	y[3] = pY - 2;
+                break;
+              
+        }
+        int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
+        for (int i = 0; i < goal; i++ ) {
+        	try{visibility[x[i]][y[i]] = true;} catch(IndexOutOfBoundsException ex){/*nothing here*/}//We should probably get out of using this try/catch statement.
+        }
+
+	    
+		return visibility;
 	}
 
 	public Grid getBoard(){
