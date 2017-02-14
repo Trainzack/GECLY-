@@ -164,9 +164,9 @@ public class Grid implements Serializable{
      * @param col The column of the square to look at
      * @return whether coordinates are next to player or not.
      */
-    public boolean checkForNearPlayer(int row, int col){
-        for (int cRow = row -1; cRow < row + 2; cRow++) {
-        	for (int cCol = col - 1; cCol < col + 2; cCol++) {
+    public boolean checkForNearPlayer(int row, int col, int d){
+        for (int cRow = row - d; cRow <= row + d; cRow++) {
+        	for (int cCol = col - d; cCol <= col + d; cCol++) {
         		if (testValidPos(cRow, cCol) && boardState[cRow][cCol] instanceof Player) {
         			return true;
         		}
@@ -174,4 +174,8 @@ public class Grid implements Serializable{
         }
         return false;
     }
+    
+    public boolean checkForNearPlayer (int row, int col) {
+    	return checkForNearPlayer(row, col, 1);
+	}
 }
