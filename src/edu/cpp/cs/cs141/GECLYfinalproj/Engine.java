@@ -1,7 +1,6 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 import edu.cpp.cs.cs141.GECLYfinalproj.powerups.*;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -65,6 +64,7 @@ public class Engine {
 	 * @param save the save file to load from
 	 */
 	public Engine(File save) {
+		setupGrid(true);
 		
 	}
 	
@@ -94,36 +94,36 @@ public class Engine {
                 visibility[i][l] = thisSquareVisible;
             }
         }
-        int pX = player.getLocation().getX();//Store these method calls to save writing and speed up the program
-        int pY = player.getLocation().getY();
-        int[] x = new int[4]; //This is the list of x locations to check;
-        int[] y = new int[4]; //
+        int pRow = player.getLocation().getRow();//Store these method calls to save writing and speed up the program
+        int pCol = player.getLocation().getY();
+        int[] Row = new int[4]; //This is the list of Row locations to check;
+        int[] Col = new int[4]; //
         //312
         //.0.
         //.p.
         switch (direction){//TODO: Javadoc description direction values don't match actual values?
 
             case 0://This should probably be covered by some math or looping, rather than this switch statement hell.
-            	x[0] = pX -1;	y[0] = pY;			x[1] = pX-2;	y[1] = pY;
+            	Row[0] = pRow -1;	Col[0] = pCol;			Row[1] = pRow-2;	Col[1] = pCol;
             	//From here are coordinates covered by night vision
-            	x[2] = pX -2;	y[2] = pY +1;		x[3] = pX -2;	y[3] = pY -1;
+            	Row[2] = pRow -2;	Col[2] = pCol +1;		Row[3] = pRow -2;	Col[3] = pCol -1;
                 break;
             case 1:
-            	x[0] = pX;		y[0] = pY + 1;		x[1] = pX;		y[1] = pY + 2;
-            	x[2] = pX +1;	y[2] = pY + 2;		x[3] = pX -1;	y[3] = pY + 2;
+            	Row[0] = pRow;		Col[0] = pCol + 1;		Row[1] = pRow;		Col[1] = pCol + 2;
+            	Row[2] = pRow +1;	Col[2] = pCol + 2;		Row[3] = pRow -1;	Col[3] = pCol + 2;
             case 2:
-            	x[0] = pX +1;	y[0] = pY;			x[1] = pX +2;	y[1] = pY;
-            	x[2] = pX +2;	y[2] = pY +1;		x[3] = pX +2;	y[3] = pY -1;
+            	Row[0] = pRow +1;	Col[0] = pCol;			Row[1] = pRow +2;	Col[1] = pCol;
+            	Row[2] = pRow +2;	Col[2] = pCol +1;		Row[3] = pRow +2;	Col[3] = pCol -1;
                 break;
             case 3:
-            	x[0] = pX;		y[0] = pY - 1;		x[1] = pX;		y[1] = pY - 2;
-            	x[2] = pX +1;	y[2] = pY - 2;		x[3] = pX -1;	y[3] = pY - 2;
+            	Row[0] = pRow;		Col[0] = pCol - 1;		Row[1] = pRow;		Col[1] = pCol - 2;
+            	Row[2] = pRow +1;	Col[2] = pCol - 2;		Row[3] = pRow -1;	Col[3] = pCol - 2;
                 break;
               
         }
         int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
         for (int i = 0; i < goal; i++ ) {
-        	try{visibility[x[i]][y[i]] = true;} catch(IndexOutOfBoundsException ex){/*nothing here*/}//We should probably get out of using this try/catch statement.
+        	try{visibility[Row[i]][Col[i]] = true;} catch(IndexOutOfBoundsException ex){/*nothing here*/}//We should probably get out of using this try/catch statement.
         }
 
 	    
@@ -151,6 +151,7 @@ public class Engine {
             board.stack(player,ninjas,items);
         }
         else{
+        	board = FileManager.readSave("");
             //TODO alternative when from a save.
         }
 	}
