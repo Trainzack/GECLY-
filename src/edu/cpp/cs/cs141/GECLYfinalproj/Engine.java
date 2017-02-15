@@ -55,7 +55,7 @@ public class Engine {
 	 * Creates a new instance of the engine for a new game.
 	 */
 	public Engine() {
-		setupGrid(false);
+		setupGrid();
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class Engine {
 	 * @param save the save file to load from
 	 */
 	public Engine(File save) {
-		setupGrid(true);
+		//setupGrid(save);
 		
 	}
 	
@@ -83,6 +83,7 @@ public class Engine {
 	public boolean[][] getVisibilityArray(byte direction,boolean isDebug) {
 		
 	    boolean[][] visibility = new boolean[9][9];
+	    boolean isLooking;
         for (int i =0;i<9;++i){
             for (int l =0;l<9;++l){
             	boolean thisSquareVisible = isDebug;
@@ -107,26 +108,36 @@ public class Engine {
             	Row[0] = pRow -1;	Col[0] = pCol;			Row[1] = pRow-2;	Col[1] = pCol;
             	//From here are coordinates covered by night vision
             	Row[2] = pRow -2;	Col[2] = pCol +1;		Row[3] = pRow -2;	Col[3] = pCol -1;
+				isLooking = true;
                 break;
             case 1:
             	Row[0] = pRow;		Col[0] = pCol + 1;		Row[1] = pRow;		Col[1] = pCol + 2;
             	Row[2] = pRow +1;	Col[2] = pCol + 2;		Row[3] = pRow -1;	Col[3] = pCol + 2;
+				isLooking = true;
+            	break;
             case 2:
             	Row[0] = pRow +1;	Col[0] = pCol;			Row[1] = pRow +2;	Col[1] = pCol;
             	Row[2] = pRow +2;	Col[2] = pCol +1;		Row[3] = pRow +2;	Col[3] = pCol -1;
+				isLooking = true;
                 break;
             case 3:
             	Row[0] = pRow;		Col[0] = pCol - 1;		Row[1] = pRow;		Col[1] = pCol - 2;
             	Row[2] = pRow +1;	Col[2] = pCol - 2;		Row[3] = pRow -1;	Col[3] = pCol - 2;
+				isLooking = true;
                 break;
+			default:
+				isLooking = false;
+				break;
               
         }
-        int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
-        for (int i = 0; i < goal; i++ ) {
-        	try{visibility[Row[i]][Col[i]] = true;} catch(IndexOutOfBoundsException ex){/*nothing here*/}//We should probably get out of using this try/catch statement.
-        }
-
-	    
+        if (isLooking) {
+			int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
+			for (int i = 0; i < goal; i++) {
+				try {
+					visibility[Row[i]][Col[i]] = true;
+				} catch (IndexOutOfBoundsException ex) {/*nothing here*/}//We should probably get out of using this try/catch statement.
+			}
+		}
 		return visibility;
 	}
 
@@ -136,25 +147,24 @@ public class Engine {
 	/**
 	 * This method instantiates the {@link Grid} object for a new game. It also handles the placement of all {@link Locatable} objects.
 	 */
-	public void setupGrid(boolean fromSave) {
-        if(!fromSave){
-            player = new Player();
-            for(int i = 0;i<6;++i){
-                ninjas.add(new Ninja());
-            }
-            items.add(new Camo());
-            items.add(new ExtraBullet());
-            items.add(new Invincibility());
-            items.add(new NightVision());
-            items.add(new Radar());
-            board = new Grid();
-            board.stack(player,ninjas,items);
-        }
-        else{
-        	board = FileManager.readSave("");
-            //TODO alternative when from a save.
-        }
+	public void setupGrid() {
+		player = new Player();
+		for(int i = 0;i<6;++i){
+			ninjas.add(new Ninja());
+		}
+		items.add(new Camo());
+		items.add(new ExtraBullet());
+		items.add(new Invincibility());
+		items.add(new NightVision());
+		items.add(new Radar());
+		board = new Grid();
+		board.stack(player,ninjas,items);
 	}
+	public void setupGrid(String filename){
+		board = FileManager.readSave(filename);
+
+	}
+
 	
 	/**
 	 * Saves the game-state by using the FileManager to record the {@link #board}, and other miscellaneous attributes like {@link #turnCount}.

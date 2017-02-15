@@ -41,7 +41,7 @@ public class ConsoleInterface extends UserInterface{
     private Scanner userInput;
     
     /**
-     * The PrintWriter that will be used for output (works the same as System.out). Note that we will need to make considerations for Unicode support by using an OutputStreamWriter with the right encoding as a first argument. If that doesn't work at runtime, we can default to ASCII by setting {@link #UnicodeEnabled}.
+     * The PrintWriter that will be used for output (works the same as System.out). Note that we will need to make considerations for Unicode support by using an OutputStreamWriter with the right encoding as a first argument. If that doesn't work at runtime, we can default to ASCII by setting {@link #unicodeEnabled}.
      */
     private PrintStream systemOutput;
     
@@ -175,12 +175,12 @@ public class ConsoleInterface extends UserInterface{
 
 	/**
 	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
-	 * based on whether debugging mode is on or not. This could probably be shortened in the future. Currently you must manually define the
-	 * direction player is looking on line 191, but that will change once the actual game loop is implemented.
+	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 131, but that
+	 * will change once the actual game loop is implemented.
 	 */
 	public void displayGrid(){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility = engine.getVisibilityArray((byte)0,isDebugging);
+		boolean[][] visibility = engine.getVisibilityArray((byte)4,isDebugging);
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				
