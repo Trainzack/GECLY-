@@ -175,7 +175,7 @@ public class ConsoleInterface extends UserInterface{
 
 	/**
 	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
-	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 131, but that
+	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
 	 */
 	public void displayGrid(){
