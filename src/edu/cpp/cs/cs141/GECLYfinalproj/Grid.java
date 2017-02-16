@@ -129,23 +129,22 @@ public class Grid implements Serializable{
         ArrayList<Ninja> ninjasToAdd = (ArrayList<Ninja>)ninjaList.clone();
         
         while (ninjasToAdd.size()>0) {
-            int pos1 = RNG.nextInt(9);
-            int pos2 = RNG.nextInt(9);
-            int[] coords = {pos1, pos2};
-            Locatable spot = boardState[pos1][pos2];
+            int Row = RNG.nextInt(9);
+            int Col = RNG.nextInt(9);
+            Locatable spot = boardState[Row][Col];
             if(spot == null) {
-                if(!checkForNearPlayer(pos1,pos2,3)){
-                    boardState[pos1][pos2] = ninjasToAdd.remove(0);
+                if(!checkForNearPlayer(Row,Col,3)){
+                    boardState[Row][Col] = ninjasToAdd.remove(0);
                 }
             }
         }
         for (int i = 0;i < itemlist.size();){
-            int pos1 = RNG.nextInt(9);
-            int pos2 = RNG.nextInt(9);
-            Locatable spot = boardState[pos1][pos2];
+            int Row = RNG.nextInt(9);
+            int Col = RNG.nextInt(9);
+            Locatable spot = boardState[Row][Col];
             if(spot == null){
-                if(!checkForNearPlayer(pos1,pos2,3)){
-                    boardState[pos1][pos2] = itemlist.get(i);
+                if(!checkForNearPlayer(Row,Col,3)){
+                    boardState[Row][Col] = itemlist.get(i);
                     i++;
                 }
             }
