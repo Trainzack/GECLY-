@@ -96,14 +96,6 @@ public class Grid implements Serializable{
     }
 
     /**
-     * Gets a copy of the internal array used to represent the Grid's boardstate.
-     * @return value of {@link #boardState}
-     */
-    public Locatable[][] getBoardState(){//TODO: Do we really need this?
-        return this.boardState.clone();
-    }
-
-    /**
      * This method places the player, rooms, ninjas, powerups, and the briefcase onto the grid, and will be used when starting a brand new game.
      * @param player Player to be inserted into the grid.
      * @param ninjaList Ninjas to be inserted into the grid.
