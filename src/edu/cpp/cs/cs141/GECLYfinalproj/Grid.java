@@ -104,12 +104,12 @@ public class Grid implements Serializable{
     }
 
     /**
-     * This method basically stacks the board with all of the default objects, and will be used when starting a brand new game.
+     * This method places the player, rooms, ninjas, powerups, and the briefcase onto the grid, and will be used when starting a brand new game.
      * @param player Player to be inserted into the grid.
      * @param ninjaList Ninjas to be inserted into the grid.
      * @param itemlist Items to be inserted into the grid.
      */
-    public void stack(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemlist){
+    public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemlist){
         Random RNG = new Random();
         boardState[8][0] = player;
         player.getLocation().setPos(8,0);
@@ -133,7 +133,7 @@ public class Grid implements Serializable{
             int Col = RNG.nextInt(9);
             Locatable spot = boardState[Row][Col];
             if(spot == null) {
-                if(!checkForNearPlayer(Row,Col,3)){
+                if(!checkForNearLocatable(player, Row,Col,3)){
                     boardState[Row][Col] = ninjasToAdd.remove(0);
                 }
             }
@@ -143,7 +143,7 @@ public class Grid implements Serializable{
             int Col = RNG.nextInt(9);
             Locatable spot = boardState[Row][Col];
             if(spot == null){
-                if(!checkForNearPlayer(Row,Col,3)){
+                if(!checkForNearLocatable(player, Row,Col,3)){
                     boardState[Row][Col] = itemlist.get(i);
                     i++;
                 }
@@ -155,33 +155,35 @@ public class Grid implements Serializable{
                 }
             }
         }
+        
     }
 
     /**
-     * This method checks if the given coordinates are a certain (Manhattan) distance away from the player or not (including diagonally).
+     * This method checks if the given coordinates are a certain (Manhattan) distance away from a specified {@link Locatable} object or not. For example, a distance of 2 will return true if the square is within one square of the selected object.
      * @param row The row of the square to look at
      * @param col The column of the square to look at
      * @param d How big the search square should be
-     * @return whether coordinates are next to player or not.
+     * @return whether coordinates are near enough to the Locatable object or not.
      */
-    public boolean checkForNearPlayer(int row, int col, int d){
-        for (int cRow = row - d; cRow <= row + d; cRow++) {
-        	for (int cCol = col - d; cCol <= col + d; cCol++) {
-        		if (testValidPos(cRow, cCol) && boardState[cRow][cCol] instanceof Player) {
-        			return true;
-        		}
-        	}
+    public boolean checkForNearLocatable(Locatable loc, int row, int col, int d){
+        Location targetPosition = loc.getLocation();
+        int targetRow = targetPosition.getRow();
+        int targetCol = targetPosition.getCol();
+        
+        if (Math.abs(row - targetRow) < d && Math.abs(col - targetCol) < d) {
+        	return true;
         }
+        
         return false;
     }
     
     /**
-     * This method checks if the given coordinates are one square away from the player or not (including diagonally).
+     * This method checks if the given coordinates are one square away from a specified {@link Locatable} object or not (including diagonally).
      * @param row The row of the square to look at
      * @param col The column of the square to look at
-     * @return whether coordinates are next to player or not.
+     * @return whether coordinates are next to the Locatable object or not.
      */
-    public boolean checkForNearPlayer (int row, int col) {
-    	return checkForNearPlayer(row, col, 1);
+    public boolean checkForNearLocatable (Locatable loc, int row, int col) {
+    	return checkForNearLocatable(loc, row, col, 2);
 	}
 }

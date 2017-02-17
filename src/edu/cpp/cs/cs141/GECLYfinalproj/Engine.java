@@ -158,7 +158,7 @@ public class Engine {
 		items.add(new NightVision());
 		items.add(new Radar());
 		board = new Grid();
-		board.stack(player,ninjas,items);
+		board.placeStartingObjects(player,ninjas,items);
 	}
 	public void setupGrid(String filename){
 		board = FileManager.readSave(filename);
