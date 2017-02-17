@@ -99,14 +99,14 @@ public class Grid implements Serializable{
      * This method places the player, rooms, ninjas, powerups, and the briefcase onto the grid, and will be used when starting a brand new game.
      * @param player Player to be inserted into the grid.
      * @param ninjaList Ninjas to be inserted into the grid.
-     * @param itemlist Items to be inserted into the grid.
+     * @param itemList Items to be inserted into the grid.
      */
-    public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemlist){
+    public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemList){
         Random randomGenerator = new Random();
-        boardState[8][0] = player;
-        player.getLocation().setPos(8,0);
         
-        ArrayList<Room> rooms = new ArrayList<Room>();
+        setPos(8, 0, player);
+        
+        ArrayList<Room> rooms = new ArrayList<Room>(); //This is used so that we can select a random room to put the briefcase in.
         
         for (int row = 1; row < 8; row += 3) {
         	for (int col = 1; col < 8; col += 3) {
@@ -121,26 +121,19 @@ public class Grid implements Serializable{
         for (Ninja n : ninjaList) {
             addNinja(n, randomGenerator, player);
         }
-        for (int i = 0;i < itemlist.size();){
-            int Row = randomGenerator.nextInt(9);
-            int Col = randomGenerator.nextInt(9);
-            Locatable spot = boardState[Row][Col];
-            if(spot == null){
-                if(!checkForNearLocatable(player, Row,Col,3)){
-                    boardState[Row][Col] = itemlist.get(i);
-                    i++;
-                }
-            }
-            else{
-                if (spot instanceof Room){
-                    ((Room) spot).setContents(itemlist.get(0));
-                    i++;
-                }
-            }
+        for (WorldItem item : itemList){
+        	addItem(item, randomGenerator, player);
         }
         
     }
     
+    /**
+     * Selects a random valid position on the grid and places a specified {@link Ninja} there.
+     * 
+     * @param n the Ninja to place
+     * @param randomGenerator the Random to use to get random numbers
+     * @param player the player to avoid putting objects near
+     */
     private void addNinja(Ninja n, Random randomGenerator, Player player) {
     	while (true) {
     		int Row = randomGenerator.nextInt(9);
@@ -155,6 +148,33 @@ public class Grid implements Serializable{
     	}
     }
 
+    /**
+     * Selects a random valid position on the grid and places a specified {@link WorldItem} there, also placing it in unoccupied rooms.
+     * 
+     * @param item the WorldItem to place
+     * @param randomGenerator the Random to use to get random numbers
+     * @param player the player to avoid putting objects near
+     */
+    private void addItem(WorldItem item, Random randomGenerator, Player player) {
+    	while (true) {
+	        int Row = randomGenerator.nextInt(9);
+	        int Col = randomGenerator.nextInt(9);
+	        Locatable spot = boardState[Row][Col];
+	        if(spot == null){
+	            if(!checkForNearLocatable(player, Row,Col,3)){
+	                boardState[Row][Col] = item;
+	                break;
+	            }
+	        }
+	        else {
+	            if (spot instanceof Room && ((Room) spot).getContents() == null){
+	                ((Room) spot).setContents(item);
+	                break;
+	            }
+	        }
+        }
+    }
+    
     /**
      * This method checks if the given coordinates are a certain (Manhattan) distance away from a specified {@link Locatable} object or not. For example, a distance of 2 will return true if the square is within one square of the selected object.
      * @param row The row of the square to look at
