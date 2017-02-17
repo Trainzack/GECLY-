@@ -110,7 +110,7 @@ public class Grid implements Serializable{
      * @param itemlist Items to be inserted into the grid.
      */
     public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemlist){
-        Random RNG = new Random();
+        Random randomGenerator = new Random();
         boardState[8][0] = player;
         player.getLocation().setPos(8,0);
         
@@ -123,24 +123,15 @@ public class Grid implements Serializable{
         		rooms.add(addedRoom);
         	}
         }
-        int briefno = RNG.nextInt(9);
+        int briefno = randomGenerator.nextInt(9);
         rooms.get(briefno).setContents(new Briefcase());
         
-        ArrayList<Ninja> ninjasToAdd = (ArrayList<Ninja>)ninjaList.clone();
-        
-        while (ninjasToAdd.size()>0) {
-            int Row = RNG.nextInt(9);
-            int Col = RNG.nextInt(9);
-            Locatable spot = boardState[Row][Col];
-            if(spot == null) {
-                if(!checkForNearLocatable(player, Row,Col,3)){
-                    boardState[Row][Col] = ninjasToAdd.remove(0);
-                }
-            }
+        for (Ninja n : ninjaList) {
+            addNinja(n, randomGenerator, player);
         }
         for (int i = 0;i < itemlist.size();){
-            int Row = RNG.nextInt(9);
-            int Col = RNG.nextInt(9);
+            int Row = randomGenerator.nextInt(9);
+            int Col = randomGenerator.nextInt(9);
             Locatable spot = boardState[Row][Col];
             if(spot == null){
                 if(!checkForNearLocatable(player, Row,Col,3)){
@@ -156,6 +147,20 @@ public class Grid implements Serializable{
             }
         }
         
+    }
+    
+    private void addNinja(Ninja n, Random randomGenerator, Player player) {
+    	while (true) {
+    		int Row = randomGenerator.nextInt(9);
+            int Col = randomGenerator.nextInt(9);
+            Locatable spot = boardState[Row][Col];
+            if(spot == null) {
+                if(!checkForNearLocatable(player, Row,Col,3)){
+                    boardState[Row][Col] = n;
+                    break;
+                }
+            }
+    	}
     }
 
     /**
@@ -176,6 +181,7 @@ public class Grid implements Serializable{
         
         return false;
     }
+    
     
     /**
      * This method checks if the given coordinates are one square away from a specified {@link Locatable} object or not (including diagonally).
