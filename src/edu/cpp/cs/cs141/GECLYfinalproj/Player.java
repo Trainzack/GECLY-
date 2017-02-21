@@ -90,16 +90,17 @@ public class Player extends Agent implements Locatable,Serializable{
      * This method handles a {@link Player} entering a room and searching its contents.
      */
     public void enterRoom(){
-
+    	
     }
 
-    public Direction[] getValidDirections(){
-        Direction[] ds = Direction.values();
-        for (Direction D: ds){
-            Grid board = this.getLocation().getLocale();
-            board.getObject(this.getLocation(),D);//CHECK THAT IT IS VALID POSITION ON GRID, and if room, direction needs to be down
-        }
-    }
+	@Override
+	public boolean objectCanBeMovedOver(Locatable l, Direction d) {
+		if (l instanceof Room && d != Direction.DOWN) {
+			return false;
+		}
+		return true;
+	}
+    
 
     /**
      * Getter for {@link #hasRadar}
@@ -137,4 +138,5 @@ public class Player extends Agent implements Locatable,Serializable{
     public void kill() {
 
     }
+
 }

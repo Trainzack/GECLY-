@@ -18,6 +18,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class represents an agent in the game (enemies and the player) and is the parent class for
@@ -58,7 +59,37 @@ public abstract class Agent implements Locatable,Serializable{
         }
         return false;
     }
-    public abstract Direction[] getValidDirections();
+    
+	/**
+	 * Finds a list of all directions that trying to {@link #move(Direction)} are possible for this agent.
+	 * 
+	 * @return what directions are valid for movement
+	 */
+	public Direction[] getValidDirections() {//TODO: Test this method!!!
+		ArrayList<Direction> dirList = new ArrayList<Direction>();
+		Direction[] ds = Direction.values(); //This is the working list of directions we can go
+        for (Direction d: ds){
+            Grid board = this.getLocation().getLocale();
+            if (!board.testValidPos(this.getLocation(), d)) {
+            	break; //We can't go this way because it is off the grid
+            }
+            Locatable objectToMoveTo = board.getObject(this.getLocation(),d);
+            if (objectCanBeMovedOver(objectToMoveTo,d)) {
+            	dirList.add(d);
+            }
+            
+        }
+        return (Direction[])dirList.toArray();
+	}
+	
+	/**
+	 * Checks whether this agent can move to a certain object in a certain direction. Returns true for players moving down into rooms, even though that does not actually result in movement.
+	 * 
+	 * @param l the object to be moved over
+	 * @param d the direction to move in
+	 * @return whether a move in the specified direction to a spot on the grid containing the specified object is valid
+	 */
+	public abstract boolean objectCanBeMovedOver(Locatable l, Direction d);
 
     /**
      * This method will handle the {@link Agent}'s death, which will be radically different depending on which

@@ -68,6 +68,10 @@ public class Engine {
 		
 	}
 	
+	public Player getPlayer() {
+		return player;//TODO: Should this be testing only?
+	}
+	
 	
 	/**
 	 * Makes and returns an array of booleans, each representing whether that square is visible to the player. Used by a {@link UserInterface} to figure out what to display to the player.
