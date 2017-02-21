@@ -59,6 +59,17 @@ public class Grid implements Serializable{
         //TODO
         return null;
     }
+    public Player getPlayer(){
+        for(Locatable[] L: boardState){
+            for(Locatable Li : L){
+                if (Li instanceof Player){
+                    return (Player)Li;
+                }
+            }
+
+        }
+        return null;
+    }
 
     /**
      * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
@@ -71,16 +82,18 @@ public class Grid implements Serializable{
     	if (!testValidPos(row, col)) return false;
         
     	if (boardState[row][col] != null) return false;
-    	
+
+    	removePos(item.getLocation().getRow(),item.getLocation().getCol());
     	this.boardState[row][col] = item;
     	item.getLocation().setPos(row, col);
-    	//set location locale?
+    	item.getLocation().setLocale(this);
     	return true;
+    	//TODO: REMOVE OBJECTS FROM THEIR PREVIOUS LOCATIOn
         
     }
     
     /**
-     * Tests to see if a position is a valid spot on the grid.
+     * Tests to see if a position is on the grid.
      * 
      * @param pos1
      * @param pos2
@@ -92,13 +105,37 @@ public class Grid implements Serializable{
         }
         return true;
     }
+    
+    /**
+     * Tests to see if a location is on the grid.
+     * 
+     * @param l
+     * @return
+     */
+    public boolean testValidPos(Location l) {
+    	return testValidPos(l.getRow(), l.getCol());
+    }
+    
+    /**
+     * Tests to see if the position one square away from a {@link Location} in a given {@link Direction} is inside of the grid.
+     * 
+     * @param l
+     * @param d
+     * @return
+     */
+    public boolean testValidPos(Location l, Direction d) {
+    	
+    	return testValidPos(l.getLocationByDirection(d));//TODO: clean up this implementation; the non d method should also accept locations, and there should be a way to add directions to locations.
+    	
+    }
 
     /**
      * This method removes the object located at a set of coordinates.
-     * @param pos1 First array index to search.
-     * @param pos2 Second array to search.
+     * @param Row First array index to search.
+     * @param Col Second array to search.
      */
-    public void removePos(int pos1, int pos2){
+    public void removePos(int Row, int Col){
+        this.boardState[Row][Col] = null;
 
     }
 
@@ -110,6 +147,7 @@ public class Grid implements Serializable{
      */
     public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemList){
         Random randomGenerator = new Random();
+        if (player == null) throw new java.lang.NullPointerException("Player must be set to a value!");
         
         setPos(8, 0, player);
         
@@ -119,6 +157,7 @@ public class Grid implements Serializable{
         	for (int col = 1; col < 8; col += 3) {
         		Room addedRoom = new Room();
         		boardState[row][col] = addedRoom;
+        		addedRoom.getLocation().setPos(row,col);
         		rooms.add(addedRoom);
         	}
         }
@@ -149,6 +188,7 @@ public class Grid implements Serializable{
             if(spot == null) {
                 if(!checkForNearLocatable(player, Row,Col,3)){
                     boardState[Row][Col] = n;
+                    n.getLocation().setPos(Row,Col);
                     break;
                 }
             }
@@ -170,6 +210,7 @@ public class Grid implements Serializable{
 	        if(spot == null){
 	            if(!checkForNearLocatable(player, Row,Col,3)){
 	                boardState[Row][Col] = item;
+	                item.getLocation().setPos(Row,Col);
 	                break;
 	            }
 	        }
@@ -201,7 +242,6 @@ public class Grid implements Serializable{
         return false;
     }
 
-    public Locatable
     
     
     /**

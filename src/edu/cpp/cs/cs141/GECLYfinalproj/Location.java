@@ -28,7 +28,6 @@ public class Location implements Serializable {
      * This is the constructor for {@link Location}.
      */
     Location(){
-
     }
 
     /**
@@ -37,6 +36,10 @@ public class Location implements Serializable {
      */
     public Grid getLocale() {
         return locale;
+    }
+    
+    public void setLocale(Grid locale) {
+    	this.locale = locale;
     }
 
     /**
@@ -63,5 +66,18 @@ public class Location implements Serializable {
     public void setPos(int row, int col){
         this.Row = row;
         this.Col = col;
+    }
+    
+    /**
+     * Returns the location one away from this location in the given direction
+     * 
+     * @param d the direction to check
+     * @return
+     */
+    public Location getLocationByDirection(Direction d) {
+    	Location l = new Location();
+    	l.setPos(this.getRow() + d.getRow(), this.getCol() + d.getCol());
+    	l.setLocale(this.getLocale());
+    	return l;
     }
 }

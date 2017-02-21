@@ -1,5 +1,6 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 
+import java.io.File;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -50,10 +51,7 @@ public class ConsoleInterface extends UserInterface{
      */
     private boolean unicodeEnabled;
 
-	/**
-	 * This field represents whether debug mode is on or not.
-	 */
-	private boolean isDebugging;
+
 
 
     /**
@@ -105,13 +103,7 @@ public class ConsoleInterface extends UserInterface{
     	
     }
 
-	/**
-	 * Setter for {@link #isDebugging}
-	 * @param setting value of {@link #isDebugging}
-	 */
-	public void setDebugging(boolean setting){
-    	this.isDebugging = setting;
-	}
+
 
     /**
      * This method will print a method in the console.
@@ -235,6 +227,91 @@ public class ConsoleInterface extends UserInterface{
 			return "[*]";
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
+	 */
+	@Override
+	public void startGame() {
+		showMessage("Welcome to the best game ever!\nMenu");
+		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit"};
+		int choice = displayMenu(menu);
+		switch(choice){
+			case 1: super.startGame();
+					break;
+			case 2: super.startGame(askFileName());
+					break;
+			case 3: //TODO: decide on options
+					break;
+			case 4: displayHelp();
+					break;
+			case 5: displayCredits();
+					break;
+			case 6: System.exit(0);
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#openOptions()
+	 */
+	@Override
+	public void openOptions() {
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
+		int choice = displayMenu(options);
+		switch(choice) {
+			case 1: showMessage("Do you want to enable debug mode?");
+					setDebugging(displayMenu());
+					//TODO: how to 
+					break;
+			case 2: 
+		}
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#quitGame()
+	 */
+	@Override
+	public void quitGame() {
+		showMessage("Do you want to save the game?");
+		boolean choice = displayMenu();
+		if(choice == true){
+			//TODO implement saving
+		}else{
+			System.exit(0);
+			
+		}
+	}
+	
+	public void displayHelp() {
+		showMessage("You are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
+		showMessage("Dr. Doofenshmirtz has stolen a classified briefcase with super secret stuff in it.");
+		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
+		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
+		showMessage("Good Luck, Agent P!");
+		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right");
+		//TODO: Add power ups to help menu
+	}
+	
+	public void displayCredits() {
+		//TODO: add credits yo
+		showMessage("");
+		
+	}
+	
+	public File askFileName() {
+		showMessage("Please enter the name of the saved file.");
+		String filename;
+		File save;
+		do{
+			filename = userInput.nextLine();
+			save = new File(filename);
+		}while(!save.exists());
+		return save;
+	}
+	
+	
 
 
 

@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 
+import java.io.File;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodríguez
@@ -30,6 +32,19 @@ public abstract class UserInterface {
 	 */
 	protected Engine engine;
 	
+	/**
+	 * This field represents whether debug mode is on or not.
+	 */
+	protected boolean isDebugging;
+	
+	/**
+	 * Setter for {@link #isDebugging}
+	 * @param setting value of {@link #isDebugging}
+	 */
+	public void setDebugging(boolean setting){
+    	this.isDebugging = setting;
+	}
+	
     /**
      * This method essentially updates the boardstate, which shows the new locations of objects and their
      * visibility.
@@ -44,6 +59,13 @@ public abstract class UserInterface {
     public void startGame(){
     	engine = new Engine();
     }
+    
+    /**
+     * This method starts the game and is called from the {@link Main} method. It creates the engine, something that should be done the same in all subclasses. Subclasses should call Super() before implementing their methods.
+     */
+    public void startGame(File save){
+    	engine = new Engine(save);
+    }
 
     /**
      * This method shows the options menu where players can change the setting of the game.
@@ -57,5 +79,20 @@ public abstract class UserInterface {
      */
     public void quitGame(){
 
+    }
+    
+    
+    
+    /**
+     * A debugging method that should only be used when the game is being tested.
+     * 
+     * @return the grid being used
+     * @throws IllegalStateException if you try to use this when the game is not in debugging mode.
+     */
+    public Grid testGetGrid() {
+    	if (!isDebugging) {
+    		throw new IllegalStateException();//Not sure if this is the right exception
+    	}
+    	return engine.getBoard();
     }
 }

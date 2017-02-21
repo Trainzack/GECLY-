@@ -64,8 +64,12 @@ public class Engine {
 	 * @param save the save file to load from
 	 */
 	public Engine(File save) {
-		//setupGrid(save);
+		setupGrid(save);
 		
+	}
+	
+	public Player getPlayer() {
+		return player;//TODO: Should this be testing only?
 	}
 	
 	
@@ -157,11 +161,13 @@ public class Engine {
 		items.add(new Invincibility());
 		items.add(new NightVision());
 		items.add(new Radar());
+
 		board = new Grid();
 		board.placeStartingObjects(player,ninjas,items);
+		
 	}
-	public void setupGrid(String filename){
-		board = FileManager.readSave(filename);
+	public void setupGrid(File save){
+		board = FileManager.readSave(save);
 
 	}
 
