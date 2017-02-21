@@ -59,6 +59,17 @@ public class Grid implements Serializable{
         //TODO
         return null;
     }
+    public Player getPlayer(){
+        for(Locatable[] L: boardState){
+            for(Locatable Li : L){
+                if (Li instanceof Player){
+                    return (Player)Li;
+                }
+            }
+
+        }
+        return null;
+    }
 
     /**
      * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
@@ -71,7 +82,8 @@ public class Grid implements Serializable{
     	if (!testValidPos(row, col)) return false;
         
     	if (boardState[row][col] != null) return false;
-    	
+
+    	removePos(item.getLocation().getRow(),item.getLocation().getCol());
     	this.boardState[row][col] = item;
     	item.getLocation().setPos(row, col);
     	//set location locale?
@@ -107,10 +119,11 @@ public class Grid implements Serializable{
 
     /**
      * This method removes the object located at a set of coordinates.
-     * @param pos1 First array index to search.
-     * @param pos2 Second array to search.
+     * @param Row First array index to search.
+     * @param Col Second array to search.
      */
-    public void removePos(int pos1, int pos2){
+    public void removePos(int Row, int Col){
+        this.boardState[Row][Col] = null;
 
     }
 
@@ -131,6 +144,7 @@ public class Grid implements Serializable{
         	for (int col = 1; col < 8; col += 3) {
         		Room addedRoom = new Room();
         		boardState[row][col] = addedRoom;
+        		addedRoom.getLocation().setPos(row,col);
         		rooms.add(addedRoom);
         	}
         }
@@ -161,6 +175,7 @@ public class Grid implements Serializable{
             if(spot == null) {
                 if(!checkForNearLocatable(player, Row,Col,3)){
                     boardState[Row][Col] = n;
+                    n.getLocation().setPos(Row,Col);
                     break;
                 }
             }
@@ -182,6 +197,7 @@ public class Grid implements Serializable{
 	        if(spot == null){
 	            if(!checkForNearLocatable(player, Row,Col,3)){
 	                boardState[Row][Col] = item;
+	                item.getLocation().setPos(Row,Col);
 	                break;
 	            }
 	        }
