@@ -47,7 +47,6 @@ public class Main {
 		inter.setDebugging(true);
 		for (int i = 0; i < 9; i++) {
 			inter.engine = new Engine();
-			inter.engine.setupGrid();
 			Player p = inter.engine.getPlayer();
 			Grid board = inter.testGetGrid();
 			board.setPos(8, i, p);

@@ -36,13 +36,9 @@ public class ExtraBullet extends WorldItem{
 	 * This is the {@link ExtraBullet} constructor
 	 */
 	public ExtraBullet(){
+		super();
 		this.setASCIIRep('E');
 		this.setUnicodeRep('➡');
-	}
-
-	@Override
-	public Location getLocation() {
-		return null;
 	}
 
 	@Override

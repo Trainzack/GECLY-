@@ -43,6 +43,11 @@ public abstract class WorldItem implements Locatable,Serializable {
      */
     private char UnicodeRep;
 
+	/**
+	 * This field represents the location of the object on the {@link Grid}
+	 */
+	private Location location;
+
     /**
      * This method applies the item to the character. It is abstract so that it can be applied uniquely
      * to the different classes that extend this abstract class.
@@ -53,6 +58,7 @@ public abstract class WorldItem implements Locatable,Serializable {
      * This is the constructor for {@link WorldItem}
      */
     public WorldItem(){
+    	this.location = new Location();
 
     }
 
@@ -98,7 +104,7 @@ public abstract class WorldItem implements Locatable,Serializable {
 
 	@Override
 	public Location getLocation() {
-		return null;
+		return this.location;
 	}
 
 	@Override

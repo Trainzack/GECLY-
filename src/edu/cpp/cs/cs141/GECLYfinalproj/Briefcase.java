@@ -35,6 +35,7 @@ public class Briefcase extends WorldItem implements Serializable{
 	 * constructor.
 	 */
 	public Briefcase(){
+		super();
 		this.setASCIIRep('B');
 		this.setUnicodeRep('♜');
 	}
