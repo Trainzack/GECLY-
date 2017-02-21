@@ -66,12 +66,13 @@ public abstract class Agent implements Locatable,Serializable{
 	 * @return what directions are valid for movement
 	 */
 	public Direction[] getValidDirections() {//TODO: Test this method!!!
-		ArrayList<Direction> dirList = new ArrayList<Direction>();
+		ArrayList<Direction> dirList = new ArrayList<Direction>(4);
+		
 		Direction[] ds = Direction.values(); //This is the working list of directions we can go
-        for (Direction d: ds){
+		for (Direction d: ds){
             Grid board = this.getLocation().getLocale();
             if (!board.testValidPos(this.getLocation(), d)) {
-            	break; //We can't go this way because it is off the grid
+            	continue; //We can't go this way because it is off the grid
             }
             Locatable objectToMoveTo = board.getObject(this.getLocation(),d);
             if (objectCanBeMovedOver(objectToMoveTo,d)) {
@@ -79,7 +80,7 @@ public abstract class Agent implements Locatable,Serializable{
             }
             
         }
-        return (Direction[])dirList.toArray();
+        return dirList.toArray(new Direction[dirList.size()]);
 	}
 	
 	/**
@@ -102,8 +103,7 @@ public abstract class Agent implements Locatable,Serializable{
      *This is the constructor for {@link Agent}.
      */
     Agent(){
-        this.location = new Location();
-
+    	location = new Location();
     }
 
     /**

@@ -86,8 +86,9 @@ public class Grid implements Serializable{
     	removePos(item.getLocation().getRow(),item.getLocation().getCol());
     	this.boardState[row][col] = item;
     	item.getLocation().setPos(row, col);
-    	//set location locale?
+    	item.getLocation().setLocale(this);
     	return true;
+    	//TODO: REMOVE OBJECTS FROM THEIR PREVIOUS LOCATIOn
         
     }
     
@@ -106,6 +107,16 @@ public class Grid implements Serializable{
     }
     
     /**
+     * Tests to see if a location is on the grid.
+     * 
+     * @param l
+     * @return
+     */
+    public boolean testValidPos(Location l) {
+    	return testValidPos(l.getRow(), l.getCol());
+    }
+    
+    /**
      * Tests to see if the position one square away from a {@link Location} in a given {@link Direction} is inside of the grid.
      * 
      * @param l
@@ -113,8 +124,9 @@ public class Grid implements Serializable{
      * @return
      */
     public boolean testValidPos(Location l, Direction d) {
-    	//TODO
-    	return false;
+    	
+    	return testValidPos(l.getLocationByDirection(d));//TODO: clean up this implementation; the non d method should also accept locations, and there should be a way to add directions to locations.
+    	
     }
 
     /**
@@ -135,6 +147,7 @@ public class Grid implements Serializable{
      */
     public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemList){
         Random randomGenerator = new Random();
+        if (player == null) throw new java.lang.NullPointerException("Player must be set to a value!");
         
         setPos(8, 0, player);
         
