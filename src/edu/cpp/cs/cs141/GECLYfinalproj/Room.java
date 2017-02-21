@@ -43,11 +43,17 @@ public class Room implements Locatable,Serializable{
     private char UnicodeRep;
 
     /**
+     * This field represents the location of the object on the {@link Grid}
+     */
+    private Location location;
+
+    /**
      * This is the constructor for {@link Room}
      */
     Room(){
         this.ASCIIRep = 'R';
         this.UnicodeRep = '◫';
+        this.location = new Location();
     }
 
     /**
@@ -68,7 +74,7 @@ public class Room implements Locatable,Serializable{
 
     @Override
     public Location getLocation() {
-        return null;
+        return this.location;
     }
 
     @Override

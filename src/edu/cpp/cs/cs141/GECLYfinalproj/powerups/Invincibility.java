@@ -33,13 +33,9 @@ public class Invincibility extends WorldItem{
 	 * WorldItem abstract class.
 	 */
 	public Invincibility() {
+		super();
 		this.setASCIIRep('I');
 		this.setUnicodeRep('⚡');
-	}
-
-	@Override
-	public Location getLocation() {
-		return null;
 	}
 
 	@Override
