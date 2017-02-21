@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.GECLYfinalproj;
 
+import java.io.File;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodríguez
@@ -43,6 +45,13 @@ public abstract class UserInterface {
      */
     public void startGame(){
     	engine = new Engine();
+    }
+    
+    /**
+     * This method starts the game and is called from the {@link Main} method. It creates the engine, something that should be done the same in all subclasses. Subclasses should call Super() before implementing their methods.
+     */
+    public void startGame(File save){
+    	engine = new Engine(save);
     }
 
     /**

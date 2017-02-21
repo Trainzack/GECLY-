@@ -48,9 +48,9 @@ public class FileManager {
 
     }
 
-    public static void writeSave(String filename,Grid board){
+    public static void writeSave(File save,Grid board){
         try {
-            FileOutputStream fos = new FileOutputStream(filename);
+            FileOutputStream fos = new FileOutputStream(save);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(board);
             oos.close();
@@ -60,9 +60,9 @@ public class FileManager {
         }
     }
 
-    public static Grid readSave(String filename){
+    public static Grid readSave(File save){
         try{
-            FileInputStream fis = new FileInputStream(filename);
+            FileInputStream fis = new FileInputStream(save);
             ObjectInputStream ois = new ObjectInputStream(fis);
             return (Grid) ois.readObject();
         }
