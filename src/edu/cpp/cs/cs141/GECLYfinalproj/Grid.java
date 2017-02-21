@@ -96,25 +96,17 @@ public class Grid implements Serializable{
     }
 
     /**
-     * Gets a copy of the internal array used to represent the Grid's boardstate.
-     * @return value of {@link #boardState}
-     */
-    public Locatable[][] getBoardState(){//TODO: Do we really need this?
-        return this.boardState.clone();
-    }
-
-    /**
-     * This method basically stacks the board with all of the default objects, and will be used when starting a brand new game.
+     * This method places the player, rooms, ninjas, powerups, and the briefcase onto the grid, and will be used when starting a brand new game.
      * @param player Player to be inserted into the grid.
      * @param ninjaList Ninjas to be inserted into the grid.
-     * @param itemlist Items to be inserted into the grid.
+     * @param itemList Items to be inserted into the grid.
      */
-    public void stack(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemlist){
-        Random RNG = new Random();
-        boardState[8][0] = player;
-        player.getLocation().setPos(8,0);
+    public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemList){
+        Random randomGenerator = new Random();
         
-        ArrayList<Room> rooms = new ArrayList<Room>();
+        setPos(8, 0, player);
+        
+        ArrayList<Room> rooms = new ArrayList<Room>(); //This is used so that we can select a random room to put the briefcase in.
         
         for (int row = 1; row < 8; row += 3) {
         	for (int col = 1; col < 8; col += 3) {
@@ -123,65 +115,93 @@ public class Grid implements Serializable{
         		rooms.add(addedRoom);
         	}
         }
-        int briefno = RNG.nextInt(9);
+        int briefno = randomGenerator.nextInt(9);
         rooms.get(briefno).setContents(new Briefcase());
         
-        ArrayList<Ninja> ninjasToAdd = (ArrayList<Ninja>)ninjaList.clone();
+        for (Ninja n : ninjaList) {
+            addNinja(n, randomGenerator, player);
+        }
+        for (WorldItem item : itemList){
+        	addItem(item, randomGenerator, player);
+        }
         
-        while (ninjasToAdd.size()>0) {
-            int Row = RNG.nextInt(9);
-            int Col = RNG.nextInt(9);
-            Locatable spot = boardState[Row][Col];
-            if(spot == null) {
-                if(!checkForNearPlayer(Row,Col,3)){
-                    boardState[Row][Col] = ninjasToAdd.remove(0);
-                }
-            }
-        }
-        for (int i = 0;i < itemlist.size();){
-            int Row = RNG.nextInt(9);
-            int Col = RNG.nextInt(9);
-            Locatable spot = boardState[Row][Col];
-            if(spot == null){
-                if(!checkForNearPlayer(Row,Col,3)){
-                    boardState[Row][Col] = itemlist.get(i);
-                    i++;
-                }
-            }
-            else{
-                if (spot instanceof Room){
-                    ((Room) spot).setContents(itemlist.get(0));
-                    i++;
-                }
-            }
-        }
-    }
-
-    /**
-     * This method checks if the given coordinates are a certain (Manhattan) distance away from the player or not (including diagonally).
-     * @param row The row of the square to look at
-     * @param col The column of the square to look at
-     * @param d How big the search square should be
-     * @return whether coordinates are next to player or not.
-     */
-    public boolean checkForNearPlayer(int row, int col, int d){
-        for (int cRow = row - d; cRow <= row + d; cRow++) {
-        	for (int cCol = col - d; cCol <= col + d; cCol++) {
-        		if (testValidPos(cRow, cCol) && boardState[cRow][cCol] instanceof Player) {
-        			return true;
-        		}
-        	}
-        }
-        return false;
     }
     
     /**
-     * This method checks if the given coordinates are one square away from the player or not (including diagonally).
+     * Selects a random valid position on the grid and places a specified {@link Ninja} there.
+     * 
+     * @param n the Ninja to place
+     * @param randomGenerator the Random to use to get random numbers
+     * @param player the player to avoid putting objects near
+     */
+    private void addNinja(Ninja n, Random randomGenerator, Player player) {
+    	while (true) {
+    		int Row = randomGenerator.nextInt(9);
+            int Col = randomGenerator.nextInt(9);
+            Locatable spot = boardState[Row][Col];
+            if(spot == null) {
+                if(!checkForNearLocatable(player, Row,Col,3)){
+                    boardState[Row][Col] = n;
+                    break;
+                }
+            }
+    	}
+    }
+
+    /**
+     * Selects a random valid position on the grid and places a specified {@link WorldItem} there, also placing it in unoccupied rooms.
+     * 
+     * @param item the WorldItem to place
+     * @param randomGenerator the Random to use to get random numbers
+     * @param player the player to avoid putting objects near
+     */
+    private void addItem(WorldItem item, Random randomGenerator, Player player) {
+    	while (true) {
+	        int Row = randomGenerator.nextInt(9);
+	        int Col = randomGenerator.nextInt(9);
+	        Locatable spot = boardState[Row][Col];
+	        if(spot == null){
+	            if(!checkForNearLocatable(player, Row,Col,3)){
+	                boardState[Row][Col] = item;
+	                break;
+	            }
+	        }
+	        else {
+	            if (spot instanceof Room && ((Room) spot).getContents() == null){
+	                ((Room) spot).setContents(item);
+	                break;
+	            }
+	        }
+        }
+    }
+    
+    /**
+     * This method checks if the given coordinates are a certain (Manhattan) distance away from a specified {@link Locatable} object or not. For example, a distance of 2 will return true if the square is within one square of the selected object.
      * @param row The row of the square to look at
      * @param col The column of the square to look at
-     * @return whether coordinates are next to player or not.
+     * @param d How big the search square should be
+     * @return whether coordinates are near enough to the Locatable object or not.
      */
-    public boolean checkForNearPlayer (int row, int col) {
-    	return checkForNearPlayer(row, col, 1);
+    public boolean checkForNearLocatable(Locatable loc, int row, int col, int d){
+        Location targetPosition = loc.getLocation();
+        int targetRow = targetPosition.getRow();
+        int targetCol = targetPosition.getCol();
+        
+        if (Math.abs(row - targetRow) < d && Math.abs(col - targetCol) < d) {
+        	return true;
+        }
+        
+        return false;
+    }
+    
+    
+    /**
+     * This method checks if the given coordinates are one square away from a specified {@link Locatable} object or not (including diagonally).
+     * @param row The row of the square to look at
+     * @param col The column of the square to look at
+     * @return whether coordinates are next to the Locatable object or not.
+     */
+    public boolean checkForNearLocatable (Locatable loc, int row, int col) {
+    	return checkForNearLocatable(loc, row, col, 2);
 	}
 }
