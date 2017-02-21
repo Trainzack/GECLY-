@@ -187,6 +187,22 @@ public class Engine {
 		
 	}
 	
+	public boolean checkWin() {
+		if(player.hasCase() && player.getLocation().getRow() == 8 && player.getLocation().getCol() == 0) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean checkLose() {
+		if(player.getLives() == 0) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	
 	
 }

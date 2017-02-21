@@ -332,6 +332,18 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("Which direction do you want to " + action);
 	}
 	
+	public void displayWin() {
+		if(engine.checkWin() == true){
+		showMessage("You win!");
+		}
+	}
+	
+	public void displayLose() {
+		if(engine.checkLose() == true){
+		showMessage("You lost!");
+		}
+	}
+	
 	
 
 
