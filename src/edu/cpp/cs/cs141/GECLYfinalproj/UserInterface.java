@@ -30,6 +30,19 @@ public abstract class UserInterface {
 	 */
 	protected Engine engine;
 	
+	/**
+	 * This field represents whether debug mode is on or not.
+	 */
+	protected boolean isDebugging;
+	
+	/**
+	 * Setter for {@link #isDebugging}
+	 * @param setting value of {@link #isDebugging}
+	 */
+	public void setDebugging(boolean setting){
+    	this.isDebugging = setting;
+	}
+	
     /**
      * This method essentially updates the boardstate, which shows the new locations of objects and their
      * visibility.
@@ -57,5 +70,20 @@ public abstract class UserInterface {
      */
     public void quitGame(){
 
+    }
+    
+    
+    
+    /**
+     * A debugging method that should only be used when the game is being tested.
+     * 
+     * @return the grid being used
+     * @throws IllegalStateException if you try to use this when the game is not in debugging mode.
+     */
+    public Grid testGetGrid() {
+    	if (!isDebugging) {
+    		throw new IllegalStateException();//Not sure if this is the right exception
+    	}
+    	return engine.getBoard();
     }
 }

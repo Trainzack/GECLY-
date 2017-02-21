@@ -50,10 +50,7 @@ public class ConsoleInterface extends UserInterface{
      */
     private boolean unicodeEnabled;
 
-	/**
-	 * This field represents whether debug mode is on or not.
-	 */
-	private boolean isDebugging;
+
 
 
     /**
@@ -105,13 +102,7 @@ public class ConsoleInterface extends UserInterface{
     	
     }
 
-	/**
-	 * Setter for {@link #isDebugging}
-	 * @param setting value of {@link #isDebugging}
-	 */
-	public void setDebugging(boolean setting){
-    	this.isDebugging = setting;
-	}
+
 
     /**
      * This method will print a method in the console.
