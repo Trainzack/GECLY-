@@ -52,6 +52,13 @@ public class Grid implements Serializable{
     public Locatable getObject(int row, int col){
         return boardState[row][col];
     }
+    public Locatable getObject(Location l){
+        return getObject(l.getRow(),l.getCol());
+    }
+    public Locatable getObject(Location l, Direction d){
+        //TODO
+        return null;
+    }
 
     /**
      * This method sets the object to a set of coordinates, and updates that object's {@link Location}. Movement fails if the destination does not equal null or does not exist.
@@ -193,6 +200,8 @@ public class Grid implements Serializable{
         
         return false;
     }
+
+    public Locatable
     
     
     /**

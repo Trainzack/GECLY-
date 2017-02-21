@@ -93,6 +93,14 @@ public class Player extends Agent implements Locatable,Serializable{
 
     }
 
+    public Direction[] getValidDirections(){
+        Direction[] ds = Direction.values();
+        for (Direction D: ds){
+            Grid board = this.getLocation().getLocale();
+            board.getObject(this.getLocation(),D);//CHECK THAT IT IS VALID POSITION ON GRID, and if room, direction needs to be down
+        }
+    }
+
     /**
      * Getter for {@link #hasRadar}
      * @return value of {@link #hasRadar}

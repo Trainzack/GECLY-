@@ -48,9 +48,17 @@ public abstract class Agent implements Locatable,Serializable{
      * (for if they try to move out of bounds for example.)
      * @return if the move was successful or not.
      */
-    public boolean move(){
-        return true;
+    public boolean move (Direction direction){
+        Direction[] valids = this.getValidDirections();
+        for(Direction D: valids){
+            if(direction == D){
+                //TODO make actual movement happen
+                return true;
+            }
+        }
+        return false;
     }
+    public abstract Direction[] getValidDirections();
 
     /**
      * This method will handle the {@link Agent}'s death, which will be radically different depending on which
