@@ -161,8 +161,10 @@ public class Engine {
 		items.add(new Invincibility());
 		items.add(new NightVision());
 		items.add(new Radar());
+
 		board = new Grid();
 		board.placeStartingObjects(player,ninjas,items);
+		
 	}
 	public void setupGrid(String filename){
 		board = FileManager.readSave(filename);

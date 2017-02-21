@@ -28,7 +28,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 public class Main {
 
 	public static void main(String[] args) {
-		//testDirectionArrays();
+		testDirectionArrays();
 		//GavinsPrinttest();
 		//UserInterface.startGame();
 	}
@@ -45,14 +45,18 @@ public class Main {
 	public static void testDirectionArrays() {
 		ConsoleInterface inter = new ConsoleInterface();
 		inter.setDebugging(true);
-		//inter.
 		for (int i = 0; i < 9; i++) {
+			inter.engine = new Engine();
 			inter.engine.setupGrid();
 			Player p = inter.engine.getPlayer();
 			Grid board = inter.testGetGrid();
 			board.setPos(8, i, p);
 			inter.displayGrid();
-			System.out.println(p.getValidDirections());
+			System.out.println("Valid directions for position " + i + ":");
+			for (Direction d : p.getValidDirections()) {
+				System.out.print(d + ",");
+			}
+			System.out.println();
 		}
 	}
 }

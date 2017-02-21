@@ -67,7 +67,6 @@ public class Player extends Agent implements Locatable,Serializable{
      * This is the constructor for {@link Player}, which will super the constructor from {@link Agent}.
      */
     Player(){
-        super();
         this.lives = 3;
         this.ammo = 1;
         this.invincibilityCount = 0;
@@ -95,6 +94,7 @@ public class Player extends Agent implements Locatable,Serializable{
 
 	@Override
 	public boolean objectCanBeMovedOver(Locatable l, Direction d) {
+		System.out.println("Testing " + l +" by " + d);
 		if (l instanceof Room && d != Direction.DOWN) {
 			return false;
 		}
