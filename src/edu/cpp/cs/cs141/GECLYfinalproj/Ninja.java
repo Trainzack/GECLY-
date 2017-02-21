@@ -18,6 +18,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This class represents a Ninja Assassin, which is a subclass of the {@link Agent} abstract class. The game
@@ -37,6 +38,14 @@ public class Ninja extends Agent implements Locatable,Serializable{
     }
     @Override
     public void kill() {
-
+    	//TODO
     }
+    
+	@Override
+	public boolean objectCanBeMovedOver(Locatable l, Direction d) {
+      if (l == null || l instanceof Player) {
+        	return true;
+        }
+        return false;
+	}
 }

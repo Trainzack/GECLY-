@@ -80,7 +80,7 @@ public class Grid implements Serializable{
     }
     
     /**
-     * Tests to see if a position is a valid spot on the grid.
+     * Tests to see if a position is on the grid.
      * 
      * @param pos1
      * @param pos2
@@ -91,6 +91,18 @@ public class Grid implements Serializable{
         	return false;
         }
         return true;
+    }
+    
+    /**
+     * Tests to see if the position one square away from a {@link Location} in a given {@link Direction} is inside of the grid.
+     * 
+     * @param l
+     * @param d
+     * @return
+     */
+    public boolean testValidPos(Location l, Direction d) {
+    	//TODO
+    	return false;
     }
 
     /**
@@ -201,7 +213,6 @@ public class Grid implements Serializable{
         return false;
     }
 
-    public Locatable
     
     
     /**
