@@ -33,15 +33,9 @@ public class Radar extends WorldItem{
 	 * WorldItem abstract class.
 	 */
 	public Radar() {
-
+		super();
 		this.setASCIIRep('R');
 		this.setUnicodeRep('⚨');
-	}
-
-
-	@Override
-	public Location getLocation() {
-		return null;
 	}
 
 	@Override
