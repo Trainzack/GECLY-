@@ -233,21 +233,23 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	@Override
 	public void startGame() {
-		showMessage("Welcome to the best game ever!\nMenu");
+		showMessage("Welcome to the best game ever!\n\nMenu");
 		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit"};
 		int choice = displayMenu(menu);
 		switch(choice){
-			case 1: super.startGame();
+			case 0: displayHelp();
+					super.startGame();
 					break;
-			case 2: super.startGame(askFileName());
+			case 1: super.startGame(askFileName());
 					break;
-			case 3: //TODO: decide on options
+			case 2: //TODO: decide on options
 					break;
-			case 4: displayHelp();
+			case 3: displayHelp();
 					break;
-			case 5: displayCredits();
+			case 4: displayCredits();
 					break;
-			case 6: System.exit(0);
+			case 5: showMessage("Bye!");
+					System.exit(0);
 		}
 		
 	}
@@ -260,11 +262,15 @@ public class ConsoleInterface extends UserInterface{
 		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
 		int choice = displayMenu(options);
 		switch(choice) {
-			case 1: showMessage("Do you want to enable debug mode?");
+			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
-					//TODO: how to 
+					//TODO: use game engine loop to return to game
 					break;
-			case 2: 
+			case 1: //TODO: make a thing to change difficulty
+					break;
+			case 2: displayHelp();
+					break;
+			case 3: quitGame();
 		}
 		
 	}
@@ -284,6 +290,9 @@ public class ConsoleInterface extends UserInterface{
 		}
 	}
 	
+	/**
+	 * Displays the game synopsis and includes game instructions. 
+	 */
 	public void displayHelp() {
 		showMessage("You are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
 		showMessage("Dr. Doofenshmirtz has stolen a classified briefcase with super secret stuff in it.");
@@ -294,12 +303,20 @@ public class ConsoleInterface extends UserInterface{
 		//TODO: Add power ups to help menu
 	}
 	
+	/**
+	 * Displays the credits of the game.
+	 */
 	public void displayCredits() {
 		//TODO: add credits yo
-		showMessage("");
+		showMessage("Gavin Kremer \nEli Zupke \nClara Nguyen \nLucas Frias \nYan (Lilli) Huang");
 		
 	}
 	
+	/**
+	 * Asks user for a file to load a previously saved game.
+	 * 
+	 * @return A file to load the game.
+	 */
 	public File askFileName() {
 		showMessage("Please enter the name of the saved file.");
 		String filename;
@@ -309,6 +326,10 @@ public class ConsoleInterface extends UserInterface{
 			save = new File(filename);
 		}while(!save.exists());
 		return save;
+	}
+	
+	public void askDirection(String action) {
+		showMessage("Which direction do you want to " + action);
 	}
 	
 	

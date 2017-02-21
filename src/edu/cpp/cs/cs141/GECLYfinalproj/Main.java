@@ -29,7 +29,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		//testDirectionArrays();
-		//GavinsPrinttest();
+		GavinsPrinttest();
 		//UserInterface.startGame();
 	}
 
@@ -37,9 +37,9 @@ public class Main {
 	public static void GavinsPrinttest(){
 		ConsoleInterface gavinsInt = new ConsoleInterface();
 		gavinsInt.startGame();
-		gavinsInt.showMessage("Debug mode enabled?");
-		gavinsInt.setDebugging(gavinsInt.displayMenu());
-		gavinsInt.displayGrid();
+	//	gavinsInt.showMessage("Debug mode enabled?");
+	//	gavinsInt.setDebugging(gavinsInt.displayMenu());
+	//	gavinsInt.displayGrid();
 	}
 	
 	public static void testDirectionArrays() {
