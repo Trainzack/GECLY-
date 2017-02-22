@@ -33,14 +33,9 @@ public class NightVision extends WorldItem{
 	 * WorldItem abstract class.
 	 */
 	public NightVision() {
+		super();
 		this.setASCIIRep('V');
 		this.setUnicodeRep('☪');
-	}
-
-
-	@Override
-	public Location getLocation() {
-		return null;
 	}
 
 	@Override

@@ -136,7 +136,23 @@ public class Player extends Agent implements Locatable,Serializable{
 
     @Override
     public void kill() {
-
+    	setLives(getLives()-1);
     }
+
+	/**
+	 * @param lives the lives to set
+	 */
+	public void setLives(int lives) {
+		this.lives = lives;
+	}
+
+	/**
+	 * @return the lives
+	 */
+	public int getLives() {
+		return lives;
+	}
+    
+    
 
 }

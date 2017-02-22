@@ -36,14 +36,9 @@ public class Camo extends WorldItem{
 	 * This is the {@link Camo} constructor
 	 */
 	public Camo(){
-
+		super();
 		this.setASCIIRep('C');
 		this.setUnicodeRep('✿');
-	}
-
-	@Override
-	public Location getLocation() {
-		return null;
 	}
 
 	@Override

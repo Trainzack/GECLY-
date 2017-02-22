@@ -37,9 +37,9 @@ public class Main {
 	public static void GavinsPrinttest(){
 		ConsoleInterface gavinsInt = new ConsoleInterface();
 		gavinsInt.startGame();
-		gavinsInt.showMessage("Debug mode enabled?");
-		gavinsInt.setDebugging(gavinsInt.displayMenu());
-		gavinsInt.displayGrid();
+	//	gavinsInt.showMessage("Debug mode enabled?");
+	//	gavinsInt.setDebugging(gavinsInt.displayMenu());
+	//	gavinsInt.displayGrid();
 	}
 	
 	public static void testDirectionArrays() {
@@ -47,7 +47,6 @@ public class Main {
 		inter.setDebugging(true);
 		for (int i = 0; i < 9; i++) {
 			inter.engine = new Engine();
-			inter.engine.setupGrid();
 			Player p = inter.engine.getPlayer();
 			Grid board = inter.testGetGrid();
 			board.setPos(8, i, p);
