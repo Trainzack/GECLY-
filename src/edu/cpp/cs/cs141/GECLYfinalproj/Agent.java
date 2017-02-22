@@ -50,7 +50,7 @@ public abstract class Agent implements Locatable,Serializable{
      * IT TO JUST WORK.
      * @return if the move was successful or not.
      */
-    public void move (Direction direction){
+    public boolean move (Direction direction){
         Direction[] valids = this.getValidDirections();
         for(Direction D: valids){
             if(direction == D){
@@ -67,11 +67,11 @@ public abstract class Agent implements Locatable,Serializable{
                     }
                     else if (currentOccupant instanceof Ninja){
                         this.kill();
-                        return;
+                        return true;
                     }
                     else if (currentOccupant instanceof Room){
-                        ((Room)currentOccupant).getContents().apply((Player)this);
-                        return;
+                        try{((Room)currentOccupant).getContents().apply((Player)this);}catch(NullPointerException X){}
+                        return true;
                     }
                 }
                 else if (this instanceof Ninja){
@@ -82,9 +82,10 @@ public abstract class Agent implements Locatable,Serializable{
                 board.removePos(currentRow,currentCol);
                 board.setPos(newRow,newCol,this);
                 this.getLocation().setPos(newRow,newCol);
-                return;
+                return true;
             }
         }
+        return false;
     }
     
 	/**

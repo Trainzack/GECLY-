@@ -396,7 +396,10 @@ public class ConsoleInterface extends UserInterface{
 				directions = Direction.DOWN;
 				break;
 		}
-		engine.getPlayer().move(directions);
+		if(!engine.getPlayer().move(directions)){
+			System.out.println("You cannot move there! Go somewhere else!");
+			askMove();
+		}
 	}
 
 
