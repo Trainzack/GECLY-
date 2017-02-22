@@ -228,7 +228,7 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void startGame() {
 		showMessage("Welcome to the best game ever!\n\nMenu");
-		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit"};
+		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit Options"};
 		int choice = displayMenu(menu);
 		switch(choice){
 			case 0: displayHelp();
@@ -254,7 +254,7 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit Options"};
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
@@ -367,7 +367,7 @@ public class ConsoleInterface extends UserInterface{
 	}
 	
 	/**
-	 * Prompts the player to choose a direction to move and then moves the player while checking that they move in the bounds.
+	 * Prompts the player to choose a direction to move.
 	 */
 	public void askMove() {
 		askDirection("move");
@@ -404,11 +404,15 @@ public class ConsoleInterface extends UserInterface{
 			String[] choices = {"Left", "Up", "Right", "Down"};
 			int direction = displayMenu(choices);
 				
-			engine.getPlayer().shoot(direction);
+			if(engine.getPlayer().shoot(direction)){
+			    showMessage("You shot a ninja!");
+            }
+            else{
+			    showMessage("You didn't hit anything!");
+            }
 			engine.getPlayer().setAmmo(0);
-
-			engine.getPlayer().shoot(direction);
 			showMessage("\nYou have no harpoons left.");
+			displayGrid(5);
 		}
 	}
 	
