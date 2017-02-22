@@ -231,7 +231,7 @@ public class Engine {
 	}
 
 	/**
-	 * Checks if the player won
+	 * Checks if the player lost
 	 * @return truth value
 	 */
 	public boolean checkLose() {
@@ -240,10 +240,6 @@ public class Engine {
 		}else{
 			return false;
 		}
-	}
-	
-	public void move() {
-		
 	}
 	
 }
