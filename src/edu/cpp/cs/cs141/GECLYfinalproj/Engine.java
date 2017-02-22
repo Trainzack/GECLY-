@@ -2,6 +2,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 import edu.cpp.cs.cs141.GECLYfinalproj.powerups.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -50,11 +51,14 @@ public class Engine {
 	 */
 	private int turnCount;
 	
+	private Random random;
+	
 	
 	/**
 	 * Creates a new instance of the engine for a new game.
 	 */
 	public Engine() {
+		random = new Random();
 		setupGrid();
 	}
 	
@@ -163,7 +167,7 @@ public class Engine {
 		items.add(new Radar());
 
 		board = new Grid();
-		board.placeStartingObjects(player,ninjas,items);
+		board.placeStartingObjects(player,ninjas,items,random);
 		
 	}
 	public void setupGrid(File save){

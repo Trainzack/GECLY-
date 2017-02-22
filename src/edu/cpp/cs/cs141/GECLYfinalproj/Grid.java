@@ -145,8 +145,7 @@ public class Grid implements Serializable{
      * @param ninjaList Ninjas to be inserted into the grid.
      * @param itemList Items to be inserted into the grid.
      */
-    public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemList){
-        Random randomGenerator = new Random();
+    public void placeStartingObjects(Player player,ArrayList<Ninja> ninjaList ,ArrayList<WorldItem> itemList, Random randomGenerator){
         if (player == null) throw new java.lang.NullPointerException("Player must be set to a value!");
         
         setPos(8, 0, player);
