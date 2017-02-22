@@ -87,14 +87,6 @@ public class ConsoleInterface extends UserInterface{
 			}
     	}
     }
-    
-    
-    /*/* (non-Javadoc)
-     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
-     *
-    public void startGame(){
-    	
-    }*/
 
     /* (non-Javadoc)
      * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
@@ -169,6 +161,8 @@ public class ConsoleInterface extends UserInterface{
 	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
 	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
+	 * 
+	 * @param direction that the user wishes to look in
 	 */
 	public void displayGrid(int direction){
 		Grid tempboard = this.engine.getBoard();
@@ -356,13 +350,7 @@ public class ConsoleInterface extends UserInterface{
 		}
 	}
 	
-	/**
-	 * Begins the actual game by displaying the game board and prompting the player to look.
-	 */
-	public void beginGame() {
-		displayGrid(4);
-		askLook();
-	}
+
 	
 	/**
 	 * Prompts the player to choose a direction to look ahead and displays an updated game board for the spaces chosen to see.
@@ -401,6 +389,37 @@ public class ConsoleInterface extends UserInterface{
 			askMove();
 		}
 	}
+	
+	public void askShoot() {
+		if(engine.getPlayer().getAmmo() == 0) {
+			showMessage("You can not shoot. You have no harpoons.");
+			return;
+		}
+		else{
+			askDirection("shoot");
+			String[] choices = {"Left", "Up", "Right", "Down"};
+			int direction = displayMenu(choices);
+				
+			engine.getPlayer().shoot();
+			showMessage("\nYou have no harpoons left.");
+		}
+	}
+	
+	public boolean turnMenu() {
+		showMessage("What would you like to do?");
+		String[] options = {"Look", "Move", "Shoot", "Game Options"};
+		int choice = displayMenu(options);
+		switch(choice) {
+			case 0: askLook();
+					return false;
+			case 1: askMove();
+					return true;
+			case 2: askShoot();
+					return false;
+			case 3: openOptions();
+					return false;
+		} return false;
+	} 
 
 
 
