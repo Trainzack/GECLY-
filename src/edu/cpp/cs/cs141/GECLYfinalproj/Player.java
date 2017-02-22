@@ -94,7 +94,6 @@ public class Player extends Agent implements Locatable,Serializable{
 
 	@Override
 	public boolean objectCanBeMovedOver(Locatable l, Direction d) {
-		System.out.println("Testing " + l +" by " + d);
 		if (l instanceof Room && d != Direction.DOWN) {
 			return false;
 		}
