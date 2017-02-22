@@ -186,7 +186,10 @@ public class Engine {
 	public void loadGame() {
 		
 	}
-	
+
+	public void moveNinjas(){
+
+	}
 	public boolean checkWin() {
 		if(player.hasCase() && player.getLocation().getRow() == 8 && player.getLocation().getCol() == 0) {
 			return true;

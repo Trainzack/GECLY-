@@ -53,11 +53,23 @@ public abstract class UserInterface {
 
     }
 
+    public abstract void askLook();
+
+    public abstract void askMove();
+
+	public void gameLoop(){
+		while(!engine.checkWin()||!engine.checkLose());
+		askLook();
+		askMove();
+		//engine.moveNinjas;
+	}
+
     /**
      * This method starts the game and is called from the {@link Main} method. It creates the engine, something that should be done the same in all subclasses. Subclasses should call Super() before implementing their methods.
      */
     public void startGame(){
     	engine = new Engine();
+    	//gameLoop();
     }
     
     /**
