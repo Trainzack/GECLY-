@@ -187,9 +187,17 @@ public class Engine {
 		
 	}
 
+	/**
+	 * This method moves all of the ninjas at the end of turn.
+	 */
 	public void moveNinjas(){
 
 	}
+
+	/**
+	 * Checks if the player won
+	 * @return truth value
+	 */
 	public boolean checkWin() {
 		if(player.hasCase() && player.getLocation().getRow() == 8 && player.getLocation().getCol() == 0) {
 			return true;
@@ -197,7 +205,11 @@ public class Engine {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Checks if the player won
+	 * @return truth value
+	 */
 	public boolean checkLose() {
 		if(player.getLives() == 0) {
 			return true;

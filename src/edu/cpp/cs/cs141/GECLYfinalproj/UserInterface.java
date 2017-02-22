@@ -53,10 +53,18 @@ public abstract class UserInterface {
 
     }
 
-    public abstract void askLook();
-
+	/**
+	 * Abstract method that asks the player to look in some direction.
+	 */
+	public abstract void askLook();
+	/**
+	 * Abstract method that asks the player to move in some direction.
+	 */
     public abstract void askMove();
 
+	/**
+	 * This method is the main loop in the game that makes everything come together.
+	 */
 	public void gameLoop(){
 		while(!engine.checkWin()||!engine.checkLose());
 		askLook();
