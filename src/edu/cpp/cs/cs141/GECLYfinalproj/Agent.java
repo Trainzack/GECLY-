@@ -66,8 +66,13 @@ public abstract class Agent implements Locatable,Serializable{
                         board.removePos(newRow,newCol);
                     }
                     else if (currentOccupant instanceof Ninja){
-                        this.kill();
-                        return true;
+                        if(((Player)this).getInvincibilityCount() > 0){
+                            ((Ninja)currentOccupant).kill();
+                        }
+                        else {
+                            this.kill();
+                            return true;
+                        }
                     }
                     else if (currentOccupant instanceof Room){
                         try{((Room)currentOccupant).getContents().apply((Player)this);}catch(NullPointerException X){}
@@ -79,8 +84,8 @@ public abstract class Agent implements Locatable,Serializable{
                         ((Agent)currentOccupant).kill();
                     }
                 }
-                board.removePos(currentRow,currentCol);
                 board.setPos(newRow,newCol,this);
+                board.removePos(currentRow,currentCol);
                 this.getLocation().setPos(newRow,newCol);
                 return true;
             }

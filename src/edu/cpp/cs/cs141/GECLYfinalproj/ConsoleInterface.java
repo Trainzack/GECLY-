@@ -400,8 +400,14 @@ public class ConsoleInterface extends UserInterface{
 			String[] choices = {"Left", "Up", "Right", "Down"};
 			int direction = displayMenu(choices);
 				
-			engine.getPlayer().shoot(direction);
+			if(engine.getPlayer().shoot(direction)){
+			    showMessage("You shot a ninja!");
+            }
+            else{
+			    showMessage("You didn't hit anything!");
+            }
 			showMessage("\nYou have no harpoons left.");
+			displayGrid(5);
 		}
 	}
 	
