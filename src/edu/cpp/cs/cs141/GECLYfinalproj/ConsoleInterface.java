@@ -228,7 +228,7 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void startGame() {
 		showMessage("Welcome to the best game ever!\n\nMenu");
-		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit"};
+		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit Options"};
 		int choice = displayMenu(menu);
 		switch(choice){
 			case 0: displayHelp();
@@ -259,13 +259,16 @@ public class ConsoleInterface extends UserInterface{
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
-					//TODO: use game engine loop to return to game
+					displayGrid(4);
+					turnMenu();
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
-			case 3: quitGame();
+			case 3: displayGrid(4);
+					turnMenu();
+					break;
 		}
 		
 	}
@@ -360,6 +363,7 @@ public class ConsoleInterface extends UserInterface{
 		String[] choices = {"Left", "Up", "Right", "Down"};
 		int direction = displayMenu(choices);
 		displayGrid(direction-1);
+		askMove();
 	}
 	
 	/**
@@ -417,7 +421,7 @@ public class ConsoleInterface extends UserInterface{
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: askLook();
-					return false;
+					return true;
 			case 1: askMove();
 					return true;
 			case 2: askShoot();
