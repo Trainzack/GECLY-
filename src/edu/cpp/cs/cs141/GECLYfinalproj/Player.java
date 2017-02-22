@@ -81,13 +81,13 @@ public class Player extends Agent implements Locatable,Serializable{
     /**
      * This method handles the event of a {@link Player} shooting their gun
      */
-    public boolean shoot(int direction,Grid board){
+    public boolean shoot(int direction){
         int file;
         switch (direction){
             case 1:
                 file = this.getLocation().getRow();
                 for(int i =file;i<=0;--i){
-                    Locatable spotIndex = board.getObject(file,this.getLocation().getCol());
+                    Locatable spotIndex = this.getLocation().getLocale().getObject(file,this.getLocation().getCol());
                     if (spotIndex instanceof Ninja){
                         ((Ninja)spotIndex).kill();
                         return true;
@@ -100,7 +100,7 @@ public class Player extends Agent implements Locatable,Serializable{
             case 2:
                 file = this.getLocation().getCol();
                 for(int i =file;i<=0;++i){
-                    Locatable spotIndex = board.getObject(file,this.getLocation().getRow());
+                    Locatable spotIndex = this.getLocation().getLocale().getObject(file,this.getLocation().getRow());
                     if (spotIndex instanceof Ninja){
                         ((Ninja)spotIndex).kill();
                         return true;
@@ -113,7 +113,7 @@ public class Player extends Agent implements Locatable,Serializable{
             case 3:
                 file = this.getLocation().getRow();
                 for(int i =file;i<=0;++i){
-                    Locatable spotIndex = board.getObject(file,this.getLocation().getCol());
+                    Locatable spotIndex = this.getLocation().getLocale().getObject(file,this.getLocation().getCol());
                     if (spotIndex instanceof Ninja){
                         ((Ninja)spotIndex).kill();
                         return true;
@@ -126,7 +126,7 @@ public class Player extends Agent implements Locatable,Serializable{
             case 0:
                 file = this.getLocation().getCol();
                 for(int i =file;i<=0;--i){
-                    Locatable spotIndex = board.getObject(file,this.getLocation().getRow());
+                    Locatable spotIndex = this.getLocation().getLocale().getObject(file,this.getLocation().getRow());
                     if (spotIndex instanceof Ninja){
                         ((Ninja)spotIndex).kill();
                         return true;
@@ -191,6 +191,14 @@ public class Player extends Agent implements Locatable,Serializable{
     @Override
     public void kill() {
     	setLives(getLives()-1);
+    	int curRow = this.getLocation().getRow();
+    	int curCol = this.getLocation().getCol();
+    	this.getLocation().getLocale().removePos(curRow,curCol);
+    	if (this.hasCase()){
+    	    this.getLocation().getLocale().setPos(curRow,curCol,new Briefcase());
+    	    this.hasCase = false;
+        }
+        this.getLocation().getLocale().setPos(8,0,this);
     }
 
 	/**

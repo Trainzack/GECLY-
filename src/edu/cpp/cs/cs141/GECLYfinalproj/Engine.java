@@ -198,6 +198,9 @@ public class Engine {
 	 */
 	public void moveNinjas(){
 		for(Ninja N: ninjas){
+			if (!N.isAlive()){
+				continue;
+			}
 			int randomDir = RNG.nextInt(4);
 			Direction dir = null;
 			switch (randomDir){
@@ -241,5 +244,12 @@ public class Engine {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Getter for ninjas
+	 * @return ninjas
+	 */
+	public ArrayList<Ninja> getNinjas() {
+		return ninjas;
+	}
 }

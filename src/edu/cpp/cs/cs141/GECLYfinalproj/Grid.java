@@ -91,7 +91,6 @@ public class Grid implements Serializable{
     	item.getLocation().setPos(row, col);
     	item.getLocation().setLocale(this);
     	return true;
-    	//TODO: REMOVE OBJECTS FROM THEIR PREVIOUS LOCATIOn
         
     }
     
