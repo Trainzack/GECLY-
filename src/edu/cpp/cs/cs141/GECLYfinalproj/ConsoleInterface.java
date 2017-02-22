@@ -400,7 +400,7 @@ public class ConsoleInterface extends UserInterface{
 			String[] choices = {"Left", "Up", "Right", "Down"};
 			int direction = displayMenu(choices);
 				
-			engine.getPlayer().shoot();
+			engine.getPlayer().shoot(direction,engine.getBoard());
 			showMessage("\nYou have no harpoons left.");
 		}
 	}

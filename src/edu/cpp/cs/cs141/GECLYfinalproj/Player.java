@@ -81,10 +81,64 @@ public class Player extends Agent implements Locatable,Serializable{
     /**
      * This method handles the event of a {@link Player} shooting their gun
      */
-    public void shoot(){
-    	setAmmo(0);
+    public boolean shoot(int direction,Grid board){
+        int file;
+        switch (direction){
+            case 1:
+                file = this.getLocation().getRow();
+                for(int i =file;i<=0;--i){
+                    Locatable spotIndex = board.getObject(file,this.getLocation().getCol());
+                    if (spotIndex instanceof Ninja){
+                        ((Ninja)spotIndex).kill();
+                        return true;
+                    }
+                    else if (spotIndex instanceof Room){
+                        return false;
+                    }
+                }
+                break;
+            case 2:
+                file = this.getLocation().getCol();
+                for(int i =file;i<=0;++i){
+                    Locatable spotIndex = board.getObject(file,this.getLocation().getRow());
+                    if (spotIndex instanceof Ninja){
+                        ((Ninja)spotIndex).kill();
+                        return true;
+                    }
+                    else if (spotIndex instanceof Room){
+                        return false;
+                    }
+                }
+                break;
+            case 3:
+                file = this.getLocation().getRow();
+                for(int i =file;i<=0;++i){
+                    Locatable spotIndex = board.getObject(file,this.getLocation().getCol());
+                    if (spotIndex instanceof Ninja){
+                        ((Ninja)spotIndex).kill();
+                        return true;
+                    }
+                    else if (spotIndex instanceof Room){
+                        return false;
+                    }
+                }
+                break;
+            case 0:
+                file = this.getLocation().getCol();
+                for(int i =file;i<=0;--i){
+                    Locatable spotIndex = board.getObject(file,this.getLocation().getRow());
+                    if (spotIndex instanceof Ninja){
+                        ((Ninja)spotIndex).kill();
+                        return true;
+                    }
+                    else if (spotIndex instanceof Room){
+                        return false;
+                    }
+                }
+                break;
+        }
+        return true;
     }
-
     /**
      * This method handles a {@link Player} entering a room and searching its contents.
      */
@@ -156,10 +210,6 @@ public class Player extends Agent implements Locatable,Serializable{
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
-    
-    public int getAmmo() {
-    	return ammo;
-    }
 
     public void setInvincibilityCount(int invincibilityCount) {
         this.invincibilityCount = invincibilityCount;
@@ -179,5 +229,9 @@ public class Player extends Agent implements Locatable,Serializable{
 
     public void setHasCase(boolean hasCase) {
         this.hasCase = hasCase;
+    }
+
+    public int getAmmo() {
+        return ammo;
     }
 }
