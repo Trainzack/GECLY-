@@ -233,7 +233,6 @@ public class ConsoleInterface extends UserInterface{
 		switch(choice){
 			case 0: displayHelp();
 					super.startGame();
-					beginGame();
 					break;
 			case 1: super.startGame(askFileName());
 					break;
@@ -367,7 +366,6 @@ public class ConsoleInterface extends UserInterface{
 		String[] choices = {"Left", "Up", "Right", "Down"};
 		int direction = displayMenu(choices);
 		displayGrid(direction-1);
-		askMove();
 	}
 	
 	/**
@@ -380,8 +378,6 @@ public class ConsoleInterface extends UserInterface{
 		//TODO: move method
 		displayGrid(4);
 	}
-	
-	
 
 
 

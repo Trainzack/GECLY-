@@ -1,6 +1,7 @@
 package edu.cpp.cs.cs141.GECLYfinalproj.powerups;
 
 import edu.cpp.cs.cs141.GECLYfinalproj.Location;
+import edu.cpp.cs.cs141.GECLYfinalproj.Player;
 import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
@@ -39,8 +40,8 @@ public class NightVision extends WorldItem{
 	}
 
 	@Override
-	public void apply() {
-		
+	public void apply(Player player) {
+		player.setHasAdvancedNight(true);
 	}
 	
 }
