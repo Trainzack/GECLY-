@@ -48,4 +48,21 @@ public class Ninja extends Agent implements Locatable,Serializable{
         }
         return false;
 	}
+	
+	/**
+	 * 
+	 */
+	public void makeMovementDecision() {
+		Direction[] availableMoves = getValidDirections();
+		if (availableMoves.length > 0) {
+			this.move(availableMoves[0]);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 }

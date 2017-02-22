@@ -157,7 +157,7 @@ public class Grid implements Serializable{
         	for (int col = 1; col < 8; col += 3) {
         		Room addedRoom = new Room();
         		boardState[row][col] = addedRoom;
-        		addedRoom.getLocation().setPos(row,col);
+        		//addedRoom.getLocation().setPos(row,col);
         		rooms.add(addedRoom);
         	}
         }
@@ -210,7 +210,7 @@ public class Grid implements Serializable{
 	        if(spot == null){
 	            if(!checkForNearLocatable(player, Row,Col,3)){
 	                boardState[Row][Col] = item;
-	                item.getLocation().setPos(Row,Col);
+	                //item.getLocation().setPos(Row,Col);
 	                break;
 	            }
 	        }
