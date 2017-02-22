@@ -87,14 +87,6 @@ public class ConsoleInterface extends UserInterface{
 			}
     	}
     }
-    
-    
-    /*/* (non-Javadoc)
-     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
-     *
-    public void startGame(){
-    	
-    }*/
 
     /* (non-Javadoc)
      * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
@@ -169,6 +161,8 @@ public class ConsoleInterface extends UserInterface{
 	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
 	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
+	 * 
+	 * @param direction that the user wishes to look in
 	 */
 	public void displayGrid(int direction){
 		Grid tempboard = this.engine.getBoard();
@@ -381,7 +375,10 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askMove() {
 		askDirection("move");
+		String[] choices = {"Left", "Up", "Right", "Down"};
+		int direction = displayMenu(choices);
 		//TODO: move method
+		displayGrid(4);
 	}
 	
 	
