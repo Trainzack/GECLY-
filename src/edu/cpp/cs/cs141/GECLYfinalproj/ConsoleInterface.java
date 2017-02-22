@@ -350,13 +350,7 @@ public class ConsoleInterface extends UserInterface{
 		}
 	}
 	
-	/**
-	 * Begins the actual game by displaying the game board and prompting the player to look.
-	 */
-	public void beginGame() {
-		displayGrid(4);
-		askLook();
-	}
+
 	
 	/**
 	 * Prompts the player to choose a direction to look ahead and displays an updated game board for the spaces chosen to see.
@@ -392,6 +386,37 @@ public class ConsoleInterface extends UserInterface{
 		}
 		engine.getPlayer().move(directions);
 	}
+	
+	public void askShoot() {
+		if(engine.getPlayer().getAmmo() == 0) {
+			showMessage("You can not shoot. You have no harpoons.");
+			return;
+		}
+		else{
+			askDirection("shoot");
+			String[] choices = {"Left", "Up", "Right", "Down"};
+			int direction = displayMenu(choices);
+				
+			engine.getPlayer().shoot();
+			showMessage("\nYou have no harpoons left.");
+		}
+	}
+	
+	public boolean turnMenu() {
+		showMessage("What would you like to do?");
+		String[] options = {"Look", "Move", "Shoot", "Game Options"};
+		int choice = displayMenu(options);
+		switch(choice) {
+			case 0: askLook();
+					return false;
+			case 1: askMove();
+					return true;
+			case 2: askShoot();
+					return false;
+			case 3: openOptions();
+					return false;
+		} return false;
+	} 
 
 
 

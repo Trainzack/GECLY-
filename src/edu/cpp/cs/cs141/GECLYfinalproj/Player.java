@@ -82,7 +82,7 @@ public class Player extends Agent implements Locatable,Serializable{
      * This method handles the event of a {@link Player} shooting their gun
      */
     public void shoot(){
-
+    	setAmmo(0);
     }
 
     /**
@@ -155,6 +155,10 @@ public class Player extends Agent implements Locatable,Serializable{
 
     public void setAmmo(int ammo) {
         this.ammo = ammo;
+    }
+    
+    public int getAmmo() {
+    	return ammo;
     }
 
     public void setInvincibilityCount(int invincibilityCount) {
