@@ -2,6 +2,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 import edu.cpp.cs.cs141.GECLYfinalproj.powerups.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -49,6 +50,11 @@ public class Engine {
 	 * The number of turns that have taken place since play has started.
 	 */
 	private int turnCount;
+
+	/**
+	 * Random number generator for use with random things.
+	 */
+	Random RNG = new Random();
 	
 	
 	/**
@@ -191,6 +197,24 @@ public class Engine {
 	 * This method moves all of the ninjas at the end of turn.
 	 */
 	public void moveNinjas(){
+		for(Ninja N: ninjas){
+			int randomDir = RNG.nextInt(4);
+			Direction dir = null;
+			switch (randomDir){
+				case 0:
+					dir = Direction.LEFT;
+					break;
+				case 1:
+					dir = Direction.UP;
+					break;
+				case 2:
+					dir = Direction.RIGHT;
+					break;
+				case 3:
+					dir = Direction.DOWN;
+					break;}
+			N.move(dir);
+		}
 
 	}
 

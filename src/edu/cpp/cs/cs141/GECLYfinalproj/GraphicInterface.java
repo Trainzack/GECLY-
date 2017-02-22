@@ -31,6 +31,11 @@ public class GraphicInterface extends UserInterface{
     }
 
     @Override
+    public void displayGrid(int direction) {
+
+    }
+
+    @Override
     public void askMove() {
 
     }
