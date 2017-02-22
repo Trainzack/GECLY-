@@ -254,18 +254,21 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit Options"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
-					//TODO: use game engine loop to return to game
+					displayGrid(4);
+					turnMenu();
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
-			case 3: quitGame();
+			case 3: displayGrid(4);
+					turnMenu();
+					break;
 		}
 		
 	}
@@ -360,10 +363,11 @@ public class ConsoleInterface extends UserInterface{
 		String[] choices = {"Left", "Up", "Right", "Down"};
 		int direction = displayMenu(choices);
 		displayGrid(direction-1);
+		askMove();
 	}
 	
 	/**
-	 * Prompts the player to choose a direction to move.
+	 * Prompts the player to choose a direction to move and then moves the player while checking that they move in the bounds.
 	 */
 	public void askMove() {
 		askDirection("move");
@@ -401,6 +405,7 @@ public class ConsoleInterface extends UserInterface{
 			int direction = displayMenu(choices);
 				
 			engine.getPlayer().shoot(direction,engine.getBoard());
+			engine.getPlayer().setAmmo(0);
 			showMessage("\nYou have no harpoons left.");
 		}
 	}
@@ -411,7 +416,7 @@ public class ConsoleInterface extends UserInterface{
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: askLook();
-					return false;
+					return true;
 			case 1: askMove();
 					return true;
 			case 2: askShoot();
