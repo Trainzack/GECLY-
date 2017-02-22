@@ -170,9 +170,9 @@ public class ConsoleInterface extends UserInterface{
 	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
 	 */
-	public void displayGrid(){
+	public void displayGrid(int direction){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility = engine.getVisibilityArray((byte)4,isDebugging);
+		boolean[][] visibility = engine.getVisibilityArray((byte)direction,isDebugging);
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				
@@ -239,10 +239,11 @@ public class ConsoleInterface extends UserInterface{
 		switch(choice){
 			case 0: displayHelp();
 					super.startGame();
+					beginGame();
 					break;
 			case 1: super.startGame(askFileName());
 					break;
-			case 2: //TODO: decide on options
+			case 2: openOptions();
 					break;
 			case 3: displayHelp();
 					break;
@@ -259,6 +260,7 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	@Override
 	public void openOptions() {
+		showMessage("\nOPTIONS");
 		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
 		int choice = displayMenu(options);
 		switch(choice) {
@@ -294,12 +296,12 @@ public class ConsoleInterface extends UserInterface{
 	 * Displays the game synopsis and includes game instructions. 
 	 */
 	public void displayHelp() {
-		showMessage("You are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
+		showMessage("\nYou are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
 		showMessage("Dr. Doofenshmirtz has stolen a classified briefcase with super secret stuff in it.");
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right");
+		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right\n");
 		//TODO: Add power ups to help menu
 	}
 	
@@ -328,20 +330,58 @@ public class ConsoleInterface extends UserInterface{
 		return save;
 	}
 	
+	/**
+	 * Asks user for a direction to either look, move, or shoot.
+	 * 
+	 * @param action will either be look, move, or shoot.
+	 */
 	public void askDirection(String action) {
-		showMessage("Which direction do you want to " + action);
+		showMessage("Which direction do you want to " + action + "?");
 	}
 	
+	/**
+	 * Checks if the player wins the game in the Engine and displays congratulatory message.
+	 */
 	public void displayWin() {
 		if(engine.checkWin() == true){
 		showMessage("You win!");
 		}
 	}
 	
+	/**
+	 * Checks if the player loses the game in the Engine and displays losing message.
+	 */
 	public void displayLose() {
 		if(engine.checkLose() == true){
 		showMessage("You lost!");
 		}
+	}
+	
+	/**
+	 * Begins the actual game by displaying the game board and prompting the player to look.
+	 */
+	public void beginGame() {
+		displayGrid(4);
+		askLook();
+	}
+	
+	/**
+	 * Prompts the player to choose a direction to look ahead and displays an updated game board for the spaces chosen to see.
+	 */
+	public void askLook() {
+		askDirection("look");
+		String[] choices = {"Left", "Up", "Right", "Down"};
+		int direction = displayMenu(choices);
+		displayGrid(direction-1);
+		askMove();
+	}
+	
+	/**
+	 * Prompts the player to choose a direction to move.
+	 */
+	public void askMove() {
+		askDirection("move");
+		//TODO: move method
 	}
 	
 	

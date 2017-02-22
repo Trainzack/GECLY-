@@ -28,8 +28,8 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 public class Main {
 
 	public static void main(String[] args) {
-		testDirectionArrays();
-		//GavinsPrinttest();
+		//testDirectionArrays();
+		GavinsPrinttest();
 		//UserInterface.startGame();
 	}
 
@@ -50,7 +50,7 @@ public class Main {
 			Player p = inter.engine.getPlayer();
 			Grid board = inter.testGetGrid();
 			board.setPos(8, i, p);
-			inter.displayGrid();
+			inter.displayGrid(4);
 			System.out.println("Valid directions for position " + i + ":");
 			for (Direction d : p.getValidDirections()) {
 				System.out.print(d + ",");
