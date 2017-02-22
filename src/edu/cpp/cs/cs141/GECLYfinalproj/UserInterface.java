@@ -49,9 +49,7 @@ public abstract class UserInterface {
      * This method essentially updates the boardstate, which shows the new locations of objects and their
      * visibility.
      */
-    public void updateBoardState(){
-
-    }
+    public abstract void displayGrid(int direction);
 
 	/**
 	 * Abstract method that asks the player to look in some direction.
@@ -66,10 +64,12 @@ public abstract class UserInterface {
 	 * This method is the main loop in the game that makes everything come together.
 	 */
 	public void gameLoop(){
-		while(!engine.checkWin()||!engine.checkLose());
-		askLook();
-		askMove();
-		//engine.moveNinjas;
+		while(!engine.checkWin()||!engine.checkLose()) {
+			displayGrid(5);
+			askLook();
+			askMove();
+			engine.moveNinjas();
+		}
 	}
 
     /**
@@ -77,7 +77,7 @@ public abstract class UserInterface {
      */
     public void startGame(){
     	engine = new Engine();
-    	//gameLoop();
+    	gameLoop();
     }
     
     /**

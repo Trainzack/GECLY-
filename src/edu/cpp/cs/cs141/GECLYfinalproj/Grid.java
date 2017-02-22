@@ -150,6 +150,8 @@ public class Grid implements Serializable{
         if (player == null) throw new java.lang.NullPointerException("Player must be set to a value!");
         
         setPos(8, 0, player);
+        player.getLocation().setPos(8,0);
+        player.getLocation().setLocale(this);
         
         ArrayList<Room> rooms = new ArrayList<Room>(); //This is used so that we can select a random room to put the briefcase in.
         
@@ -158,6 +160,7 @@ public class Grid implements Serializable{
         		Room addedRoom = new Room();
         		boardState[row][col] = addedRoom;
         		addedRoom.getLocation().setPos(row,col);
+        		addedRoom.getLocation().setLocale(this);
         		rooms.add(addedRoom);
         	}
         }
@@ -189,6 +192,7 @@ public class Grid implements Serializable{
                 if(!checkForNearLocatable(player, Row,Col,3)){
                     boardState[Row][Col] = n;
                     n.getLocation().setPos(Row,Col);
+                    n.getLocation().setLocale(this);
                     break;
                 }
             }
@@ -253,4 +257,11 @@ public class Grid implements Serializable{
     public boolean checkForNearLocatable (Locatable loc, int row, int col) {
     	return checkForNearLocatable(loc, row, col, 2);
 	}
+
+	/**
+     * getter for {@link #boardState}
+	 */
+    public Locatable[][] getBoardState() {
+        return boardState;
+    }
 }

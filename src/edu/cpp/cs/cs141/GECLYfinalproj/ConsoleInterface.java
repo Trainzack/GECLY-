@@ -379,7 +379,24 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askMove() {
 		askDirection("move");
-		//TODO: move method
+		String[] choices = {"Left", "Up", "Right", "Down"};
+		int direction = displayMenu(choices);
+		Direction directions = null;
+		switch(direction){
+			case 0:
+				directions = Direction.LEFT;
+				break;
+			case 1:
+				directions = Direction.UP;
+				break;
+			case 2:
+				directions = Direction.RIGHT;
+				break;
+			case 3:
+				directions = Direction.DOWN;
+				break;
+		}
+		engine.getPlayer().move(directions);
 	}
 
 
