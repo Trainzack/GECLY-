@@ -85,7 +85,6 @@ public abstract class UserInterface {
     }
     
     
-    
     /**
      * A debugging method that should only be used when the game is being tested.
      * 

@@ -75,6 +75,7 @@ public abstract class Agent implements Locatable,Serializable{
             	continue; //We can't go this way because it is off the grid
             }
             Locatable objectToMoveTo = board.getObject(this.getLocation(),d);
+
             if (objectCanBeMovedOver(objectToMoveTo,d)) {
             	dirList.add(d);
             }
