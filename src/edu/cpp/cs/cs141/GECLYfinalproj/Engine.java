@@ -238,7 +238,7 @@ public class Engine {
 	 * @return truth value
 	 */
 	public boolean checkLose() {
-		if(player.getLives() == 0) {
+		if(player.getLives() <= 0) {
 			return true;
 		}else{
 			return false;
