@@ -151,7 +151,28 @@ public class Player extends Agent implements Locatable,Serializable{
 	public int getLives() {
 		return lives;
 	}
-    
-    
 
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+    }
+
+    public void setInvincibilityCount(int invincibilityCount) {
+        this.invincibilityCount = invincibilityCount;
+    }
+
+    public void setHasRadar(boolean hasRadar) {
+        this.hasRadar = hasRadar;
+    }
+
+    public void setHasAdvancedNight(boolean hasAdvancedNight) {
+        this.hasAdvancedNight = hasAdvancedNight;
+    }
+
+    public void setHasCamo(boolean hasCamo) {
+        this.hasCamo = hasCamo;
+    }
+
+    public void setHasCase(boolean hasCase) {
+        this.hasCase = hasCase;
+    }
 }
