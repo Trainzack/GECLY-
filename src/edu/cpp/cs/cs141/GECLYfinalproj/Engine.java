@@ -162,10 +162,10 @@ public class Engine {
 		for(int i = 0;i<6;++i){
 			ninjas.add(new Ninja());
 		}
-		items.add(new Camo());
+		//items.add(new Camo());
 		items.add(new ExtraBullet());
 		items.add(new Invincibility());
-		items.add(new NightVision());
+		//items.add(new NightVision());
 		items.add(new Radar());
 
 		board = new Grid();
@@ -198,6 +198,9 @@ public class Engine {
 	 */
 	public void moveNinjas(){
 		for(Ninja N: ninjas){
+			if (!N.isAlive()){
+				continue;
+			}
 			int randomDir = RNG.nextInt(4);
 			Direction dir = null;
 			switch (randomDir){
@@ -235,11 +238,18 @@ public class Engine {
 	 * @return truth value
 	 */
 	public boolean checkLose() {
-		if(player.getLives() == 0) {
+		if(player.getLives() <= 0) {
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Getter for ninjas
+	 * @return ninjas
+	 */
+	public ArrayList<Ninja> getNinjas() {
+		return ninjas;
+	}
 }

@@ -71,6 +71,12 @@ public abstract class UserInterface {
 		while(!engine.checkWin()||!engine.checkLose()) {
 			displayGrid(5);
 			turnsLoop();
+			if(engine.checkWin()){
+				System.exit(0);
+			}
+			if(engine.checkLose()){
+				System.exit(0);
+			}
 			engine.moveNinjas();
 		}
 	}

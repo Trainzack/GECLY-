@@ -410,7 +410,6 @@ public class ConsoleInterface extends UserInterface{
             else{
 			    showMessage("You didn't hit anything!");
             }
-			engine.getPlayer().setAmmo(0);
 			showMessage("\nYou have no harpoons left.");
 			displayGrid(5);
 		}
