@@ -162,10 +162,10 @@ public class Engine {
 		for(int i = 0;i<6;++i){
 			ninjas.add(new Ninja());
 		}
-		items.add(new Camo());
+		//items.add(new Camo());
 		items.add(new ExtraBullet());
 		items.add(new Invincibility());
-		items.add(new NightVision());
+		//items.add(new NightVision());
 		items.add(new Radar());
 
 		board = new Grid();
