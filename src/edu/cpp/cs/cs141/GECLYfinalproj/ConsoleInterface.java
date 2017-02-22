@@ -384,7 +384,10 @@ public class ConsoleInterface extends UserInterface{
 				directions = Direction.DOWN;
 				break;
 		}
-		engine.getPlayer().move(directions);
+		if(!engine.getPlayer().move(directions)){
+			System.out.println("You cannot move there! Go somewhere else!");
+			askMove();
+		}
 	}
 	
 	public void askShoot() {
@@ -397,7 +400,7 @@ public class ConsoleInterface extends UserInterface{
 			String[] choices = {"Left", "Up", "Right", "Down"};
 			int direction = displayMenu(choices);
 				
-			engine.getPlayer().shoot();
+			engine.getPlayer().shoot(direction,engine.getBoard());
 			showMessage("\nYou have no harpoons left.");
 		}
 	}

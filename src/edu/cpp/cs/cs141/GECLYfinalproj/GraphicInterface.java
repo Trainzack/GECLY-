@@ -39,5 +39,10 @@ public class GraphicInterface extends UserInterface{
     public void askMove() {
 
     }
+
+    @Override
+    public boolean turnMenu() {
+        return false;
+    }
     // A BUNCH OF SWING STUFF. HERE
 }

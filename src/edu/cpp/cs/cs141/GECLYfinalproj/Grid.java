@@ -56,7 +56,11 @@ public class Grid implements Serializable{
         return getObject(l.getRow(),l.getCol());
     }
     public Locatable getObject(Location l, Direction d){
-        return getObject(l.getLocationByDirection(d));
+        int currentRow = l.getRow();
+        int currentCol = l.getCol();
+        int newRow = currentRow+d.getRow();
+        int newCol = currentCol+d.getCol();
+        return boardState[newRow][newCol];
     }
     public Player getPlayer(){
         for(Locatable[] L: boardState){
@@ -87,6 +91,8 @@ public class Grid implements Serializable{
     	item.getLocation().setPos(row, col);
     	item.getLocation().setLocale(this);
     	return true;
+    	//TODO: REMOVE OBJECTS FROM THEIR PREVIOUS LOCATIOn
+        
     }
     
     /**

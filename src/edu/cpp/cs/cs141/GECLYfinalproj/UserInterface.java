@@ -61,14 +61,26 @@ public abstract class UserInterface {
     public abstract void askMove();
 
 	/**
+	 * Abstract method that asks the player what to do on their turn
+	 */
+	public abstract boolean turnMenu();
+	/**
 	 * This method is the main loop in the game that makes everything come together.
 	 */
 	public void gameLoop(){
 		while(!engine.checkWin()||!engine.checkLose()) {
 			displayGrid(5);
-			askLook();
-			askMove();
+			turnsLoop();
 			engine.moveNinjas();
+		}
+	}
+
+	public void turnsLoop() {
+		if(!turnMenu()){
+			turnsLoop();
+		}
+		else{
+			return;
 		}
 	}
 
