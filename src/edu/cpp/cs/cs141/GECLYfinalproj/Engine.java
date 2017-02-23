@@ -154,6 +154,7 @@ public class Engine {
 	public Grid getBoard(){
 	    return this.board;
     }
+	
 	/**
 	 * This method instantiates the {@link Grid} object for a new game. It also handles the placement of all {@link Locatable} objects.
 	 */

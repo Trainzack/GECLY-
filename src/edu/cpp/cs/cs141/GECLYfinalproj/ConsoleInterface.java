@@ -259,6 +259,7 @@ public class ConsoleInterface extends UserInterface{
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
+					showLives();
 					displayGrid(4);
 					break;
 			case 1: //TODO: make a thing to change difficulty
@@ -298,14 +299,7 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right\n");
-        showMessage("The powerups in the game are:\n");
-        showMessage("Camo - ✿ or C - Allows the player to be hidden from the ninja for a certain amount of turns.\nExtra Bullet " +
-                "- ➡ or E - Gives the player one more bullet for their gun.\nInvincibility - ⚡ or I - Allows the player to be " +
-                "invincible from the ninja's for a limited amount of time.\nNighVision - ☪ or V - This power up will enhance the player's " +
-                "line of vision and allow them to see more than the usual 2 blocks ahead.\nRadar - ⚨ or R - The radar powerup will allow " +
-                "the player to see where the briefcase is.");
-        //TODO specify the number of turns and time for camo and invincibility.
+		//TODO: Add power ups to help menu
 	}
 	
 	/**
@@ -371,6 +365,7 @@ public class ConsoleInterface extends UserInterface{
 		askDirection("look");
 		String[] choices = {"Left", "Up", "Right", "Down"};
 		int direction = displayMenu(choices);
+		showLives();
 		displayGrid(direction-1);
 		askMove();
 	}
@@ -425,8 +420,17 @@ public class ConsoleInterface extends UserInterface{
 	}
 	
 	public boolean turnMenu() {
-		showMessage("What would you like to do?");
-		String[] options = {"Look", "Move", "Shoot", "Game Options"};
+		showMessage("What would you like to do?\tThings you got:");
+		String briefcase;
+		if(engine.getPlayer().hasCase()) {
+			briefcase = "Yes";
+		}
+		else {
+			briefcase = "No";
+		}
+		int ammo = engine.getPlayer().getAmmo();
+		int invincibility = engine.getPlayer().getInvincibilityCount();
+		String[] options = {"Look\t\t\t\tBriefcase: " + briefcase, "Move\t\t\t\tAmmo: " + ammo, "Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: askLook();
@@ -438,6 +442,10 @@ public class ConsoleInterface extends UserInterface{
 			case 3: openOptions();
 					return false;
 		} return false;
+	}
+	
+	public void showLives() {
+		showMessage("\nLives: " + engine.getPlayer().getLives());
 	}
 
 
