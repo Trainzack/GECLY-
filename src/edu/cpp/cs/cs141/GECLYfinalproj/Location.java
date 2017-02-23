@@ -17,12 +17,12 @@ public class Location implements Serializable {
     /**
      * This field represents the first index of the {@link Grid} a {@link Locatable} object is in.
      */
-    private int Row;
+    private int row;
 
     /**
      * This field represents the second index of the {@link Grid} a {@link Locatable} object is in.
      */
-    private int Col;
+    private int col;
 
     /**
      * This is the constructor for {@link Location}.
@@ -43,19 +43,19 @@ public class Location implements Serializable {
     }
 
     /**
-     * Getter for {@link #Row}
-     * @return value of {@link #Row}
+     * Getter for {@link #row}
+     * @return value of {@link #row}
      */
     public int getRow() {
-        return Row;
+        return row;
     }
 
     /**
-     * Getter for {@link #Col}
-     * @return value of {@link #Col}
+     * Getter for {@link #col}
+     * @return value of {@link #col}
      */
     public int getCol() {
-        return Col;
+        return col;
     }
 
     /**
@@ -64,8 +64,8 @@ public class Location implements Serializable {
      * @param col Second index of {@link Grid} to set.
      */
     public void setPos(int row, int col){
-        this.Row = row;
-        this.Col = col;
+        this.row = row;
+        this.col = col;
     }
     
     /**
@@ -79,5 +79,9 @@ public class Location implements Serializable {
     	l.setPos(this.getRow() + d.getRow(), this.getCol() + d.getCol());
     	l.setLocale(this.getLocale());
     	return l;
+    }
+    
+    public String toString() {
+    	return "("+this.row+","+this.col+")";
     }
 }

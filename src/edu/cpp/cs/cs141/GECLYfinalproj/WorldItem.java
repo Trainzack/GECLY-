@@ -52,7 +52,7 @@ public abstract class WorldItem implements Locatable,Serializable {
      * This method applies the item to the character. It is abstract so that it can be applied uniquely
      * to the different classes that extend this abstract class.
      */
-    public abstract void apply();
+    public abstract void apply(Player player);
 
     /**
      * This is the constructor for {@link WorldItem}

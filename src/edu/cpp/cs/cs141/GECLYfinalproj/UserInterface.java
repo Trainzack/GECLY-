@@ -49,15 +49,65 @@ public abstract class UserInterface {
      * This method essentially updates the boardstate, which shows the new locations of objects and their
      * visibility.
      */
-    public void updateBoardState(){
+    public abstract void displayGrid(int direction);
 
-    }
+	/**
+	 * Abstract method that asks the player to look in some direction.
+	 */
+	public abstract void askLook();
+	/**
+	 * Abstract method that asks the player to move in some direction.
+	 */
+    public abstract void askMove();
+
+	/**
+	 * Abstract method that shows when the player wins
+	 */
+	public abstract void showWin();
+
+	/**
+	 * Abstract method that shows when the player loses
+	 */
+	public abstract void showLoss();
+	/**
+	 * Abstract method that asks the player what to do on their turn
+	 */
+	public abstract boolean turnMenu();
+	
+	public abstract void showLives();
+	
+	/**
+	 * This method is the main loop in the game that makes everything come together.
+	 */
+	public void gameLoop(){
+		while(!engine.checkWin()||!engine.checkLose()) {
+			showLives();
+			displayGrid(5);
+			turnsLoop();
+			showWin();
+			engine.moveNinjas();
+			showLoss();
+			if(engine.getPlayer().getInvincibilityCount()>0){
+				engine.getPlayer().setInvincibilityCount(engine.getPlayer().getInvincibilityCount()-1);
+			}
+		}
+	}
+
+	public void turnsLoop() {
+		if(!turnMenu()){
+			turnsLoop();
+		}
+		else{
+			return;
+		}
+	}
 
     /**
      * This method starts the game and is called from the {@link Main} method. It creates the engine, something that should be done the same in all subclasses. Subclasses should call Super() before implementing their methods.
      */
     public void startGame(){
     	engine = new Engine();
+    	gameLoop();
     }
     
     /**
