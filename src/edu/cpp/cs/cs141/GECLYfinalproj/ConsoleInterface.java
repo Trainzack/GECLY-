@@ -236,7 +236,7 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void startGame() {
 		showMessage("Welcome to the best game ever!\n\nMenu");
-		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit"};
+		String[] menu = {"Start Game", "Load Game", "Help", "Credits", "Exit"};
 		int choice = displayMenu(menu);
 		switch(choice){
 			case 0: displayHelp();
@@ -244,13 +244,13 @@ public class ConsoleInterface extends UserInterface{
 					break;
 			case 1: super.startGame(askFileName());
 					break;
-			case 2: openOptions();
+			case 2: displayHelp();
+					startGame();
 					break;
-			case 3: displayHelp();
+			case 3: displayCredits();
+					startGame();
 					break;
-			case 4: displayCredits();
-					break;
-			case 5: showMessage("Bye!");
+			case 4: showMessage("Bye!");
 					System.exit(0);
 		}
 		
@@ -262,11 +262,17 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit","Quit"};
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit Options", "Quit Game"};
 		int choice = displayMenu(options);
 		switch(choice) {
-			case 0: showMessage("Do you want to enable debug mode?");
-					setDebugging(displayMenu());
+			case 0: showMessage("Debug Mode");
+					String[] debugChoice = {"ON", "OFF"};
+					int debugNum = displayMenu(debugChoice);
+					if(debugNum == 0){
+						setDebugging(true);
+					}else{
+						setDebugging(false);
+					}
 					showLives();
 					displayGrid(4);
 					break;
@@ -277,7 +283,6 @@ public class ConsoleInterface extends UserInterface{
 			case 3: displayGrid(4);
 					break;
             case 4: quitGame();
-                    break;
 
 		}
 		
@@ -292,7 +297,10 @@ public class ConsoleInterface extends UserInterface{
 		boolean choice = displayMenu();
 		if(choice == true){
 			//TODO implement saving
+			showMessage("File saved to: " + "\nBye.");
+			System.exit(0);
 		}else{
+			showMessage("You did not save. Bye.");
 			System.exit(0);
 			
 		}
@@ -307,12 +315,12 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		showMessage("The powerups in the game are:");
+		showMessage("\nThe powerups in the game are:");
         //showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninja for a certain amount of turns.");
         showMessage("Extra Bullet - ➡  or E - Gives the player one more bullet for their gun.");
         showMessage("Invincibility - ⚡  or I - Allows the player to be invincible from the ninjas for 5 turns.");
         //showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allow them to see more than the usual 2 blocks ahead.");
-        showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.");
+        showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.\n");
 	}
 	
 	/**
@@ -320,7 +328,7 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void displayCredits() {
 		//TODO: add credits yo
-		showMessage("Gavin Kremer \nEli Zupke \nClara Nguyen \nLucas Frias \nYan (Lilli) Huang");
+		showMessage("Credits: \nGavin Kremer \nEli Zupke \nClara Nguyen \nLucas Frias \nYan (Lilli) Huang\n");
 		
 	}
 	
@@ -428,6 +436,7 @@ public class ConsoleInterface extends UserInterface{
 			    showMessage("You didn't hit anything!");
             }
 			showMessage("\nYou have no harpoons left.");
+			showLives();
 			displayGrid(5);
 		}
 	}
