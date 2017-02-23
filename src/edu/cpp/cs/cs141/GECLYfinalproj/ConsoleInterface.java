@@ -315,7 +315,7 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("\nYou are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
 		showMessage("Dr. Doofenshmirtz has stolen a classified briefcase with super secret stuff in it.");
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
-		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
+		showMessage("BUT! Dr. D's evil robot ninjas will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
 		showMessage("\nThe powerups in the game are:");
         //showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninja for a certain amount of turns.");
@@ -364,7 +364,7 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void showWin() {
 		if(engine.checkWin()){
-		showMessage("You win!");
+		showMessage("You win! You foiled the plans of Dr. Doofenshmirtz.");
 		System.exit(0);
 		}
 	}
@@ -374,7 +374,7 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void showLoss() {
 		if(engine.checkLose()){
-		showMessage("You lost!");
+		showMessage("You lost! Dr. Doofenshmirtz will now take over the world.");
 		System.exit(0);
 		}
 	}
@@ -425,7 +425,7 @@ public class ConsoleInterface extends UserInterface{
 			int direction = displayMenu(choices);
 				
 			if(engine.getPlayer().shoot(direction)){
-			    showMessage("You shot a ninja!");
+			    showMessage("You shot a robot ninja!");
             }
             else{
 			    showMessage("You didn't hit anything!");
@@ -447,7 +447,15 @@ public class ConsoleInterface extends UserInterface{
 		}
 		int ammo = engine.getPlayer().getAmmo();
 		int invincibility = engine.getPlayer().getInvincibilityCount();
-		String[] options = {"Look\t\t\t\tBriefcase: " + briefcase, "Move\t\t\t\tAmmo: " + ammo, "Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options"};
+		String radar;
+		if(engine.getPlayer().hasRadar()) {
+			radar = "Yes";
+		}
+		else {
+			radar = "No";
+		}
+		String[] options = {"Look\t\t\t\tBriefcase: " + briefcase, "Move\t\t\t\tAmmo: " + ammo, 
+				"Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options\t\t\tRadar: " + radar};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: askLook();
