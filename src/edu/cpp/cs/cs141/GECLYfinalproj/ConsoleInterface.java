@@ -182,6 +182,7 @@ public class ConsoleInterface extends UserInterface{
 					}
 					else if((spotObject instanceof Room && ((Room) spotObject).getContents() != null)&&isDebugging){
 						systemOutput.print(getObjectRep(((Room) spotObject).getContents()));
+						continue;
 					}
 					systemOutput.print(getObjectRep(spotObject));
 				}
