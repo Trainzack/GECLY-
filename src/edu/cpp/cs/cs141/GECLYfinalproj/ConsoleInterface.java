@@ -164,9 +164,11 @@ public class ConsoleInterface extends UserInterface{
 	 * 
 	 * @param direction that the user wishes to look in
 	 */
-	public void displayGrid(int direction){
+	public void displayGrid(Direction direction){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility = engine.getVisibilityArray((byte)direction,isDebugging);
+		
+		boolean[][] visibility = engine.getVisibilityArray(direction,isDebugging);
+		
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				
@@ -274,13 +276,13 @@ public class ConsoleInterface extends UserInterface{
 						setDebugging(false);
 					}
 					showLives();
-					displayGrid(4);
+					displayGrid(null);
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
-			case 3: displayGrid(4);
+			case 3: displayGrid(null);
 					break;
             case 4: quitGame();
 
@@ -384,10 +386,14 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askLook() {
 		askDirection("look");
-		String[] choices = {"Left", "Up", "Right", "Down"};
+		String[] choices = new String[4];
+		Direction[] directions = Direction.values();
+		for (int i = 0; i < directions.length; i++) {
+			choices[i] = directions[i].toString();
+		}
 		int direction = displayMenu(choices);
 		showLives();
-		displayGrid(direction-1);
+  	displayGrid(directions[direction]);
 		askMove();
 	}
 	
@@ -396,24 +402,13 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askMove() {
 		askDirection("move");
-		String[] choices = {"Left", "Up", "Right", "Down"};
-		int direction = displayMenu(choices);
-		Direction directions = null;
-		switch(direction){
-			case 0:
-				directions = Direction.LEFT;
-				break;
-			case 1:
-				directions = Direction.UP;
-				break;
-			case 2:
-				directions = Direction.RIGHT;
-				break;
-			case 3:
-				directions = Direction.DOWN;
-				break;
+		String[] choices = new String[4];
+		Direction[] directions = Direction.values();
+		for (int i = 0; i < directions.length; i++) {
+			choices[i] = directions[i].toString();
 		}
-		if(!engine.getPlayer().move(directions)){
+		int direction = displayMenu(choices);
+		if(!engine.getPlayer().move(directions[direction])){
 			System.out.println("You cannot move there! Go somewhere else!");
 			askMove();
 		}
@@ -437,7 +432,7 @@ public class ConsoleInterface extends UserInterface{
             }
 			showMessage("\nYou have no harpoons left.");
 			showLives();
-			displayGrid(5);
+			displayGrid(null);
 		}
 	}
 	

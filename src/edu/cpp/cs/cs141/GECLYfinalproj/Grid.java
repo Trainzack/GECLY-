@@ -33,7 +33,7 @@ import java.util.Random;
 public class Grid implements Serializable{
 
     /**
-     * This field represents the size of the board and is a constant that will be used when creating the board.
+     * This field represents the size of the board and is a constant that will be used when creating the board. Note: This value is hardcoded in other places, so changing it here will not have the desired effect.
      */
     final private int BOARDSIZE = 9;
 

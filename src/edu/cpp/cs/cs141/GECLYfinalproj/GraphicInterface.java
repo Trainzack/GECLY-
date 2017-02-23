@@ -31,7 +31,7 @@ public class GraphicInterface extends UserInterface{
     }
 
     @Override
-    public void displayGrid(int direction) {
+    public void displayGrid(Direction direction) {
 
     }
 

@@ -50,7 +50,7 @@ public class Main {
 			Player p = inter.engine.getPlayer();
 			Grid board = inter.testGetGrid();
 			board.setPos(8, i, p);
-			inter.displayGrid(4);
+			inter.displayGrid(null);
 			System.out.println("Valid directions for position " + i + ":");
 			for (Direction d : p.getValidDirections()) {
 				System.out.print(d + ",");

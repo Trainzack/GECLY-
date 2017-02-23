@@ -87,14 +87,14 @@ public class Engine {
 	 * 
 	 * This array will then be used by the UI to construct a representation of the game state.
 	 * 
-	 * @param direction The direction the player is looking, represented as a byte. 0 = up, 1 = right, 2 = down, and 3 = left.
+	 * @param direction The direction the player is looking, or null if the player is not looking.
 	 * 
 	 * @return an array of booleans, with true meaning that square is visible to the player and false meaning that that square is not visible to the player.
 	 */
-	public boolean[][] getVisibilityArray(byte direction,boolean isDebug) {
+	public boolean[][] getVisibilityArray(Direction direction,boolean isDebug) {
 		
 	    boolean[][] visibility = new boolean[9][9];
-	    boolean isLooking;
+	    boolean isLooking = (direction != null);//If direction == null, then we aren't looking.
         for (int i =0;i<9;++i){
             for (int l =0;l<9;++l){
             	boolean thisSquareVisible = isDebug;
@@ -114,35 +114,27 @@ public class Engine {
         //312
         //.0.
         //.p.
-        switch (direction){//TODO: Javadoc description direction values don't match actual values?
-
-            case 0://This should probably be covered by some math or looping, rather than this switch statement hell.
-            	Row[0] = pRow -1;	Col[0] = pCol;			Row[1] = pRow-2;	Col[1] = pCol;
-            	//From here are coordinates covered by night vision
-            	Row[2] = pRow -2;	Col[2] = pCol +1;		Row[3] = pRow -2;	Col[3] = pCol -1;
-				isLooking = true;
-                break;
-            case 1:
-            	Row[0] = pRow;		Col[0] = pCol + 1;		Row[1] = pRow;		Col[1] = pCol + 2;
-            	Row[2] = pRow +1;	Col[2] = pCol + 2;		Row[3] = pRow -1;	Col[3] = pCol + 2;
-				isLooking = true;
-            	break;
-            case 2:
-            	Row[0] = pRow +1;	Col[0] = pCol;			Row[1] = pRow +2;	Col[1] = pCol;
-            	Row[2] = pRow +2;	Col[2] = pCol +1;		Row[3] = pRow +2;	Col[3] = pCol -1;
-				isLooking = true;
-                break;
-            case 3:
-            	Row[0] = pRow;		Col[0] = pCol - 1;		Row[1] = pRow;		Col[1] = pCol - 2;
-            	Row[2] = pRow +1;	Col[2] = pCol - 2;		Row[3] = pRow -1;	Col[3] = pCol - 2;
-				isLooking = true;
-                break;
-			default:
-				isLooking = false;
-				break;
-              
-        }
         if (isLooking) {
+	        switch (direction){
+	
+	            case UP://This should probably be covered by some enum function calls, rather than this switch statement hell.
+	            	Row[0] = pRow -1;	Col[0] = pCol;			Row[1] = pRow-2;	Col[1] = pCol;
+	            	//From here are coordinates covered by night vision
+	            	Row[2] = pRow -2;	Col[2] = pCol +1;		Row[3] = pRow -2;	Col[3] = pCol -1;
+	                break;
+	            case RIGHT:
+	            	Row[0] = pRow;		Col[0] = pCol + 1;		Row[1] = pRow;		Col[1] = pCol + 2;
+	            	Row[2] = pRow +1;	Col[2] = pCol + 2;		Row[3] = pRow -1;	Col[3] = pCol + 2;
+	            	break;
+	            case DOWN:
+	            	Row[0] = pRow +1;	Col[0] = pCol;			Row[1] = pRow +2;	Col[1] = pCol;
+	            	Row[2] = pRow +2;	Col[2] = pCol +1;		Row[3] = pRow +2;	Col[3] = pCol -1;
+	                break;
+	            case LEFT:
+	            	Row[0] = pRow;		Col[0] = pCol - 1;		Row[1] = pRow;		Col[1] = pCol - 2;
+	            	Row[2] = pRow +1;	Col[2] = pCol - 2;		Row[3] = pRow -1;	Col[3] = pCol - 2;
+	                break;
+	        }
 			int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
 			for (int i = 0; i < goal; i++) {
 				try {
@@ -199,29 +191,43 @@ public class Engine {
 	/**
 	 * This method moves all of the ninjas at the end of turn.
 	 */
-	public void moveNinjas(){
-		for(Ninja N: ninjas){
-			if (!N.isAlive()){
-				continue;
+	public void moveNinjas() {
+		for (Ninja N : ninjas) {
+			boolean hasMoved;
+			int count = 0;
+			do{
+				hasMoved = randomMove(N);
+				++count;
 			}
-			int randomDir = RNG.nextInt(4);
-			Direction dir = null;
-			switch (randomDir){
-				case 0:
-					dir = Direction.LEFT;
-					break;
-				case 1:
-					dir = Direction.UP;
-					break;
-				case 2:
-					dir = Direction.RIGHT;
-					break;
-				case 3:
-					dir = Direction.DOWN;
-					break;}
-			N.move(dir);
+			while(!hasMoved&&count<10);
 		}
+	}
 
+	public boolean randomMove(Ninja N){
+		if (!N.isAlive()) {
+			return true;
+		}
+		if (N.getLocation().getLocale().checkForNearLocatable(player, N.getLocation().getRow(), N.getLocation().getCol(), 2)) {
+			player.kill();
+			return true;
+		}
+		int randomDir = RNG.nextInt(4);
+		Direction dir = null;
+		switch (randomDir) {
+			case 0:
+				dir = Direction.LEFT;
+				break;
+			case 1:
+				dir = Direction.UP;
+				break;
+			case 2:
+				dir = Direction.RIGHT;
+				break;
+			case 3:
+				dir = Direction.DOWN;
+				break;
+		}
+		return N.move(dir);
 	}
 
 	/**
