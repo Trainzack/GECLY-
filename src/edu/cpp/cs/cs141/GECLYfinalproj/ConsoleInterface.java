@@ -170,9 +170,15 @@ public class ConsoleInterface extends UserInterface{
 	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
 	 */
-	public void displayGrid(int direction){
+	public void displayGrid(Direction direction){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility = engine.getVisibilityArray((byte)direction,isDebugging);
+		boolean[][] visibility;
+		if (direction != null) { 
+			visibility = engine.getVisibilityArray(direction,isDebugging);
+		} else {
+			visibility = new boolean[9][9]; 
+		}
+		
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				
@@ -361,7 +367,7 @@ public class ConsoleInterface extends UserInterface{
 	 * Begins the actual game by displaying the game board and prompting the player to look.
 	 */
 	public void beginGame() {
-		displayGrid(4);
+		displayGrid(null);
 		askLook();
 	}
 	
@@ -370,9 +376,13 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askLook() {
 		askDirection("look");
-		String[] choices = {"Left", "Up", "Right", "Down"};
+		String[] choices = new String[4];
+		Direction[] directions = Direction.values();
+		for (int i = 0; i < directions.length; i++) {
+			choices[i] = directions[i].toString();
+		}
 		int direction = displayMenu(choices);
-		displayGrid(direction-1);
+		displayGrid(directions[direction]);
 		askMove();
 	}
 	
