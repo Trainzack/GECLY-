@@ -132,7 +132,7 @@ public class Engine {
             	Row[2] = pRow +2;	Col[2] = pCol +1;		Row[3] = pRow +2;	Col[3] = pCol -1;
 				isLooking = true;
                 break;
-            case 3:
+            case -1:
             	Row[0] = pRow;		Col[0] = pCol - 1;		Row[1] = pRow;		Col[1] = pCol - 2;
             	Row[2] = pRow +1;	Col[2] = pCol - 2;		Row[3] = pRow -1;	Col[3] = pCol - 2;
 				isLooking = true;
@@ -199,29 +199,43 @@ public class Engine {
 	/**
 	 * This method moves all of the ninjas at the end of turn.
 	 */
-	public void moveNinjas(){
-		for(Ninja N: ninjas){
-			if (!N.isAlive()){
-				continue;
+	public void moveNinjas() {
+		for (Ninja N : ninjas) {
+			boolean hasMoved;
+			int count = 0;
+			do{
+				hasMoved = randomMove(N);
+				++count;
 			}
-			int randomDir = RNG.nextInt(4);
-			Direction dir = null;
-			switch (randomDir){
-				case 0:
-					dir = Direction.LEFT;
-					break;
-				case 1:
-					dir = Direction.UP;
-					break;
-				case 2:
-					dir = Direction.RIGHT;
-					break;
-				case 3:
-					dir = Direction.DOWN;
-					break;}
-			N.move(dir);
+			while(!hasMoved&&count<10);
 		}
+	}
 
+	public boolean randomMove(Ninja N){
+		if (!N.isAlive()) {
+			return true;
+		}
+		if (N.getLocation().getLocale().checkForNearLocatable(player, N.getLocation().getRow(), N.getLocation().getCol(), 2)) {
+			player.kill();
+			return true;
+		}
+		int randomDir = RNG.nextInt(4);
+		Direction dir = null;
+		switch (randomDir) {
+			case 0:
+				dir = Direction.LEFT;
+				break;
+			case 1:
+				dir = Direction.UP;
+				break;
+			case 2:
+				dir = Direction.RIGHT;
+				break;
+			case 3:
+				dir = Direction.DOWN;
+				break;
+		}
+		return N.move(dir);
 	}
 
 	/**
