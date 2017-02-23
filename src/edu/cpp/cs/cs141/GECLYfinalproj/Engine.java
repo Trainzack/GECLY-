@@ -207,7 +207,7 @@ public class Engine {
 		if (!N.isAlive()) {
 			return true;
 		}
-		if (N.getLocation().getLocale().checkForNearLocatable(player, N.getLocation().getRow(), N.getLocation().getCol(), 2)) {
+		if(N.getLocation().getLocale().checkForAdjacent(player,N.getLocation().getRow(),N.getLocation().getCol())){
 			player.kill();
 			return true;
 		}
@@ -229,6 +229,7 @@ public class Engine {
 		}
 		return N.move(dir);
 	}
+
 
 	/**
 	 * Checks if the player won

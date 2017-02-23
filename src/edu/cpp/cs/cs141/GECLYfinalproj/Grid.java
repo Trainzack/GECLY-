@@ -51,7 +51,10 @@ public class Grid implements Serializable{
      * @return found object.
      */
     public Locatable getObject(int row, int col){
-        return boardState[row][col];
+        try{return boardState[row][col];}
+        catch(IndexOutOfBoundsException X){
+            return null;
+        }
     }
     public Locatable getObject(Location l){
         return getObject(l.getRow(),l.getCol());
@@ -273,6 +276,13 @@ public class Grid implements Serializable{
     public boolean checkForNearLocatable (Locatable loc, int row, int col) {
     	return checkForNearLocatable(loc, row, col, 2);
 	}
+
+	public boolean checkForAdjacent(Locatable loc, int row, int col){
+        if (getObject(row+1,col) == (loc)||getObject(row-1,col) == (loc)||getObject(row,col+1) ==(loc)||getObject(row,col-1) == (loc)){
+            return true;
+        }
+        return false;
+    }
 
 	/**
      * getter for {@link #boardState}
