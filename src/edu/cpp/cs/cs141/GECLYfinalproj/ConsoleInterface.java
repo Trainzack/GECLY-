@@ -313,7 +313,6 @@ public class ConsoleInterface extends UserInterface{
         showMessage("Invincibility - ⚡  or I - Allows the player to be invincible from the ninjas for 5 turns.");
         //showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allow them to see more than the usual 2 blocks ahead.");
         showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.");
-
 	}
 	
 	/**

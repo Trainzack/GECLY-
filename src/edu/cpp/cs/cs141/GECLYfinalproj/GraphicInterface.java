@@ -54,6 +54,14 @@ public class GraphicInterface extends UserInterface{
     public boolean turnMenu() {
         return false;
     }
+
+	@Override
+	public void showLives() {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
     
     
     // A BUNCH OF SWING STUFF. HERE

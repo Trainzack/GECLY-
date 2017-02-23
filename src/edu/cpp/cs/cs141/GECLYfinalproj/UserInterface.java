@@ -74,16 +74,22 @@ public abstract class UserInterface {
 	 */
 	public abstract boolean turnMenu();
 	
+	public abstract void showLives();
+	
 	/**
 	 * This method is the main loop in the game that makes everything come together.
 	 */
 	public void gameLoop(){
 		while(!engine.checkWin()||!engine.checkLose()) {
+			showLives();
 			displayGrid(5);
 			turnsLoop();
 			showWin();
 			engine.moveNinjas();
 			showLoss();
+			if(engine.getPlayer().getInvincibilityCount()>0){
+				engine.getPlayer().setInvincibilityCount(engine.getPlayer().getInvincibilityCount()-1);
+			}
 		}
 	}
 
