@@ -108,7 +108,7 @@ public class ConsoleInterface extends UserInterface{
 	 * Creates a menu based off of an array of strings, and returns the array index of the string stat was selected.
 	 * 
 	 * @param choices the options that will be given to the player
-	 * @param query the text to prompt the player with
+	 * //@param query the text to prompt the player with
 	 * @return the array index of the choice that was selected
 	 */
 	public int displayMenu(String[] choices) {
@@ -254,21 +254,22 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit Options"};
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit","Quit"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
 					displayGrid(4);
-					turnMenu();
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
 			case 3: displayGrid(4);
-					turnMenu();
 					break;
+            case 4: quitGame();
+                    break;
+
 		}
 		
 	}
@@ -338,15 +339,21 @@ public class ConsoleInterface extends UserInterface{
 	/**
 	 * Displays congratulatory message after a win is checked in Engine.
 	 */
-	public void displayWin() {
+	public void showWin() {
+		if(engine.checkWin()){
 		showMessage("You win!");
+		System.exit(0);
+		}
 	}
 	
 	/**
 	 * Displays losing message after a loss is checked in Engine.
 	 */
-	public void displayLose() {
+	public void showLoss() {
+		if(engine.checkLose()){
 		showMessage("You lost!");
+		System.exit(0);
+		}
 	}
 	
 

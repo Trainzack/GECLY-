@@ -61,6 +61,15 @@ public abstract class UserInterface {
     public abstract void askMove();
 
 	/**
+	 * Abstract method that shows when the player wins
+	 */
+	public abstract void showWin();
+
+	/**
+	 * Abstract method that shows when the player loses
+	 */
+	public abstract void showLoss();
+	/**
 	 * Abstract method that asks the player what to do on their turn
 	 */
 	public abstract boolean turnMenu();
@@ -76,15 +85,9 @@ public abstract class UserInterface {
 		while(!engine.checkWin()||!engine.checkLose()) {
 			displayGrid(5);
 			turnsLoop();
-			if(engine.checkWin()){
-				displayWin();
-				System.exit(0);
-			}
-			if(engine.checkLose()){
-				displayLose();
-				System.exit(0);
-			}
+			showWin();
 			engine.moveNinjas();
+			showLoss();
 		}
 	}
 
