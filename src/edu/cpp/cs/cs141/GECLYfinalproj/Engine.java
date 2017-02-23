@@ -46,6 +46,7 @@ public class Engine {
 	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid(boolean fromSave)} or {@link Engine#loadGame()}.
 	 */
 	private Grid board;
+
 	/**
 	 * The number of turns that have taken place since play has started.
 	 */
@@ -97,9 +98,10 @@ public class Engine {
         for (int i =0;i<9;++i){
             for (int l =0;l<9;++l){
             	boolean thisSquareVisible = isDebug;
-                if (board.getObject(i, l) == player) {
+            	Locatable curObj = board.getObject(i,l);
+                if (curObj == player) {
                 	thisSquareVisible = true;
-                } else if (board.getObject(i, l) instanceof Room) {
+                } else if (curObj instanceof Room) {
                 	thisSquareVisible = true;
                 }
                 visibility[i][l] = thisSquareVisible;
