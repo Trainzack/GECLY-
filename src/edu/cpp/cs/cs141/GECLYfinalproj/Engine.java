@@ -2,6 +2,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 import edu.cpp.cs.cs141.GECLYfinalproj.powerups.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -45,10 +46,16 @@ public class Engine {
 	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid(boolean fromSave)} or {@link Engine#loadGame()}.
 	 */
 	private Grid board;
+
 	/**
 	 * The number of turns that have taken place since play has started.
 	 */
 	private int turnCount;
+
+	/**
+	 * Random number generator for use with random things.
+	 */
+	Random RNG = new Random();
 	
 	
 	/**
@@ -91,9 +98,10 @@ public class Engine {
         for (int i =0;i<9;++i){
             for (int l =0;l<9;++l){
             	boolean thisSquareVisible = isDebug;
-                if (board.getObject(i, l) == player) {
+            	Locatable curObj = board.getObject(i,l);
+                if (curObj == player) {
                 	thisSquareVisible = true;
-                } else if (board.getObject(i, l) instanceof Room) {
+                } else if (curObj instanceof Room) {
                 	thisSquareVisible = true;
                 }
                 visibility[i][l] = thisSquareVisible;
@@ -140,6 +148,7 @@ public class Engine {
 	public Grid getBoard(){
 	    return this.board;
     }
+	
 	/**
 	 * This method instantiates the {@link Grid} object for a new game. It also handles the placement of all {@link Locatable} objects.
 	 */
@@ -148,10 +157,10 @@ public class Engine {
 		for(int i = 0;i<6;++i){
 			ninjas.add(new Ninja());
 		}
-		items.add(new Camo());
+		//items.add(new Camo());
 		items.add(new ExtraBullet());
 		items.add(new Invincibility());
-		items.add(new NightVision());
+		//items.add(new NightVision());
 		items.add(new Radar());
 
 		board = new Grid();
@@ -178,7 +187,39 @@ public class Engine {
 	public void loadGame() {
 		
 	}
-	
+
+	/**
+	 * This method moves all of the ninjas at the end of turn.
+	 */
+	public void moveNinjas(){
+		for(Ninja N: ninjas){
+			if (!N.isAlive()){
+				continue;
+			}
+			int randomDir = RNG.nextInt(4);
+			Direction dir = null;
+			switch (randomDir){
+				case 0:
+					dir = Direction.LEFT;
+					break;
+				case 1:
+					dir = Direction.UP;
+					break;
+				case 2:
+					dir = Direction.RIGHT;
+					break;
+				case 3:
+					dir = Direction.DOWN;
+					break;}
+			N.move(dir);
+		}
+
+	}
+
+	/**
+	 * Checks if the player won
+	 * @return truth value
+	 */
 	public boolean checkWin() {
 		if(player.hasCase() && player.getLocation().getRow() == 8 && player.getLocation().getCol() == 0) {
 			return true;
@@ -186,15 +227,24 @@ public class Engine {
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Checks if the player lost
+	 * @return truth value
+	 */
 	public boolean checkLose() {
-		if(player.getLives() == 0) {
+		if(player.getLives() <= 0) {
 			return true;
 		}else{
 			return false;
 		}
 	}
-	
-	
-	
+
+	/**
+	 * Getter for ninjas
+	 * @return ninjas
+	 */
+	public ArrayList<Ninja> getNinjas() {
+		return ninjas;
+	}
 }

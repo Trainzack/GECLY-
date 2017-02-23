@@ -87,14 +87,6 @@ public class ConsoleInterface extends UserInterface{
 			}
     	}
     }
-    
-    
-    /*/* (non-Javadoc)
-     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
-     *
-    public void startGame(){
-    	
-    }*/
 
     /* (non-Javadoc)
      * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
@@ -116,7 +108,7 @@ public class ConsoleInterface extends UserInterface{
 	 * Creates a menu based off of an array of strings, and returns the array index of the string stat was selected.
 	 * 
 	 * @param choices the options that will be given to the player
-	 * @param query the text to prompt the player with
+	 * //@param query the text to prompt the player with
 	 * @return the array index of the choice that was selected
 	 */
 	public int displayMenu(String[] choices) {
@@ -169,6 +161,8 @@ public class ConsoleInterface extends UserInterface{
 	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
 	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
+	 * 
+	 * @param direction that the user wishes to look in
 	 */
 	public void displayGrid(Direction direction){
 		Grid tempboard = this.engine.getBoard();
@@ -184,10 +178,18 @@ public class ConsoleInterface extends UserInterface{
 					systemOutput.print(getObjectRep());
 				}
 				else{
+					if((spotObject instanceof Room && ((Room) spotObject).getContents() instanceof Briefcase) && ((engine.getPlayer().hasRadar())||isDebugging)){
+						systemOutput.print(getObjectRep(((Room) spotObject).getContents()));
+						continue;
+					}
+					else if((spotObject instanceof Room && ((Room) spotObject).getContents() != null)&&isDebugging){
+						systemOutput.print(getObjectRep(((Room) spotObject).getContents()));
+						continue;
+					}
 					systemOutput.print(getObjectRep(spotObject));
 				}
 			}
-			systemOutput.print("\n");
+			showMessage("");
 		}
 	}
 	
@@ -213,7 +215,7 @@ public class ConsoleInterface extends UserInterface{
 			}
 		}
 
-		return "[" + rep + "]";
+		return "[ " + rep + " ]";
 	}
 	
 	/**
@@ -223,10 +225,10 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	private String getObjectRep() {
 		if(unicodeEnabled){
-			return "[■]";
+			return "[ ■ ]";
 		}
 		else{
-			return "[*]";
+			return "[ * ]";
 		}
 	}
 
@@ -241,7 +243,6 @@ public class ConsoleInterface extends UserInterface{
 		switch(choice){
 			case 0: displayHelp();
 					super.startGame();
-					beginGame();
 					break;
 			case 1: super.startGame(askFileName());
 					break;
@@ -263,18 +264,23 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit","Quit"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
-					//TODO: use game engine loop to return to game
+					showLives();
+					displayGrid(4);
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
-			case 3: quitGame();
+			case 3: displayGrid(4);
+					break;
+            case 4: quitGame();
+                    break;
+
 		}
 		
 	}
@@ -303,7 +309,6 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right\n");
 		//TODO: Add power ups to help menu
 	}
 	
@@ -342,30 +347,26 @@ public class ConsoleInterface extends UserInterface{
 	}
 	
 	/**
-	 * Checks if the player wins the game in the Engine and displays congratulatory message.
+	 * Displays congratulatory message after a win is checked in Engine.
 	 */
-	public void displayWin() {
-		if(engine.checkWin() == true){
+	public void showWin() {
+		if(engine.checkWin()){
 		showMessage("You win!");
+		System.exit(0);
 		}
 	}
 	
 	/**
-	 * Checks if the player loses the game in the Engine and displays losing message.
+	 * Displays losing message after a loss is checked in Engine.
 	 */
-	public void displayLose() {
-		if(engine.checkLose() == true){
+	public void showLoss() {
+		if(engine.checkLose()){
 		showMessage("You lost!");
+		System.exit(0);
 		}
 	}
 	
-	/**
-	 * Begins the actual game by displaying the game board and prompting the player to look.
-	 */
-	public void beginGame() {
-		displayGrid(null);
-		askLook();
-	}
+
 	
 	/**
 	 * Prompts the player to choose a direction to look ahead and displays an updated game board for the spaces chosen to see.
@@ -378,7 +379,8 @@ public class ConsoleInterface extends UserInterface{
 			choices[i] = directions[i].toString();
 		}
 		int direction = displayMenu(choices);
-		displayGrid(directions[direction]);
+		showLives();
+  	displayGrid(directions[direction]);
 		askMove();
 	}
 	
@@ -387,10 +389,78 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askMove() {
 		askDirection("move");
-		//TODO: move method
+		String[] choices = {"Left", "Up", "Right", "Down"};
+		int direction = displayMenu(choices);
+		Direction directions = null;
+		switch(direction){
+			case 0:
+				directions = Direction.LEFT;
+				break;
+			case 1:
+				directions = Direction.UP;
+				break;
+			case 2:
+				directions = Direction.RIGHT;
+				break;
+			case 3:
+				directions = Direction.DOWN;
+				break;
+		}
+		if(!engine.getPlayer().move(directions)){
+			System.out.println("You cannot move there! Go somewhere else!");
+			askMove();
+		}
 	}
 	
+	public void askShoot() {
+		if(engine.getPlayer().getAmmo() == 0) {
+			showMessage("You can not shoot. You have no harpoons.");
+			return;
+		}
+		else{
+			askDirection("shoot");
+			String[] choices = {"Left", "Up", "Right", "Down"};
+			int direction = displayMenu(choices);
+				
+			if(engine.getPlayer().shoot(direction)){
+			    showMessage("You shot a ninja!");
+            }
+            else{
+			    showMessage("You didn't hit anything!");
+            }
+			showMessage("\nYou have no harpoons left.");
+			displayGrid(5);
+		}
+	}
 	
+	public boolean turnMenu() {
+		showMessage("What would you like to do?\tThings you got:");
+		String briefcase;
+		if(engine.getPlayer().hasCase()) {
+			briefcase = "Yes";
+		}
+		else {
+			briefcase = "No";
+		}
+		int ammo = engine.getPlayer().getAmmo();
+		int invincibility = engine.getPlayer().getInvincibilityCount();
+		String[] options = {"Look\t\t\t\tBriefcase: " + briefcase, "Move\t\t\t\tAmmo: " + ammo, "Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options"};
+		int choice = displayMenu(options);
+		switch(choice) {
+			case 0: askLook();
+					return true;
+			case 1: askMove();
+					return true;
+			case 2: askShoot();
+					return false;
+			case 3: openOptions();
+					return false;
+		} return false;
+	}
+	
+	public void showLives() {
+		showMessage("\nLives: " + engine.getPlayer().getLives());
+	}
 
 
 
