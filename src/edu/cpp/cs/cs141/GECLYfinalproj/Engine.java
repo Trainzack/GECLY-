@@ -235,11 +235,8 @@ public class Engine {
 	 * @return truth value
 	 */
 	public boolean checkWin() {
-		if(player.hasCase() && player.getLocation().getRow() == 8 && player.getLocation().getCol() == 0) {
-			return true;
-		}else{
-			return false;
-		}
+		//if(player.hasCase() && player.getLocation().getRow() == 8 && player.getLocation().getCol() == 0) {
+		return player.hasCase();
 	}
 
 	/**
