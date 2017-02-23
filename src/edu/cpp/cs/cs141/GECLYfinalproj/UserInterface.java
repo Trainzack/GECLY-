@@ -73,6 +73,11 @@ public abstract class UserInterface {
 	 * Abstract method that asks the player what to do on their turn
 	 */
 	public abstract boolean turnMenu();
+	
+	public abstract void displayWin();
+	
+	public abstract void displayLose();
+	
 	/**
 	 * This method is the main loop in the game that makes everything come together.
 	 */
