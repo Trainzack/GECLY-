@@ -41,6 +41,16 @@ public class GraphicInterface extends UserInterface{
     }
 
     @Override
+    public void showWin() {
+
+    }
+
+    @Override
+    public void showLoss() {
+
+    }
+
+    @Override
     public boolean turnMenu() {
         return false;
     }
