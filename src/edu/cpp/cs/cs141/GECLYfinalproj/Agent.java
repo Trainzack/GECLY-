@@ -86,9 +86,11 @@ public abstract class Agent implements Locatable,Serializable{
                     if (currentOccupant instanceof Player){
                         if(((Player)currentOccupant).getInvincibilityCount()>0){
                             this.kill();
+                            return true;
                         }
                         else {
                             ((Agent) currentOccupant).kill();
+                            return true;
                         }
                     }
                 }
