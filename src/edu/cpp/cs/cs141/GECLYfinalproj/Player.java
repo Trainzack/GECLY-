@@ -82,7 +82,7 @@ public class Player extends Agent implements Locatable,Serializable{
      * This method handles the event of a {@link Player} shooting their gun
      */
     public boolean shoot(int direction){
-        this.ammo = 0;
+	this.ammo = 0;
         int file;
         switch (direction){
             case 1:
