@@ -228,7 +228,7 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void startGame() {
 		showMessage("Welcome to the best game ever!\n\nMenu");
-		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit Options"};
+		String[] menu = {"Start Game", "Load Game", "Options", "Help", "Credits", "Exit"};
 		int choice = displayMenu(menu);
 		switch(choice){
 			case 0: displayHelp();
@@ -254,7 +254,7 @@ public class ConsoleInterface extends UserInterface{
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit Options"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
