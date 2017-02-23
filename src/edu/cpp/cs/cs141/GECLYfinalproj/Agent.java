@@ -84,7 +84,12 @@ public abstract class Agent implements Locatable,Serializable{
                 }
                 else if (this instanceof Ninja){
                     if (currentOccupant instanceof Player){
-                        ((Agent)currentOccupant).kill();
+                        if(((Player)currentOccupant).getInvincibilityCount()>0){
+                            this.kill();
+                        }
+                        else {
+                            ((Agent) currentOccupant).kill();
+                        }
                     }
                 }
                 board.setPos(newRow,newCol,this);
