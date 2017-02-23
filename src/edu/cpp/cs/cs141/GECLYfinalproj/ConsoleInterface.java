@@ -172,12 +172,8 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void displayGrid(Direction direction){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility;
-		if (direction != null) { 
-			visibility = engine.getVisibilityArray(direction,isDebugging);
-		} else {
-			visibility = new boolean[9][9]; 
-		}
+		
+		boolean[][] visibility = engine.getVisibilityArray(direction,isDebugging);
 		
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
