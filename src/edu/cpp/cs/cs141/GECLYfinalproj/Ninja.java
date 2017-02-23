@@ -29,16 +29,24 @@ import java.util.ArrayList;
 public class Ninja extends Agent implements Locatable,Serializable{
 
     /**
+     *Represents if the ninja is alive or not.
+     */
+    private boolean alive;
+
+    /**
      * This is the constructor for {@link Ninja}.
      */
     Ninja(){
+        this.alive = true;
         this.setASCIIRep('N');
         this.setUnicodeRep('♾');
 
     }
     @Override
     public void kill() {
-    	//TODO
+    	int curRow = this.getLocation().getRow();
+    	int curCol = this.getLocation().getCol();
+    	this.getLocation().getLocale().removePos(curRow,curCol);
     }
     
 	@Override
@@ -48,4 +56,12 @@ public class Ninja extends Agent implements Locatable,Serializable{
         }
         return false;
 	}
+
+    /**
+     * Getter for {@link #alive}
+     * @return value of {@link #alive}
+     */
+    public boolean isAlive() {
+        return alive;
+    }
 }

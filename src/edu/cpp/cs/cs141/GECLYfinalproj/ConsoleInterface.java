@@ -87,14 +87,6 @@ public class ConsoleInterface extends UserInterface{
 			}
     	}
     }
-    
-    
-    /*/* (non-Javadoc)
-     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
-     *
-    public void startGame(){
-    	
-    }*/
 
     /* (non-Javadoc)
      * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
@@ -116,7 +108,7 @@ public class ConsoleInterface extends UserInterface{
 	 * Creates a menu based off of an array of strings, and returns the array index of the string stat was selected.
 	 * 
 	 * @param choices the options that will be given to the player
-	 * @param query the text to prompt the player with
+	 * //@param query the text to prompt the player with
 	 * @return the array index of the choice that was selected
 	 */
 	public int displayMenu(String[] choices) {
@@ -169,10 +161,12 @@ public class ConsoleInterface extends UserInterface{
 	 * This method displays the game board in the console. It will display the actual locations of all items or the visible state of the game
 	 * based on whether debugging mode is on or not. Currently you must manually define the direction player is looking on line 183, but that
 	 * will change once the actual game loop is implemented.
+	 * 
+	 * @param direction that the user wishes to look in
 	 */
-	public void displayGrid(){
+	public void displayGrid(int direction){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility = engine.getVisibilityArray((byte)4,isDebugging);
+		boolean[][] visibility = engine.getVisibilityArray((byte)direction,isDebugging);
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				
@@ -242,7 +236,7 @@ public class ConsoleInterface extends UserInterface{
 					break;
 			case 1: super.startGame(askFileName());
 					break;
-			case 2: //TODO: decide on options
+			case 2: openOptions();
 					break;
 			case 3: displayHelp();
 					break;
@@ -259,18 +253,23 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	@Override
 	public void openOptions() {
-		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit"};
+		showMessage("\nOPTIONS");
+		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit","Quit"};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
-					//TODO: use game engine loop to return to game
+					displayGrid(4);
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
-			case 3: quitGame();
+			case 3: displayGrid(4);
+					break;
+            case 4: quitGame();
+                    break;
+
 		}
 		
 	}
@@ -294,12 +293,12 @@ public class ConsoleInterface extends UserInterface{
 	 * Displays the game synopsis and includes game instructions. 
 	 */
 	public void displayHelp() {
-		showMessage("You are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
+		showMessage("\nYou are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
 		showMessage("Dr. Doofenshmirtz has stolen a classified briefcase with super secret stuff in it.");
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right");
+		showMessage("\nHow To Move: \nW - Up \nS - Down \nA - Left \nD - Right\n");
 		//TODO: Add power ups to help menu
 	}
 	
@@ -328,23 +327,112 @@ public class ConsoleInterface extends UserInterface{
 		return save;
 	}
 	
+	/**
+	 * Asks user for a direction to either look, move, or shoot.
+	 * 
+	 * @param action will either be look, move, or shoot.
+	 */
 	public void askDirection(String action) {
-		showMessage("Which direction do you want to " + action);
+		showMessage("Which direction do you want to " + action + "?");
 	}
 	
-	public void displayWin() {
-		if(engine.checkWin() == true){
+	/**
+	 * Displays congratulatory message after a win is checked in Engine.
+	 */
+	public void showWin() {
+		if(engine.checkWin()){
 		showMessage("You win!");
+		System.exit(0);
 		}
 	}
 	
-	public void displayLose() {
-		if(engine.checkLose() == true){
+	/**
+	 * Displays losing message after a loss is checked in Engine.
+	 */
+	public void showLoss() {
+		if(engine.checkLose()){
 		showMessage("You lost!");
+		System.exit(0);
 		}
 	}
 	
+
 	
+	/**
+	 * Prompts the player to choose a direction to look ahead and displays an updated game board for the spaces chosen to see.
+	 */
+	public void askLook() {
+		askDirection("look");
+		String[] choices = {"Left", "Up", "Right", "Down"};
+		int direction = displayMenu(choices);
+		displayGrid(direction-1);
+		askMove();
+	}
+	
+	/**
+	 * Prompts the player to choose a direction to move.
+	 */
+	public void askMove() {
+		askDirection("move");
+		String[] choices = {"Left", "Up", "Right", "Down"};
+		int direction = displayMenu(choices);
+		Direction directions = null;
+		switch(direction){
+			case 0:
+				directions = Direction.LEFT;
+				break;
+			case 1:
+				directions = Direction.UP;
+				break;
+			case 2:
+				directions = Direction.RIGHT;
+				break;
+			case 3:
+				directions = Direction.DOWN;
+				break;
+		}
+		if(!engine.getPlayer().move(directions)){
+			System.out.println("You cannot move there! Go somewhere else!");
+			askMove();
+		}
+	}
+	
+	public void askShoot() {
+		if(engine.getPlayer().getAmmo() == 0) {
+			showMessage("You can not shoot. You have no harpoons.");
+			return;
+		}
+		else{
+			askDirection("shoot");
+			String[] choices = {"Left", "Up", "Right", "Down"};
+			int direction = displayMenu(choices);
+				
+			if(engine.getPlayer().shoot(direction)){
+			    showMessage("You shot a ninja!");
+            }
+            else{
+			    showMessage("You didn't hit anything!");
+            }
+			showMessage("\nYou have no harpoons left.");
+			displayGrid(5);
+		}
+	}
+	
+	public boolean turnMenu() {
+		showMessage("What would you like to do?");
+		String[] options = {"Look", "Move", "Shoot", "Game Options"};
+		int choice = displayMenu(options);
+		switch(choice) {
+			case 0: askLook();
+					return true;
+			case 1: askMove();
+					return true;
+			case 2: askShoot();
+					return false;
+			case 3: openOptions();
+					return false;
+		} return false;
+	}
 
 
 

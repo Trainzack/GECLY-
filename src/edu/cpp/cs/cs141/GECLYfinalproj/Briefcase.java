@@ -47,7 +47,8 @@ public class Briefcase extends WorldItem implements Serializable{
 	}
 
 	@Override
-	public void apply() {
+	public void apply(Player player) {
+		player.setHasCase(true);
 	}
 	
 }

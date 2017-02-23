@@ -25,5 +25,36 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * @author Gavin Kremer
  */
 public class GraphicInterface extends UserInterface{
-   // A BUNCH OF SWING STUFF. HERE
+    @Override
+    public void askLook() {
+
+    }
+
+    @Override
+    public void displayGrid(int direction) {
+
+    }
+
+    @Override
+    public void askMove() {
+
+    }
+
+    @Override
+    public void showWin() {
+
+    }
+
+    @Override
+    public void showLoss() {
+
+    }
+
+    @Override
+    public boolean turnMenu() {
+        return false;
+    }
+    
+    
+    // A BUNCH OF SWING STUFF. HERE
 }
