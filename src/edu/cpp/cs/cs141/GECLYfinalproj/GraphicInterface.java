@@ -44,5 +44,25 @@ public class GraphicInterface extends UserInterface{
     public boolean turnMenu() {
         return false;
     }
+
+	/* (non-Javadoc)
+	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#displayWin()
+	 */
+	@Override
+	public void displayWin() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#displayLose()
+	 */
+	@Override
+	public void displayLose() {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
     // A BUNCH OF SWING STUFF. HERE
 }

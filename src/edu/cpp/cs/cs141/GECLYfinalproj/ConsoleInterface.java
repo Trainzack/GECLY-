@@ -336,21 +336,17 @@ public class ConsoleInterface extends UserInterface{
 	}
 	
 	/**
-	 * Checks if the player wins the game in the Engine and displays congratulatory message.
+	 * Displays congratulatory message after a win is checked in Engine.
 	 */
 	public void displayWin() {
-		if(engine.checkWin() == true){
 		showMessage("You win!");
-		}
 	}
 	
 	/**
-	 * Checks if the player loses the game in the Engine and displays losing message.
+	 * Displays losing message after a loss is checked in Engine.
 	 */
 	public void displayLose() {
-		if(engine.checkLose() == true){
 		showMessage("You lost!");
-		}
 	}
 	
 
