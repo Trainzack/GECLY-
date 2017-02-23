@@ -74,10 +74,6 @@ public abstract class UserInterface {
 	 */
 	public abstract boolean turnMenu();
 	
-	public abstract void displayWin();
-	
-	public abstract void displayLose();
-	
 	/**
 	 * This method is the main loop in the game that makes everything come together.
 	 */
