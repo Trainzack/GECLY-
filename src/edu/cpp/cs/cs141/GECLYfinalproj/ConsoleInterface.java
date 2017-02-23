@@ -164,9 +164,11 @@ public class ConsoleInterface extends UserInterface{
 	 * 
 	 * @param direction that the user wishes to look in
 	 */
-	public void displayGrid(int direction){
+	public void displayGrid(Direction direction){
 		Grid tempboard = this.engine.getBoard();
-		boolean[][] visibility = engine.getVisibilityArray((byte)direction,isDebugging);
+		
+		boolean[][] visibility = engine.getVisibilityArray(direction,isDebugging);
+		
 		for (int i = 0;i<9;++i){
 			for (int l = 0; l<9;++l){
 				
@@ -307,7 +309,12 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robots will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		//TODO: Add power ups to help menu
+		showMessage("The powerups in the game are:");
+        //showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninja for a certain amount of turns.");
+        showMessage("Extra Bullet - ➡  or E - Gives the player one more bullet for their gun.");
+        showMessage("Invincibility - ⚡  or I - Allows the player to be invincible from the ninjas for 5 turns.");
+        //showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allow them to see more than the usual 2 blocks ahead.");
+        showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.");
 	}
 	
 	/**
@@ -371,10 +378,14 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askLook() {
 		askDirection("look");
-		String[] choices = {"Left", "Up", "Right", "Down"};
+		String[] choices = new String[4];
+		Direction[] directions = Direction.values();
+		for (int i = 0; i < directions.length; i++) {
+			choices[i] = directions[i].toString();
+		}
 		int direction = displayMenu(choices);
 		showLives();
-		displayGrid(direction-1);
+  	displayGrid(directions[direction]);
 		askMove();
 	}
 	
