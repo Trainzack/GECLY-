@@ -176,10 +176,17 @@ public class ConsoleInterface extends UserInterface{
 					systemOutput.print(getObjectRep());
 				}
 				else{
+					if((spotObject instanceof Room && ((Room) spotObject).getContents() instanceof Briefcase) && ((engine.getPlayer().hasRadar())||isDebugging)){
+						systemOutput.print(getObjectRep(((Room) spotObject).getContents()));
+						continue;
+					}
+					else if((spotObject instanceof Room && ((Room) spotObject).getContents() != null)&&isDebugging){
+						systemOutput.print(getObjectRep(((Room) spotObject).getContents()));
+					}
 					systemOutput.print(getObjectRep(spotObject));
 				}
 			}
-			systemOutput.print("\n");
+			showMessage("");
 		}
 	}
 	
@@ -205,7 +212,7 @@ public class ConsoleInterface extends UserInterface{
 			}
 		}
 
-		return "[" + rep + "]";
+		return "[ " + rep + " ]";
 	}
 	
 	/**
@@ -215,10 +222,10 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	private String getObjectRep() {
 		if(unicodeEnabled){
-			return "[■]";
+			return "[ ■ ]";
 		}
 		else{
-			return "[*]";
+			return "[ * ]";
 		}
 	}
 

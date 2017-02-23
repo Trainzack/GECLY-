@@ -87,6 +87,9 @@ public abstract class UserInterface {
 			showWin();
 			engine.moveNinjas();
 			showLoss();
+			if(engine.getPlayer().getInvincibilityCount()>0){
+				engine.getPlayer().setInvincibilityCount(engine.getPlayer().getInvincibilityCount()-1);
+			}
 		}
 	}
 

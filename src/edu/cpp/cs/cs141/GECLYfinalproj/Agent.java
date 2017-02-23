@@ -75,7 +75,10 @@ public abstract class Agent implements Locatable,Serializable{
                         }
                     }
                     else if (currentOccupant instanceof Room){
-                        try{((Room)currentOccupant).getContents().apply((Player)this);}catch(NullPointerException X){}
+                        try{
+                            ((Room)currentOccupant).getContents().apply((Player)this);
+                            ((Room) currentOccupant).setContents(null);
+                        }catch(NullPointerException X){}
                         return true;
                     }
                 }

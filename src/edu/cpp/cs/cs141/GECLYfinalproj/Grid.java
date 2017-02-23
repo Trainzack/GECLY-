@@ -19,6 +19,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 
 
 import java.io.Serializable;
+import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -86,12 +87,25 @@ public class Grid implements Serializable{
         
     	if (boardState[row][col] != null) return false;
 
-    	removePos(item.getLocation().getRow(),item.getLocation().getCol());
+    	if(itemExists(item)){
+            removePos(item.getLocation().getRow(),item.getLocation().getCol());
+        }
     	this.boardState[row][col] = item;
     	item.getLocation().setPos(row, col);
     	item.getLocation().setLocale(this);
     	return true;
         
+    }
+
+    public boolean itemExists(Locatable item){
+        for(Locatable[] L: boardState){
+            for(Locatable li: L){
+                if (item.equals(li)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     /**
