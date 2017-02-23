@@ -49,7 +49,7 @@ public abstract class UserInterface {
      * This method essentially updates the boardstate, which shows the new locations of objects and their
      * visibility.
      */
-    public abstract void displayGrid(int direction);
+    public abstract void displayGrid(Direction direction);
 
 	/**
 	 * Abstract method that asks the player to look in some direction.
@@ -82,7 +82,7 @@ public abstract class UserInterface {
 	public void gameLoop(){
 		while(!engine.checkWin()||!engine.checkLose()) {
 			showLives();
-			displayGrid(5);
+			displayGrid(null);
 			turnsLoop();
 			showWin();
 			engine.moveNinjas();
@@ -114,7 +114,7 @@ public abstract class UserInterface {
      * This method starts the game and is called from the {@link Main} method. It creates the engine, something that should be done the same in all subclasses. Subclasses should call Super() before implementing their methods.
      * Positions of objects in the saved file is loaded into the engine.
      * 
-     * @param File of the saved game
+     * @param save of the saved game
      */
     public void startGame(File save){
     	engine = new Engine(save);

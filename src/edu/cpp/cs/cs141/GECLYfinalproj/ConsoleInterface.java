@@ -270,13 +270,13 @@ public class ConsoleInterface extends UserInterface{
 			case 0: showMessage("Do you want to enable debug mode?");
 					setDebugging(displayMenu());
 					showLives();
-					displayGrid(4);
+					displayGrid(null);
 					break;
 			case 1: //TODO: make a thing to change difficulty
 					break;
 			case 2: displayHelp();
 					break;
-			case 3: displayGrid(4);
+			case 3: displayGrid(null);
 					break;
             case 4: quitGame();
                     break;
@@ -394,24 +394,13 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public void askMove() {
 		askDirection("move");
-		String[] choices = {"Left", "Up", "Right", "Down"};
-		int direction = displayMenu(choices);
-		Direction directions = null;
-		switch(direction){
-			case 0:
-				directions = Direction.LEFT;
-				break;
-			case 1:
-				directions = Direction.UP;
-				break;
-			case 2:
-				directions = Direction.RIGHT;
-				break;
-			case 3:
-				directions = Direction.DOWN;
-				break;
+		String[] choices = new String[4];
+		Direction[] directions = Direction.values();
+		for (int i = 0; i < directions.length; i++) {
+			choices[i] = directions[i].toString();
 		}
-		if(!engine.getPlayer().move(directions)){
+		int direction = displayMenu(choices);
+		if(!engine.getPlayer().move(directions[direction])){
 			System.out.println("You cannot move there! Go somewhere else!");
 			askMove();
 		}
@@ -434,7 +423,7 @@ public class ConsoleInterface extends UserInterface{
 			    showMessage("You didn't hit anything!");
             }
 			showMessage("\nYou have no harpoons left.");
-			displayGrid(5);
+			displayGrid(null);
 		}
 	}
 	
