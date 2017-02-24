@@ -75,14 +75,22 @@ public class Ninja extends Agent implements Locatable,Serializable{
 	}
     
 	/**
-	 * Figures out which ways it can move, and if it can move somewhere, it does. Decision is made randomly.
+	 * Figures out which ways it can move, and if it can move somewhere, it does. If it is next to the player, it will move in the direction of the player. Decision is made randomly.
 	 * TODO: When the player is within a certain range, call an overloaded method with the {@link Location} of the player.
 	 * @param random The {@link Random} that is used to make random decisions.
 	 */
 	public void makeMovementDecision(Random random) {
 		Direction[] availableMoves = getValidDirections();
 		if (availableMoves.length > 0) {
-			this.move(availableMoves[random.nextInt(availableMoves.length)]);
+			Direction decision = availableMoves[random.nextInt(availableMoves.length)];
+			Location here = getLocation();
+			for (Direction d : availableMoves) {
+				if (here.getLocale().getObject(here, d) instanceof Player) {
+					decision = d;
+					break;
+				}
+			}
+			this.move(decision);
 		}
 		
 	}
