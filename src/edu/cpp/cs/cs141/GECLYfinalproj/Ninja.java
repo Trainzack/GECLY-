@@ -49,8 +49,23 @@ public class Ninja extends Agent implements Locatable,Serializable{
     	this.alive = false;
     	this.getLocation().getLocale().removePos(curRow,curCol);
     }
-    
-	@Override
+
+    @Override
+    public boolean doSpecificMove(Locatable currentOccupant, int Row, int Col, Grid board) {
+        if (currentOccupant instanceof Player){
+            if(((Player)currentOccupant).getInvincibilityCount()>0){
+                this.kill();
+                return true;
+            }
+            else {
+                ((Player) currentOccupant).kill();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
 	public boolean objectCanBeMovedOver(Locatable l, Direction d) {
       if (l == null || l instanceof Player) {
         	return true;

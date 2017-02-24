@@ -78,6 +78,31 @@ public class Player extends Agent implements Locatable,Serializable{
         this.setUnicodeRep('★');
     }
 
+    @Override
+    public boolean doSpecificMove(Locatable currentOccupant, int newRow, int newCol,Grid board) {
+        if (currentOccupant instanceof WorldItem) {
+            ((WorldItem) currentOccupant).apply(this);
+            board.removePos(newRow,newCol);
+        }
+        else if (currentOccupant instanceof Ninja){
+            if(this.getInvincibilityCount() > 0){
+                ((Ninja)currentOccupant).kill();
+            }
+            else {
+                this.kill();
+                return true;
+            }
+        }
+        else if (currentOccupant instanceof Room){
+            try{
+                ((Room)currentOccupant).getContents().apply(this);
+                ((Room) currentOccupant).setContents(null);
+            }catch(NullPointerException X){}
+            return true;
+        }
+        return false;
+    }
+
     /**
      * This method handles the event of a {@link Player} shooting their gun
      */
