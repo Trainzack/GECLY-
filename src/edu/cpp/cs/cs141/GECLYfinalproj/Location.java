@@ -81,6 +81,10 @@ public class Location implements Serializable {
     	return l;
     }
     
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
     	return "("+this.row+","+this.col+")";
     }
