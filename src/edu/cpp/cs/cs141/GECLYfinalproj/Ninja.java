@@ -19,6 +19,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class represents a Ninja Assassin, which is a subclass of the {@link Agent} abstract class. The game
@@ -71,6 +72,19 @@ public class Ninja extends Agent implements Locatable,Serializable{
         	return true;
         }
         return false;
+	}
+    
+	/**
+	 * Figures out which ways it can move, and if it can move somewhere, it does. Decision is made randomly.
+	 * TODO: When the player is within a certain range, call an overloaded method with the {@link Location} of the player.
+	 * @param random The {@link Random} that is used to make random decisions.
+	 */
+	public void makeMovementDecision(Random random) {
+		Direction[] availableMoves = getValidDirections();
+		if (availableMoves.length > 0) {
+			this.move(availableMoves[random.nextInt(availableMoves.length)]);
+		}
+		
 	}
 
     /**

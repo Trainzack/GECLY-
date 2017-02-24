@@ -192,44 +192,17 @@ public class Engine {
 	 * This method moves all of the ninjas at the end of turn.
 	 */
 	public void moveNinjas() {
-		for (Ninja N : ninjas) {
-			boolean hasMoved;
-			int count = 0;
-			do{
-				hasMoved = randomMove(N);
-				++count;
+		for (Ninja n : ninjas) {
+			if (!n.isAlive()) {
+				continue;
 			}
-			while(!hasMoved&&count<10);
+			if(n.getLocation().getLocale().checkForAdjacent(player,n.getLocation().getRow(),n.getLocation().getCol())&&!(player.getInvincibilityCount()>0)){
+				player.kill();
+				break;
+			}
+			n.makeMovementDecision(RNG);
 		}
 	}
-
-	public boolean randomMove(Ninja N){
-		if (!N.isAlive()) {
-			return true;
-		}
-		if(N.getLocation().getLocale().checkForAdjacent(player,N.getLocation().getRow(),N.getLocation().getCol())&&!(player.getInvincibilityCount()>0)){
-			player.kill();
-			return true;
-		}
-		int randomDir = RNG.nextInt(4);
-		Direction dir = null;
-		switch (randomDir) {
-			case 0:
-				dir = Direction.LEFT;
-				break;
-			case 1:
-				dir = Direction.UP;
-				break;
-			case 2:
-				dir = Direction.RIGHT;
-				break;
-			case 3:
-				dir = Direction.DOWN;
-				break;
-		}
-		return N.move(dir);
-	}
-
 
 	/**
 	 * Checks if the player won
