@@ -41,7 +41,7 @@ public class Invincibility extends WorldItem{
 
 	@Override
 	public void apply(Player player) {
-		player.setInvincibilityCount(5);
+		player.setInvincibilityCount(6);
 		
 	}
 	

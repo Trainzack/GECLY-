@@ -46,6 +46,7 @@ public class Ninja extends Agent implements Locatable,Serializable{
     public void kill() {
     	int curRow = this.getLocation().getRow();
     	int curCol = this.getLocation().getCol();
+    	this.alive = false;
     	this.getLocation().getLocale().removePos(curRow,curCol);
     }
     
