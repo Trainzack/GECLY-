@@ -54,7 +54,8 @@ public class ConsoleInterface extends UserInterface{
 
 
 
-    /**
+
+	/**
      * Initializes this object's {@link #userInput}, {@link #systemOutput}, and whether {@link #unicodeEnabled}.
      */
     public ConsoleInterface() {
@@ -394,7 +395,7 @@ public class ConsoleInterface extends UserInterface{
 		int direction = displayMenu(choices);
 		showLives();
   	displayGrid(directions[direction]);
-		askMove();
+		hasLooked = true;
 	}
 	
 	/**
@@ -458,8 +459,13 @@ public class ConsoleInterface extends UserInterface{
 				"Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options\t\t\tRadar: " + radar};
 		int choice = displayMenu(options);
 		switch(choice) {
-			case 0: askLook();
-					return true;
+			case 0: if(!hasLooked){
+						askLook();
+					}
+					else{
+					showMessage("You already looked this turn!");
+					}
+					return false;
 			case 1: askMove();
 					return true;
 			case 2: askShoot();

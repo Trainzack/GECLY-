@@ -36,6 +36,11 @@ public abstract class UserInterface {
 	 * This field represents whether debug mode is on or not.
 	 */
 	protected boolean isDebugging;
+
+	/**
+	 * Represents whetehr player looked on current turn or not
+	 */
+	protected boolean hasLooked;
 	
 	/**
 	 * Setter for {@link #isDebugging}
@@ -81,6 +86,7 @@ public abstract class UserInterface {
 	 */
 	public void gameLoop(){
 		while(!engine.checkWin()||!engine.checkLose()) {
+			hasLooked = false;
 			showLives();
 			displayGrid(null);
 			turnsLoop();
