@@ -207,7 +207,7 @@ public class Engine {
 		if (!N.isAlive()) {
 			return true;
 		}
-		if(N.getLocation().getLocale().checkForAdjacent(player,N.getLocation().getRow(),N.getLocation().getCol())){
+		if(N.getLocation().getLocale().checkForAdjacent(player,N.getLocation().getRow(),N.getLocation().getCol())&&!(player.getInvincibilityCount()>0)){
 			player.kill();
 			return true;
 		}

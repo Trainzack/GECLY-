@@ -89,7 +89,7 @@ public abstract class Agent implements Locatable,Serializable{
                             return true;
                         }
                         else {
-                            ((Agent) currentOccupant).kill();
+                            ((Player) currentOccupant).kill();
                             return true;
                         }
                     }
