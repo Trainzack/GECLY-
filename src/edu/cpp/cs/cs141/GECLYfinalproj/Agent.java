@@ -60,39 +60,8 @@ public abstract class Agent implements Locatable,Serializable{
                 int newCol = currentCol+direction.getCol();
                 Grid board = this.getLocation().getLocale();
                 Locatable currentOccupant= board.getObject(newRow,newCol);
-                if(this instanceof Player){
-                    if (currentOccupant instanceof WorldItem) {
-                        ((WorldItem) currentOccupant).apply((Player)this);
-                        board.removePos(newRow,newCol);
-                    }
-                    else if (currentOccupant instanceof Ninja){
-                        if(((Player)this).getInvincibilityCount() > 0){
-                            ((Ninja)currentOccupant).kill();
-                        }
-                        else {
-                            this.kill();
-                            return true;
-                        }
-                    }
-                    else if (currentOccupant instanceof Room){
-                        try{
-                            ((Room)currentOccupant).getContents().apply((Player)this);
-                            ((Room) currentOccupant).setContents(null);
-                        }catch(NullPointerException X){}
-                        return true;
-                    }
-                }
-                else if (this instanceof Ninja){
-                    if (currentOccupant instanceof Player){
-                        if(((Player)currentOccupant).getInvincibilityCount()>0){
-                            this.kill();
-                            return true;
-                        }
-                        else {
-                            ((Player) currentOccupant).kill();
-                            return true;
-                        }
-                    }
+                if(doSpecificMove(currentOccupant,newRow,newCol,board)){
+                    return true;
                 }
                 board.setPos(newRow,newCol,this);
                 board.removePos(currentRow,currentCol);
@@ -102,6 +71,8 @@ public abstract class Agent implements Locatable,Serializable{
         }
         return false;
     }
+
+    public abstract boolean doSpecificMove(Locatable occupant, int Row, int Col,Grid board);
     
 	/**
 	 * Finds a list of all directions that trying to {@link #move(Direction)} are possible for this agent.
@@ -202,4 +173,40 @@ public abstract class Agent implements Locatable,Serializable{
 
 
     }
+
+    //STASHING THIS HERE JUST IN CASE
+    /*if(this instanceof Player){
+                    if (currentOccupant instanceof WorldItem) {
+                        ((WorldItem) currentOccupant).apply((Player)this);
+                        board.removePos(newRow,newCol);
+                    }
+                    else if (currentOccupant instanceof Ninja){
+                        if(((Player)this).getInvincibilityCount() > 0){
+                            ((Ninja)currentOccupant).kill();
+                        }
+                        else {
+                            this.kill();
+                            return true;
+                        }
+                    }
+                    else if (currentOccupant instanceof Room){
+                        try{
+                            ((Room)currentOccupant).getContents().apply((Player)this);
+                            ((Room) currentOccupant).setContents(null);
+                        }catch(NullPointerException X){}
+                        return true;
+                    }
+                }
+                else if (this instanceof Ninja){
+                    if (currentOccupant instanceof Player){
+                        if(((Player)currentOccupant).getInvincibilityCount()>0){
+                            this.kill();
+                            return true;
+                        }
+                        else {
+                            ((Player) currentOccupant).kill();
+                            return true;
+                        }
+                    }
+                }*/
 }
