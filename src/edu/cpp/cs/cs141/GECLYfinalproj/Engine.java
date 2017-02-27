@@ -57,6 +57,11 @@ public class Engine {
 	 */
 	Random RNG = new Random();
 	
+	/**
+	 * This represents the distance that ninjas have to be from the player before they will track the player. Set this to 0 to stop ninja tracking.
+	 */
+	private final int NINJA_TRACKING_DISTANCE = 3;
+	
 	
 	/**
 	 * Creates a new instance of the engine for a new game.
@@ -200,7 +205,18 @@ public class Engine {
 				player.kill();
 				break;
 			}
-			n.makeMovementDecision(RNG);
+			boolean trackPlayer = board.checkForNearLocatable(player, n.getLocation().getRow(), n.getLocation().getCol(), NINJA_TRACKING_DISTANCE);
+			/**if (player.hasCamo()) {
+				trackPlayer = false;
+			}**///This isn't working for some reason
+			
+			if (trackPlayer) {
+				n.makeMovementDecision(RNG,player);
+			} else {
+				n.makeMovementDecision(RNG);
+			}
+			
+			
 		}
 	}
 
