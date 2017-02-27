@@ -64,6 +64,12 @@ public class Player extends Agent implements Locatable,Serializable{
     private boolean hasCase;
 
     /**
+     * Represents the last thing that happened to the player. If null, then nothing important happened to them.
+     */
+    private Action lastEvent;
+
+
+    /**
      * This is the constructor for {@link Player}, which will super the constructor from {@link Agent}.
      */
     Player(){
@@ -74,6 +80,7 @@ public class Player extends Agent implements Locatable,Serializable{
         this.hasAdvancedNight = false;
         this.hasCamo = false;
         this.hasCase = false;
+        this.lastEvent = null;
         this.setASCIIRep('P');
         this.setUnicodeRep('★');
     }
@@ -83,21 +90,31 @@ public class Player extends Agent implements Locatable,Serializable{
         if (currentOccupant instanceof WorldItem) {
             ((WorldItem) currentOccupant).apply(this);
             board.removePos(newRow,newCol);
+            this.lastEvent = Action.GOTITEM;
+            this.lastEvent.appendDesc(((WorldItem) currentOccupant).getName());
         }
         else if (currentOccupant instanceof Ninja){
             if(this.getInvincibilityCount() > 0){
                 ((Ninja)currentOccupant).kill();
+                this.lastEvent = Action.KILLED;
+
             }
             else {
                 this.kill();
+                this.lastEvent = Action.DIED;
                 return true;
             }
         }
         else if (currentOccupant instanceof Room){
+            this.lastEvent = Action.SEARCHROOM;
             try{
                 ((Room)currentOccupant).getContents().apply(this);
+                this.lastEvent.appendDesc("and you found "+((Room) currentOccupant).getContents().getName()+"!");
                 ((Room) currentOccupant).setContents(null);
-            }catch(NullPointerException X){}
+            }
+            catch(NullPointerException X){
+                this.lastEvent.appendDesc("but you found nothing!");
+            }
             return true;
         }
         return false;
@@ -275,5 +292,13 @@ public class Player extends Agent implements Locatable,Serializable{
 
     public int getAmmo() {
         return ammo;
+    }
+
+    public Action getLastEvent() {
+        return lastEvent;
+    }
+
+    public void setLastEvent(Action lastEvent) {
+        this.lastEvent = lastEvent;
     }
 }

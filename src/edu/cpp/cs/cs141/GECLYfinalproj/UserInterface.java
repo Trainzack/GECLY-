@@ -78,9 +78,16 @@ public abstract class UserInterface {
 	 * Abstract method that asks the player what to do on their turn
 	 */
 	public abstract boolean turnMenu();
-	
+
+	/**
+	 * Abstract method that shows the players life total
+	 */
 	public abstract void showLives();
-	
+
+	/**
+	 * Abstract method that will display the last event to happen to the player if any.
+	 */
+	public abstract void showEvent();
 	/**
 	 * This method is the main loop in the game that makes everything come together.
 	 */
@@ -90,12 +97,15 @@ public abstract class UserInterface {
 			showLives();
 			displayGrid(null);
 			turnsLoop();
+			showEvent();
 			showWin();
 			engine.moveNinjas();
 			showLoss();
 			if(engine.getPlayer().getInvincibilityCount()>0){
 				engine.getPlayer().setInvincibilityCount(engine.getPlayer().getInvincibilityCount()-1);
 			}
+			engine.getPlayer().setLastEvent(null);
+			engine.addTurnCount();
 		}
 	}
 

@@ -38,6 +38,7 @@ public class ExtraBullet extends WorldItem{
 	 */
 	public ExtraBullet(){
 		super();
+		this.setName("Extra Bullet");
 		this.setASCIIRep('E');
 		this.setUnicodeRep('➡');
 	}

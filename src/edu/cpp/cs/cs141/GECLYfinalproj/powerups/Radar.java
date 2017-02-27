@@ -35,6 +35,7 @@ public class Radar extends WorldItem{
 	 */
 	public Radar() {
 		super();
+		this.setName("Radar");
 		this.setASCIIRep('R');
 		this.setUnicodeRep('⚨');
 	}

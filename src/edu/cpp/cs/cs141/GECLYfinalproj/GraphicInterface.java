@@ -60,9 +60,12 @@ public class GraphicInterface extends UserInterface{
 		// TODO Auto-generated method stub
 		
 	}
-    
-    
-    
-    
+
+    @Override
+    public void showEvent() {
+
+    }
+
+
     // A BUNCH OF SWING STUFF. HERE
 }

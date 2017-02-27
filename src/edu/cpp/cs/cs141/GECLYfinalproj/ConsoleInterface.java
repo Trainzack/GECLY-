@@ -479,6 +479,11 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("\nLives: " + engine.getPlayer().getLives());
 	}
 
+	public void showEvent(){
+		try{showMessage(engine.getPlayer().getLastEvent().getDesc());}
+		catch(NullPointerException X){}
+	}
+
 
 
 }

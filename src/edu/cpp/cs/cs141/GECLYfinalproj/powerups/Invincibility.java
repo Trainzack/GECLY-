@@ -35,6 +35,7 @@ public class Invincibility extends WorldItem{
 	 */
 	public Invincibility() {
 		super();
+		this.setName("Invincibility");
 		this.setASCIIRep('I');
 		this.setUnicodeRep('⚡');
 	}
