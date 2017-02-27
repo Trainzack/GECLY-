@@ -122,4 +122,12 @@ public abstract class WorldItem implements Locatable,Serializable {
 		}
 		return '■';
 	}
+
+	/**
+	 * Setter for {@link #name}
+	 * @param name new vallue for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 }

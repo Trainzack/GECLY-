@@ -56,10 +56,12 @@ public class Ninja extends Agent implements Locatable,Serializable{
         if (currentOccupant instanceof Player){
             if(((Player)currentOccupant).getInvincibilityCount()>0){
                 this.kill();
+                ((Player) currentOccupant).setLastEvent(Action.KILLED);
                 return true;
             }
             else {
                 ((Player) currentOccupant).kill();
+                ((Player) currentOccupant).setLastEvent(Action.DIED);
                 return true;
             }
         }

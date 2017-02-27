@@ -67,15 +67,27 @@ public class Grid implements Serializable{
         return boardState[newRow][newCol];
     }
     public Player getPlayer(){
+        Player player = null;
         for(Locatable[] L: boardState){
             for(Locatable Li : L){
                 if (Li instanceof Player){
-                    return (Player)Li;
+                    player = (Player)Li;
                 }
             }
 
         }
-        return null;
+        return player;
+    }
+    public ArrayList<Ninja> getNinjas(){
+        ArrayList<Ninja> ninjalist = new ArrayList<>();
+        for(Locatable[] L: boardState){
+            for(Locatable Li: L){
+                if(Li instanceof Ninja){
+                    ninjalist.add((Ninja)Li);
+                }
+            }
+        }
+        return ninjalist;
     }
 
     /**

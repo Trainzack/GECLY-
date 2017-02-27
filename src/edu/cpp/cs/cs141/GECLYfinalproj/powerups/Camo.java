@@ -32,12 +32,13 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
  *
  */
 public class Camo extends WorldItem{
-	
+
 	/**
 	 * This is the {@link Camo} constructor
 	 */
 	public Camo(){
 		super();
+		this.setName("Camo");
 		this.setASCIIRep('C');
 		this.setUnicodeRep('✿');
 	}

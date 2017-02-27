@@ -36,14 +36,14 @@ public class Engine {
     /**
      * A list that will hold all of the ninjas, which will dynamically change over the course of the game and initialization.
      */
-	private ArrayList<Ninja> ninjas = new ArrayList<>();//TODO: Do we really need this after initialization? -EAZ
+	private ArrayList<Ninja> ninjas = new ArrayList<>();
 
     /**
      * A list that will hold all of the items, which once again will dynamically change over the course of the game and initialization.
      */
-	private ArrayList<WorldItem> items = new ArrayList<>();//TODO: Do we really need this after initialization? -EAZ
+	private ArrayList<WorldItem> items = new ArrayList<>();
 	/**
-	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid(boolean fromSave)} or {@link Engine#loadGame()}.
+	 * A reference to the {@link Grid} that gameplay takes place on, instantiated by {@link #setupGrid()} or {@link Engine#loadGame()}.
 	 */
 	private Grid board;
 
@@ -56,11 +56,11 @@ public class Engine {
 	 * Random number generator for use with random things.
 	 */
 	Random RNG = new Random();
-	
+
 	/**
 	 * This represents the distance that ninjas have to be from the player before they will track the player. Set this to 0 to stop ninja tracking.
 	 */
-	private final int NINJA_TRACKING_DISTANCE = 3;
+	private final int NINJA_TRACKING_DISTANCE = 0;
 	
 	
 	/**
@@ -174,6 +174,14 @@ public class Engine {
 	}
 	public void setupGrid(File save){
 		board = FileManager.readSave(save);
+		player = board.getPlayer();
+		ninjas = board.getNinjas();
+		//items.add(new Camo());
+		items.add(new ExtraBullet());
+		items.add(new Invincibility());
+		//items.add(new NightVision());
+		items.add(new Radar());
+
 
 	}
 
@@ -203,6 +211,7 @@ public class Engine {
 			}
 			if(n.getLocation().getLocale().checkForAdjacent(player,n.getLocation().getRow(),n.getLocation().getCol())&&!(player.getInvincibilityCount()>0)){
 				player.kill();
+				player.setLastEvent(Action.DIED);
 				break;
 			}
 			boolean trackPlayer = board.checkForNearLocatable(player, n.getLocation().getRow(), n.getLocation().getCol(), NINJA_TRACKING_DISTANCE);
@@ -247,5 +256,12 @@ public class Engine {
 	 */
 	public ArrayList<Ninja> getNinjas() {
 		return ninjas;
+	}
+
+	/**
+	 * Adds one to {@link #turnCount} at the end of every turn.
+	 */
+	public void addTurnCount() {
+		this.turnCount +=1;
 	}
 }

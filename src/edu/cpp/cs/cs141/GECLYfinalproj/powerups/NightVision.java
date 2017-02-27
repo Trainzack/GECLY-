@@ -35,6 +35,7 @@ public class NightVision extends WorldItem{
 	 */
 	public NightVision() {
 		super();
+		this.setName("NightVision");
 		this.setASCIIRep('V');
 		this.setUnicodeRep('☪');
 	}
