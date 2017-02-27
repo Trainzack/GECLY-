@@ -57,6 +57,11 @@ public class Engine {
 	 */
 	Random RNG = new Random();
 	
+	/**
+	 * This represents the distance that ninjas have to be from the player before they will track the player. Set this to 0 to stop ninja tracking.
+	 */
+	private final int NINJA_TRACKING_DISTANCE = 3;
+	
 	
 	/**
 	 * Creates a new instance of the engine for a new game.
@@ -192,44 +197,28 @@ public class Engine {
 	 * This method moves all of the ninjas at the end of turn.
 	 */
 	public void moveNinjas() {
-		for (Ninja N : ninjas) {
-			boolean hasMoved;
-			int count = 0;
-			do{
-				hasMoved = randomMove(N);
-				++count;
+		for (Ninja n : ninjas) {
+			if (!n.isAlive()) {
+				continue;
 			}
-			while(!hasMoved&&count<10);
+			if(n.getLocation().getLocale().checkForAdjacent(player,n.getLocation().getRow(),n.getLocation().getCol())&&!(player.getInvincibilityCount()>0)){
+				player.kill();
+				break;
+			}
+			boolean trackPlayer = board.checkForNearLocatable(player, n.getLocation().getRow(), n.getLocation().getCol(), NINJA_TRACKING_DISTANCE);
+			/**if (player.hasCamo()) {
+				trackPlayer = false;
+			}**///This isn't working for some reason
+			
+			if (trackPlayer) {
+				n.makeMovementDecision(RNG,player);
+			} else {
+				n.makeMovementDecision(RNG);
+			}
+			
+			
 		}
 	}
-
-	public boolean randomMove(Ninja N){
-		if (!N.isAlive()) {
-			return true;
-		}
-		if(N.getLocation().getLocale().checkForAdjacent(player,N.getLocation().getRow(),N.getLocation().getCol())&&!(player.getInvincibilityCount()>0)){
-			player.kill();
-			return true;
-		}
-		int randomDir = RNG.nextInt(4);
-		Direction dir = null;
-		switch (randomDir) {
-			case 0:
-				dir = Direction.LEFT;
-				break;
-			case 1:
-				dir = Direction.UP;
-				break;
-			case 2:
-				dir = Direction.RIGHT;
-				break;
-			case 3:
-				dir = Direction.DOWN;
-				break;
-		}
-		return N.move(dir);
-	}
-
 
 	/**
 	 * Checks if the player won

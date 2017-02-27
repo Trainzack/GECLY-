@@ -20,9 +20,22 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * @author Gavin Kremer
  */
 public enum Direction {
-    UP(-1,0,"up"), DOWN(1,0,"down"), LEFT(0,-1,"left"), RIGHT(0,1,"right");
+    UP(-1,0,"Up"), RIGHT(0,1,"Right"), DOWN(1,0,"Down"), LEFT(0,-1,"Left");
+    
+    /**
+     * The change in row that this direction represents.
+     */
     private int Row;
+    
+    /**
+     * The change in column that this direction represents.
+     */
     private int Col;
+    
+    
+    /**
+     * What this direction should be displayed as in the menus.
+     */
     private String name;
 
     Direction(int Row, int Col, String name) {
@@ -41,5 +54,24 @@ public enum Direction {
     
     public String toString() {
     	return name;
+    }
+    
+    public static Direction getDirectionByLocations(Location source, Location target) {
+    	int dRow = target.getRow() - source.getRow();
+    	int dCol = target.getCol() - source.getCol();
+    	
+    	if (Math.abs(dRow) > Math.abs(dCol)) { //We should move up or down to get closest.
+    		if (dRow > 0) {
+    			return DOWN;
+    		} else {
+    			return UP;
+    		}
+    	} else { //We should move left or right to get closest
+    		if (dCol > 0) {
+    			return RIGHT;
+    		} else {
+    			return LEFT;
+    		}
+    	}
     }
 }
