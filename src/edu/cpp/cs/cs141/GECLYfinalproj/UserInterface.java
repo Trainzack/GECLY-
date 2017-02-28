@@ -134,6 +134,7 @@ public abstract class UserInterface {
      */
     public void startGame(File save){
     	engine = new Engine(save);
+    	gameLoop();
     }
 
     /**
