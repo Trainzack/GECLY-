@@ -28,11 +28,7 @@ import java.util.Scanner;
 /**
  * This class represents the console based interface which will involve console elements like the Scanner and System.out.
  *
- * @author Gavin Kremer, Eli Zupke
- */
-/**
- * @author eli
- *
+ * @author GECLY
  */
 public class ConsoleInterface extends UserInterface{
 
@@ -88,15 +84,6 @@ public class ConsoleInterface extends UserInterface{
 			}
     	}
     }
-
-    /* (non-Javadoc)
-     * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#updateBoardState()
-     */
-    public void updateBoardState(){
-    	
-    }
-
-
 
     /**
      * This method will print a method in the console.
@@ -234,9 +221,6 @@ public class ConsoleInterface extends UserInterface{
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#startGame()
-	 */
 	@Override
 	public void startGame() {
 		showMessage("Welcome to the best game ever!\n\nMenu");
@@ -259,10 +243,6 @@ public class ConsoleInterface extends UserInterface{
 		}
 		
 	}
-
-	/* (non-Javadoc)
-	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#openOptions()
-	 */
 	@Override
 	public void openOptions() {
 		showMessage("\nOPTIONS");
@@ -291,10 +271,6 @@ public class ConsoleInterface extends UserInterface{
 		}
 		
 	}
-
-	/* (non-Javadoc)
-	 * @see edu.cpp.cs.cs141.GECLYfinalproj.UserInterface#quitGame()
-	 */
 	@Override
 	public void quitGame() {
 		showMessage("Do you want to save the game?");
@@ -417,7 +393,10 @@ public class ConsoleInterface extends UserInterface{
 			askMove();
 		}
 	}
-	
+
+	/**
+	 * Prompts the player to choose where to shoot, if possible.
+	 */
 	public void askShoot() {
 		if(engine.getPlayer().getAmmo() == 0) {
 			showMessage("You can not shoot. You have no harpoons.");
@@ -439,7 +418,11 @@ public class ConsoleInterface extends UserInterface{
 			displayGrid(null);
 		}
 	}
-	
+
+	/**
+	 * This is the menu shown to the player on every turn from where they can select their options.
+	 * @return if the turn has been concluded.
+	 */
 	public boolean turnMenu() {
 		showMessage("What would you like to do?\tThings you got:");
 		String briefcase;
@@ -477,11 +460,17 @@ public class ConsoleInterface extends UserInterface{
 					return false;
 		} return false;
 	}
-	
+
+	/**
+	 * Shows the current life total of the player.
+	 */
 	public void showLives() {
 		showMessage("\nLives: " + engine.getPlayer().getLives());
 	}
 
+	/**
+	 * Displays the last event that happened to the player.
+	 */
 	public void showEvent(){
 		try{showMessage(engine.getPlayer().getLastEvent().getDesc());}
 		catch(NullPointerException X){}

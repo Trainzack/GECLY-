@@ -24,7 +24,7 @@ import java.io.Serializable;
  * abstract class holds all the necessary attributes for the actual items' classes extending this class, like 
  * name, a char that represents the item, and the grid for the items' locations. 
  *
- * @author Clara Nguyen, Gavin Kremer
+ * @author GECLY
  */
 public abstract class WorldItem implements Locatable,Serializable {
 	

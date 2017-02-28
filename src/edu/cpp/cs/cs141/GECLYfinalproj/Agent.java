@@ -24,10 +24,10 @@ import java.util.ArrayList;
  * This class represents an agent in the game (enemies and the player) and is the parent class for
  * {@link Player} and {@link Ninja}.
  *
- * @author Gavin Kremer
+ * @author GECLY
  */
 
-public abstract class Agent implements Locatable,Serializable{
+public abstract class Agent implements Locatable,Serializable {
 
     /**
      * This field represents the location of the object on the {@link Grid}
@@ -46,65 +46,74 @@ public abstract class Agent implements Locatable,Serializable{
 
     /**
      * This method will handle the {@link Agent}'s movement, and return wether or not the move was successful
-     * (for if they try to move out of bounds for example.) THIS METHOD CAN DEFINITELY BE COMPACTED, BUT FOR NOW WE NEED
-     * IT TO JUST WORK.
+     * (for if they try to move out of bounds for example.)
+     *
      * @return if the move was successful or not.
      */
-    public boolean move (Direction direction){
+    public boolean move(Direction direction) {
         Direction[] valids = this.getValidDirections();
-        for(Direction D: valids){
-            if(direction == D){
+        for (Direction D : valids) {
+            if (direction == D) {
                 int currentRow = this.getLocation().getRow();
                 int currentCol = this.getLocation().getCol();
-                int newRow = currentRow+direction.getRow();
-                int newCol = currentCol+direction.getCol();
+                int newRow = currentRow + direction.getRow();
+                int newCol = currentCol + direction.getCol();
                 Grid board = this.getLocation().getLocale();
-                Locatable currentOccupant= board.getObject(newRow,newCol);
-                if(doSpecificMove(currentOccupant,newRow,newCol,board)){
+                Locatable currentOccupant = board.getObject(newRow, newCol);
+                if (doSpecificMove(currentOccupant, newRow, newCol, board)) {
                     return true;
                 }
-                board.setPos(newRow,newCol,this);
-                board.removePos(currentRow,currentCol);
-                this.getLocation().setPos(newRow,newCol);
+                board.setPos(newRow, newCol, this);
+                board.removePos(currentRow, currentCol);
+                this.getLocation().setPos(newRow, newCol);
                 return true;
             }
         }
         return false;
     }
 
-    public abstract boolean doSpecificMove(Locatable occupant, int Row, int Col,Grid board);
-    
-	/**
-	 * Finds a list of all directions that trying to {@link #move(Direction)} are possible for this agent.
-	 * 
-	 * @return what directions are valid for movement
-	 */
-	public Direction[] getValidDirections() {//TODO: Test this method!!!
-		ArrayList<Direction> dirList = new ArrayList<Direction>(4);
-		
-		Direction[] ds = Direction.values(); //This is the working list of directions we can go
-		for (Direction d: ds){
+    /**
+     * This method accounts for subclass specific actions during the move method, such as picking up items.
+     *
+     * @param occupant Thing currently in spot.
+     * @param Row      Row to look at.
+     * @param Col      Column to look at.
+     * @param board    Board to reference.
+     * @return whether player doesn't need to move or not.
+     */
+    public abstract boolean doSpecificMove(Locatable occupant, int Row, int Col, Grid board);
+
+    /**
+     * Finds a list of all directions that trying to {@link #move(Direction)} are possible for this agent.
+     *
+     * @return what directions are valid for movement
+     */
+    public Direction[] getValidDirections() {//TODO: Test this method!!!
+        ArrayList<Direction> dirList = new ArrayList<Direction>(4);
+
+        Direction[] ds = Direction.values(); //This is the working list of directions we can go
+        for (Direction d : ds) {
             Grid board = this.getLocation().getLocale();
             if (!board.testValidPos(this.getLocation(), d)) {
-            	continue; //We can't go this way because it is off the grid
+                continue; //We can't go this way because it is off the grid
             }
-            Locatable objectToMoveTo = board.getObject(this.getLocation(),d);
-            if (objectCanBeMovedOver(objectToMoveTo,d)) {
-            	dirList.add(d);
+            Locatable objectToMoveTo = board.getObject(this.getLocation(), d);
+            if (objectCanBeMovedOver(objectToMoveTo, d)) {
+                dirList.add(d);
             }
-            
+
         }
         return dirList.toArray(new Direction[dirList.size()]);
-	}
-	
-	/**
-	 * Checks whether this agent can move to a certain object in a certain direction. Returns true for players moving down into rooms, even though that does not actually result in movement.
-	 * 
-	 * @param l the object to be moved over
-	 * @param d the direction to move in
-	 * @return whether a move in the specified direction to a spot on the grid containing the specified object is valid
-	 */
-	public abstract boolean objectCanBeMovedOver(Locatable l, Direction d);
+    }
+
+    /**
+     * Checks whether this agent can move to a certain object in a certain direction. Returns true for players moving down into rooms, even though that does not actually result in movement.
+     *
+     * @param l the object to be moved over
+     * @param d the direction to move in
+     * @return whether a move in the specified direction to a spot on the grid containing the specified object is valid
+     */
+    public abstract boolean objectCanBeMovedOver(Locatable l, Direction d);
 
     /**
      * This method will handle the {@link Agent}'s death, which will be radically different depending on which
@@ -114,14 +123,15 @@ public abstract class Agent implements Locatable,Serializable{
 
 
     /**
-     *This is the constructor for {@link Agent}.
+     * This is the constructor for {@link Agent}.
      */
-    Agent(){
-    	location = new Location();
+    Agent() {
+        location = new Location();
     }
 
     /**
      * Getter for {@link #ASCIIRep}
+     *
      * @return value of {@link #ASCIIRep}
      */
     public char getASCIIRep() {
@@ -130,21 +140,25 @@ public abstract class Agent implements Locatable,Serializable{
 
     /**
      * Setter for {@link #ASCIIRep}
+     *
      * @param c value of {@link #ASCIIRep}
      */
-    public void setASCIIRep(char c){
+    public void setASCIIRep(char c) {
         this.ASCIIRep = c;
     }
 
     /**
      * Setter for {@link #UnicodeRep}
+     *
      * @param c value for {@link #UnicodeRep}
      */
-    public void setUnicodeRep(char c){
+    public void setUnicodeRep(char c) {
         this.UnicodeRep = c;
     }
+
     /**
      * Getter for {@link #UnicodeRep}
+     *
      * @return value of {@link #UnicodeRep}
      */
     public char getUnicodeRep() {
@@ -158,7 +172,7 @@ public abstract class Agent implements Locatable,Serializable{
 
     @Override
     public char getASCIIDisplayCharacter(boolean visible) {
-        if(visible){
+        if (visible) {
             return this.getASCIIRep();
         }
         return '*';
@@ -166,47 +180,11 @@ public abstract class Agent implements Locatable,Serializable{
 
     @Override
     public char getUnicodeDisplayCharacter(boolean visible) {
-        if(visible){
-        return this.getUnicodeRep();
+        if (visible) {
+            return this.getUnicodeRep();
         }
         return '■';
 
 
     }
-
-    //STASHING THIS HERE JUST IN CASE
-    /*if(this instanceof Player){
-                    if (currentOccupant instanceof WorldItem) {
-                        ((WorldItem) currentOccupant).apply((Player)this);
-                        board.removePos(newRow,newCol);
-                    }
-                    else if (currentOccupant instanceof Ninja){
-                        if(((Player)this).getInvincibilityCount() > 0){
-                            ((Ninja)currentOccupant).kill();
-                        }
-                        else {
-                            this.kill();
-                            return true;
-                        }
-                    }
-                    else if (currentOccupant instanceof Room){
-                        try{
-                            ((Room)currentOccupant).getContents().apply((Player)this);
-                            ((Room) currentOccupant).setContents(null);
-                        }catch(NullPointerException X){}
-                        return true;
-                    }
-                }
-                else if (this instanceof Ninja){
-                    if (currentOccupant instanceof Player){
-                        if(((Player)currentOccupant).getInvincibilityCount()>0){
-                            this.kill();
-                            return true;
-                        }
-                        else {
-                            ((Player) currentOccupant).kill();
-                            return true;
-                        }
-                    }
-                }*/
 }

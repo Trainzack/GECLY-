@@ -25,7 +25,7 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
  * The Radar class represents the character's radar power up. The radar power up will allow the user to 
  * see where the briefcase is.
  * 
- * @author Clara Nguyen
+ * @author GECLY
  */
 public class Radar extends WorldItem{
 	

@@ -25,7 +25,7 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
  * The Invincibility class represents the character's invincibility power up. The invincibility power up will allow the 
  * the player to be invulnerable to stabbing for five turns.
  * 
- * @author Clara Nguyen
+ * @author GECLY
  */
 public class Invincibility extends WorldItem{
 	
