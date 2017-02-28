@@ -48,7 +48,7 @@ public class FileManager {
 
     }
 
-    public static void writeSave(File save,Grid board){
+    public static void writeSave(String save,Grid board){
         try {
             FileOutputStream fos = new FileOutputStream(save);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

@@ -143,6 +143,7 @@ public class ConsoleInterface extends UserInterface{
 		while (true) { //This loop will ensure the only way out of this method is for a valid option to be selected.
 			try {
 				int output = userInput.nextInt();
+				userInput.nextLine();
 				if (output < min || output > max) {
 					//This catches cases where the user inputs a number, but it is not within the allowed range.
 					showMessage("Invalid number. Please enter a number from " + min + " to " + max + ".\n");
@@ -298,9 +299,11 @@ public class ConsoleInterface extends UserInterface{
 	public void quitGame() {
 		showMessage("Do you want to save the game?");
 		boolean choice = displayMenu();
-		if(choice == true){
-			//TODO implement saving
-			showMessage("File saved to: " + "\nBye.");
+		if(choice){
+			showMessage("Enter a filename to save to");
+			String saveto = userInput.nextLine();
+			FileManager.writeSave(saveto,engine.getBoard());
+			showMessage("File saved to: " +saveto+ "\nBye.");
 			System.exit(0);
 		}else{
 			showMessage("You did not save. Bye.");
