@@ -25,7 +25,7 @@ import java.io.Serializable;
  * it is an item in the game and implements {@link Locatable} which marks the item as
  * a locatable object.
  * 
- * @author Yan Huang
+ * @author GECLY
  *
  */
 public class Briefcase extends WorldItem implements Serializable{

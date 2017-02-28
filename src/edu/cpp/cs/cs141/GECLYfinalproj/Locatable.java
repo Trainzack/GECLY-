@@ -21,7 +21,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
 /**
  * Locatable is an interface designed for objects that appear on the main game grid. It contains methods for retrieving 
  * 
- * @author eli
+ * @author GECLY
  *
  */
 public interface Locatable {
@@ -46,11 +46,7 @@ public interface Locatable {
 	 * @return the character used to display this object, or null if this object should not be displayed
 	 */
 	public char getUnicodeDisplayCharacter(boolean visible);
-	
-	//TODO: Add methods for retrieving images for these items
-	
-	//Question: Do we want methods for getting the location of this object, the distance to another object, and the grid that this object is currently on?
-	
+
 	/**
 	 * Returns a {@link Location} object that represents where the object is on a particular grid.
 	 * 

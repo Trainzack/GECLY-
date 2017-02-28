@@ -22,7 +22,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * we do end up making a GUI so that we don't have to re-write anything. It will probably have a bunch of
  * swing stuff.
  *
- * @author Gavin Kremer
+ * @author GECLY
  */
 public class GraphicInterface extends UserInterface{
     @Override

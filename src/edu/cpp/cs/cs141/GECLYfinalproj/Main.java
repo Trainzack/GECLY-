@@ -22,7 +22,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * {@link UserInterface#startGame()} is called. This method will implement
  * UserInterface and all its methods.
  * 
- * @author Yan Huang
+ * @author GECLY
  *
  */
 public class Main {
