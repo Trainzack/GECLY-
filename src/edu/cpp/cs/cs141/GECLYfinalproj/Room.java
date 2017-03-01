@@ -22,7 +22,7 @@ import java.io.Serializable;
 /**
  * This class represents a room which can contain the briefcase or an item in the game.
  *
- * @author Gavin Kremer
+ * @author GECLY
  */
 public class Room implements Locatable,Serializable{
 

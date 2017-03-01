@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * This class represents the location of a {@link Locatable} object for use with the engine.
  *
- * @author Gavin Kremer
+ * @author GECLY
  */
 public class Location implements Serializable {
 

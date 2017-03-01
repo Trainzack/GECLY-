@@ -27,7 +27,7 @@ import java.util.Random;
  * This class represents the grid that the game takes place on and all of the objects interact with each other in,
  * one of the fundamental parts of the game.
  *
- * @author Gavin Kremer, Eli Zupke
+ * @author GECLY
  */
 
 public class Grid implements Serializable{
@@ -56,9 +56,22 @@ public class Grid implements Serializable{
             return null;
         }
     }
+
+    /**
+     * This method essentially does the same thing as {@link #getObject(int, int)} but gets it's coordinates from a location object.
+     * @param l location with the coordinates
+     * @return found object.
+     */
     public Locatable getObject(Location l){
         return getObject(l.getRow(),l.getCol());
     }
+
+    /**
+     * This method does the same thing as {@link #getObject(Location)} but adds a directional modifier.
+     * @param l location to search
+     * @param d direction to go
+     * @return object found.
+     */
     public Locatable getObject(Location l, Direction d){
         int currentRow = l.getRow();
         int currentCol = l.getCol();
@@ -66,6 +79,11 @@ public class Grid implements Serializable{
         int newCol = currentCol+d.getCol();
         return boardState[newRow][newCol];
     }
+
+    /**
+     * finds and returns the player on the grid.
+     * @return player found
+     */
     public Player getPlayer(){
         Player player = null;
         for(Locatable[] L: boardState){
@@ -78,6 +96,11 @@ public class Grid implements Serializable{
         }
         return player;
     }
+
+    /**
+     * finds all of the ninjas on the grid and returns a list containing them
+     * @return list of ninjas found
+     */
     public ArrayList<Ninja> getNinjas(){
         ArrayList<Ninja> ninjalist = new ArrayList<>();
         for(Locatable[] L: boardState){
@@ -112,6 +135,11 @@ public class Grid implements Serializable{
         
     }
 
+    /**
+     * Checks if an item currently exists on the board.
+     * @param item item to search for.
+     * @return truth or not.
+     */
     public boolean itemExists(Locatable item){
         for(Locatable[] L: boardState){
             for(Locatable li: L){
@@ -289,6 +317,13 @@ public class Grid implements Serializable{
     	return checkForNearLocatable(loc, row, col, 2);
 	}
 
+    /**
+     * This method checks if a given coordinates are adjacent to the specified {@link Locatable}
+     * @param loc specified locatable
+     * @param row row to check
+     * @param col col to check
+     * @return truth value
+     */
 	public boolean checkForAdjacent(Locatable loc, int row, int col){
         if (getObject(row+1,col) == (loc)||getObject(row-1,col) == (loc)||getObject(row,col+1) ==(loc)||getObject(row,col-1) == (loc)){
             return true;

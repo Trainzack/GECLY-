@@ -23,7 +23,7 @@ import java.io.Serializable;
  * This class represents the Player of the game which is a subclass of the {@link Agent} abstract class.
  * There should only ever be one instance of this class in the game at a time.
  *
- * @author Gavin Kremer
+ * @author GECLY
  */
 public class Player extends Agent implements Locatable,Serializable{
 
@@ -266,38 +266,74 @@ public class Player extends Agent implements Locatable,Serializable{
 		return lives;
 	}
 
+    /**
+     * setter for {@link #ammo}
+     * @param ammo new value of {@link #ammo}
+     */
     public void setAmmo(int ammo) {
         this.ammo = ammo;
     }
 
+    /**
+     * setter for {@link #invincibilityCount}
+     * @param invincibilityCount new value for {@link #invincibilityCount}
+     */
     public void setInvincibilityCount(int invincibilityCount) {
         this.invincibilityCount = invincibilityCount;
     }
 
+    /**
+     * setter for {@link #hasRadar}
+     * @param hasRadar new value for {@link #hasRadar}
+     */
     public void setHasRadar(boolean hasRadar) {
         this.hasRadar = hasRadar;
     }
 
+    /**
+     * setter for {@link #hasAdvancedNight}
+     * @param hasAdvancedNight new value for {@link #hasAdvancedNight}
+     */
     public void setHasAdvancedNight(boolean hasAdvancedNight) {
         this.hasAdvancedNight = hasAdvancedNight;
     }
 
+    /**
+     * setter for {@link #hasCamo}
+     * @param hasCamo new value for {@link #hasCamo}
+     */
     public void setHasCamo(boolean hasCamo) {
         this.hasCamo = hasCamo;
     }
 
+    /**
+     * setter for {@link #hasCase}
+     * @param hasCase new value for {@link #hasCase}
+     */
     public void setHasCase(boolean hasCase) {
         this.hasCase = hasCase;
     }
 
+    /**
+     * Getter for {@link #ammo}
+     * @return value of {@link #ammo}
+     */
     public int getAmmo() {
         return ammo;
     }
 
+    /**
+     * getter for {@link #lastEvent}
+     * @return value of {@link #lastEvent}
+     */
     public Action getLastEvent() {
         return lastEvent;
     }
 
+    /**
+     * Setter for {@link #lastEvent}
+     * @param lastEvent new value for {@link #lastEvent}
+     */
     public void setLastEvent(Action lastEvent) {
         this.lastEvent = lastEvent;
     }

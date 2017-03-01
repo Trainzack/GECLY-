@@ -23,7 +23,7 @@ import java.io.File;
  * This class represents the interface facilitating communication between the user and the game. This class is
  * abstract because there will be different interfaces for the console and GUI versions.
  *
- * @author Gavin Kremer
+ * @author GECLY
  */
 public abstract class UserInterface {
 
@@ -89,7 +89,7 @@ public abstract class UserInterface {
 	 */
 	public abstract void showEvent();
 	/**
-	 * This method is the main loop in the game that makes everything come together.
+	 * This method is the main loop in the game that represents each turn.
 	 */
 	public void gameLoop(){
 		while(!engine.checkWin()||!engine.checkLose()) {
@@ -109,6 +109,9 @@ public abstract class UserInterface {
 		}
 	}
 
+	/**
+	 * This method loops the turn menu until the player moves.
+	 */
 	public void turnsLoop() {
 		if(!turnMenu()){
 			turnsLoop();

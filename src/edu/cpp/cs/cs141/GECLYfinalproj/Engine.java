@@ -24,7 +24,7 @@ import java.util.Random;
 /**
  * This class represents the game engine and is where all of the game logic and operations take place in.
  *
- * @author Gavin Kremer, Eli Zupke
+ * @author GECLY
  */
 public class Engine {
 	
@@ -150,6 +150,10 @@ public class Engine {
 		return visibility;
 	}
 
+	/**
+	 * Getter for {@link #board}
+	 * @return value of {@link #board}
+	 */
 	public Grid getBoard(){
 	    return this.board;
     }
@@ -172,6 +176,11 @@ public class Engine {
 		board.placeStartingObjects(player,ninjas,items);
 		
 	}
+
+	/**
+	 * This method does the same thing as {@link #setupGrid()}, but from a save.
+	 * @param save save file to load from.
+	 */
 	public void setupGrid(File save){
 		board = FileManager.readSave(save);
 		player = board.getPlayer();
@@ -183,22 +192,6 @@ public class Engine {
 		items.add(new Radar());
 
 
-	}
-
-	
-	/**
-	 * Saves the game-state by using the FileManager to record the {@link #board}, and other miscellaneous attributes like {@link #turnCount}.
-	 */
-	public void saveGame() {
-		
-	}
-	
-	
-	/**
-	 * Loads the gamestate using the FileManager, and initializes the {@link #board}, and other miscellaneous attributes like {@link #turnCount}.
-	 */
-	public void loadGame() {
-		
 	}
 
 	/**
