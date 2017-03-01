@@ -6,7 +6,7 @@ package edu.cpp.cs.cs141.GECLYfinalproj;
  * @author GECLY
  */
 public enum Action {
-    DIED("You have been slain by the Ninja\'s \"Mortal Strike\""),
+    DIED("You have been slain by the Robot Ninja\'s \"Mortal Strike\"."),
     KILLED("A ninja disintegrated upon touching your invinciblility field!"),
     GOTCASE("You picked up the briefcase!"),
     GOTITEM("You obtained "),

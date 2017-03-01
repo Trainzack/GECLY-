@@ -249,18 +249,9 @@ public class ConsoleInterface extends UserInterface{
 		String[] options = {"Debug Game", "Change Difficulty", "Help", "Exit Options", "Quit Game"};
 		int choice = displayMenu(options);
 		switch(choice) {
-			case 0: showMessage("Debug Mode");
-					String[] debugChoice = {"ON", "OFF"};
-					int debugNum = displayMenu(debugChoice);
-					if(debugNum == 0){
-						setDebugging(true);
-					}else{
-						setDebugging(false);
-					}
-					showLives();
-					displayGrid(null);
+			case 0: changeDebug();
 					break;
-			case 1: //TODO: make a thing to change difficulty
+			case 1: changeDifficulty();
 					break;
 			case 2: displayHelp();
 					break;
@@ -292,17 +283,30 @@ public class ConsoleInterface extends UserInterface{
 	 * Displays the game synopsis and includes game instructions. 
 	 */
 	public void displayHelp() {
-		showMessage("\nYou are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
+		showMessage("\nOBJECTIVE");
+		showMessage("You are a spy in a pitch black building on a mission to save the world from Evil Incorporated.");
 		showMessage("Dr. Doofenshmirtz has stolen a classified briefcase with super secret stuff in it.");
 		showMessage("Your mission, should you choose to accept it, is to retrieve the breiefcase from Dr. D.");
 		showMessage("BUT! Dr. D's evil robot ninjas will be in your way! You only have a harpoon gun with 1 harpoon and a flashlight.");
 		showMessage("Good Luck, Agent P!");
-		showMessage("\nThe powerups in the game are:");
-        //showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninja for a certain amount of turns.");
+		
+		showMessage("\nINSTRUCTIONS");
+		showMessage("You can only look once per turn in any direction in which two spaces will appear.");
+		showMessage("After that, you may either move or shoot a robot ninja next to you (keep in mind you only have one harpoon).");
+		showMessage("Your turn ends when you move one space in any direction. Then, the ninjas will move 1 space in a random direction.");
+		showMessage("You start with 3 lives and die if a robot ninja mortally stabs you if adjacent to you.");
+		showMessage("Check every room only from the NORTH side for the briefcase and avoid the 3 kills.");
+		showMessage("If you choose to play on the \"Hard\" difficulty, then after retrieving the briefcase, you must return");
+		showMessage("to the starting position at the lower left side of the building. This setting also means that the ninjas");
+		showMessage("will not move randomly but will chase you if you are within their range of vision.");
+		
+		showMessage("\nPOWERUPS");
         showMessage("Extra Bullet - ➡  or E - Gives the player one more bullet for their gun.");
         showMessage("Invincibility - ⚡  or I - Allows the player to be invincible from the ninjas for 5 turns.");
-        //showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allow them to see more than the usual 2 blocks ahead.");
         showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.\n");
+        showMessage("\nOn \"Hard\" difficulty there are two additional powerups.");
+        showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninjas so they cannot track the player.");
+        showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allows them to see more than the usual 2 blocks ahead.\n");     
 	}
 	
 	/**
@@ -472,10 +476,39 @@ public class ConsoleInterface extends UserInterface{
 	 * Displays the last event that happened to the player.
 	 */
 	public void showEvent(){
-		try{showMessage(engine.getPlayer().getLastEvent().getDesc());}
+		try{showMessage(engine.getPlayer().getLastEvent().getDesc() + ".");}
 		catch(NullPointerException X){}
 	}
-
-
+	
+	/**
+	 * Changes the difficulty of the game. Easy - basic game rules. Hard - Ninja AI implemented, added two power ups,
+	 * and player must return to starting position.
+	 */
+	public void changeDifficulty() {
+		String[] diffChoice = {"Easy", "Hard"};
+		int diffNum = displayMenu(diffChoice);
+		switch(diffNum) {
+			case 0: //TODO: easy setting
+					break;
+			case 1: //TODO: hard setting
+					break;
+		}			
+	}
+	
+	/**
+	 * Turns on and off debug mode.
+	 */
+	public void changeDebug() {
+		showMessage("Debug Mode");
+		String[] debugChoice = {"ON", "OFF"};
+		int debugNum = displayMenu(debugChoice);
+		if(debugNum == 0){
+			setDebugging(true);
+		}else{
+			setDebugging(false);
+		}
+		showLives();
+		displayGrid(null);
+	}
 
 }
