@@ -23,9 +23,9 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
 
 /**
  * The NightVision class represents the character's night vision power up. This power up will enhance the player's
- * line of vision and allow them to see mmore than the usual 2 blocks ahead.
+ * line of vision and allow them to see more than the usual 2 blocks ahead.
  * 
- * @author Clara Nguyen
+ * @author GECLY
  */
 public class NightVision extends WorldItem{
 	

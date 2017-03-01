@@ -28,7 +28,7 @@ import edu.cpp.cs.cs141.GECLYfinalproj.WorldItem;
  * it is an item in the game and implements {@link Locatable} which marks the item as
  * a locatable object.
  * 
- * @author Yan Huang
+ * @author GECLY
  *
  */
 public class Camo extends WorldItem{
