@@ -34,7 +34,7 @@ public class FileManager {
      * @param save filename to save to
      * @param board board to save
      */
-    public static void writeSave(String save,Grid board){
+    public static boolean writeSave(String save,Grid board){
         try {
             FileOutputStream fos = new FileOutputStream(save);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -42,8 +42,9 @@ public class FileManager {
             oos.close();
         }
         catch(IOException X){
-            System.out.println("The game could not be saved.");
+            return false;
         }
+        return true;
     }
 
     /**
@@ -58,8 +59,7 @@ public class FileManager {
             return (Grid) ois.readObject();
         }
         catch(Exception X){
-            System.out.println("Corrupt save.");
+            return null;
         }
-        return null;
     }
 }

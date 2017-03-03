@@ -98,8 +98,10 @@ public abstract class UserInterface {
 			displayGrid(null);
 			turnsLoop();
 			showEvent();
+            engine.getPlayer().setLastEvent(null);
 			showWin();
 			engine.moveNinjas();
+			showEvent();
 			showLoss();
 			if(engine.getPlayer().getInvincibilityCount()>0){
 				engine.getPlayer().setInvincibilityCount(engine.getPlayer().getInvincibilityCount()-1);
@@ -153,8 +155,6 @@ public abstract class UserInterface {
     public void quitGame(){
 
     }
-    
-    
     
     /**
      * A debugging method that should only be used when the game is being tested.

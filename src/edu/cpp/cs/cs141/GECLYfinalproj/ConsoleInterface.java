@@ -446,7 +446,7 @@ public class ConsoleInterface extends UserInterface{
 			radar = "No";
 		}
 		String[] options = {"Look\t\t\t\tBriefcase: " + briefcase, "Move\t\t\t\tAmmo: " + ammo, 
-				"Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options\t\t\tRadar: " + radar};
+				"Shoot\t\t\t\tInvincibility Count: " + invincibility, "Game Options\t\tRadar: " + radar};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: if(!hasLooked){
