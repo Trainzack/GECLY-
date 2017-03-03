@@ -182,6 +182,8 @@ public class Player extends Agent implements Locatable,Serializable{
         }
         return false;
     }
+
+
     /**
      * This method handles a {@link Player} entering a room and searching its contents.
      */
