@@ -125,19 +125,19 @@ public class Engine {
 	            case UP://This should probably be covered by some enum function calls, rather than this switch statement hell.
 	            	Row[0] = pRow -1;	Col[0] = pCol;			Row[1] = pRow-2;	Col[1] = pCol;
 	            	//From here are coordinates covered by night vision
-	            	Row[2] = pRow -2;	Col[2] = pCol +1;		Row[3] = pRow -2;	Col[3] = pCol -1;
+	            	Row[2] = pRow -1;	Col[2] = pCol +1;		Row[3] = pRow -1;	Col[3] = pCol -1;
 	                break;
 	            case RIGHT:
 	            	Row[0] = pRow;		Col[0] = pCol + 1;		Row[1] = pRow;		Col[1] = pCol + 2;
-	            	Row[2] = pRow +1;	Col[2] = pCol + 2;		Row[3] = pRow -1;	Col[3] = pCol + 2;
+	            	Row[2] = pRow +1;	Col[2] = pCol + 1;		Row[3] = pRow -1;	Col[3] = pCol + 1;
 	            	break;
 	            case DOWN:
 	            	Row[0] = pRow +1;	Col[0] = pCol;			Row[1] = pRow +2;	Col[1] = pCol;
-	            	Row[2] = pRow +2;	Col[2] = pCol +1;		Row[3] = pRow +2;	Col[3] = pCol -1;
+	            	Row[2] = pRow +1;	Col[2] = pCol +1;		Row[3] = pRow +1;	Col[3] = pCol -1;
 	                break;
 	            case LEFT:
 	            	Row[0] = pRow;		Col[0] = pCol - 1;		Row[1] = pRow;		Col[1] = pCol - 2;
-	            	Row[2] = pRow +1;	Col[2] = pCol - 2;		Row[3] = pRow -1;	Col[3] = pCol - 2;
+	            	Row[2] = pRow +1;	Col[2] = pCol - 1;		Row[3] = pRow -1;	Col[3] = pCol - 1;
 	                break;
 	        }
 			int goal = (player.hasNightVision()) ? 4 : 2; //Don't check the night vision squares if we don't have night vision.
@@ -166,10 +166,10 @@ public class Engine {
 		for(int i = 0;i<6;++i){
 			ninjas.add(new Ninja());
 		}
-		//items.add(new Camo());
+		items.add(new Camo());
 		items.add(new ExtraBullet());
 		items.add(new Invincibility());
-		//items.add(new NightVision());
+		items.add(new NightVision());
 		items.add(new Radar());
 
 		board = new Grid();
@@ -185,10 +185,10 @@ public class Engine {
 		board = FileManager.readSave(save);
 		player = board.getPlayer();
 		ninjas = board.getNinjas();
-		//items.add(new Camo());
+		items.add(new Camo());
 		items.add(new ExtraBullet());
 		items.add(new Invincibility());
-		//items.add(new NightVision());
+		items.add(new NightVision());
 		items.add(new Radar());
 
 
@@ -208,9 +208,9 @@ public class Engine {
 				break;
 			}
 			boolean trackPlayer = board.checkForNearLocatable(player, n.getLocation().getRow(), n.getLocation().getCol(), NINJA_TRACKING_DISTANCE);
-			/**if (player.hasCamo()) {
+			if (player.hasCamo()) {
 				trackPlayer = false;
-			}**///This isn't working for some reason
+			}
 			
 			if (trackPlayer) {
 				n.makeMovementDecision(RNG,player);
