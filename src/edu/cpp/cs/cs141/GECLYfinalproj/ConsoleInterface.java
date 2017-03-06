@@ -429,12 +429,12 @@ public class ConsoleInterface extends UserInterface{
 	 */
 	public boolean turnMenu() {
 		showMessage("What would you like to do?\tThings you got:");
-		String briefcase;
-		if(engine.getPlayer().hasCase()) {
-			briefcase = "Yes";
+		String Camo;
+		if(engine.getPlayer().hasCamo()) {
+			Camo = "Yes";
 		}
 		else {
-			briefcase = "No";
+			Camo = "No";
 		}
 		int ammo = engine.getPlayer().getAmmo();
 		int invincibility = engine.getPlayer().getInvincibilityCount();
@@ -445,7 +445,7 @@ public class ConsoleInterface extends UserInterface{
 		else {
 			radar = "No";
 		}
-		String[] options = {"Look\t\t\t\tBriefcase: " + briefcase, "Move\t\t\t\tAmmo: " + ammo, 
+		String[] options = {"Look\t\t\t\tCamo: " + Camo, "Move\t\t\t\tAmmo: " + ammo,
 				"Shoot\t\t\t\tInvincibility Count: " + invincibility, "Game Options\t\tRadar: " + radar};
 		int choice = displayMenu(options);
 		switch(choice) {
