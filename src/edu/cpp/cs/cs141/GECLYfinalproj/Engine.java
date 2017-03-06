@@ -60,7 +60,7 @@ public class Engine {
 	/**
 	 * This represents the distance that ninjas have to be from the player before they will track the player. Set this to 0 to stop ninja tracking.
 	 */
-	private final int NINJA_TRACKING_DISTANCE = 0;
+	private int NINJA_TRACKING_DISTANCE = 0;
 	
 	
 	/**
@@ -256,5 +256,9 @@ public class Engine {
 	 */
 	public void addTurnCount() {
 		this.turnCount +=1;
+	}
+
+	public void setNINJA_TRACKING_DISTANCE(int val){
+		NINJA_TRACKING_DISTANCE = val;
 	}
 }
