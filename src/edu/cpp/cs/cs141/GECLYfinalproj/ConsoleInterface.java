@@ -300,11 +300,14 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("to the starting position at the lower left side of the building. This setting also means that the ninjas");
 		showMessage("will not move randomly but will chase you if you are within their range of vision.");
 		
-		showMessage("\nPOWERUPS");
+		showMessage("\nLEGEND");
+		showMessage("Player - ★ or P - This is the player.");
+		showMessage("Ninja - ♾ or N - This is a ninja.");
+		showMessage("Room - ◫ or R - This is a room and can contain the briefcase.");
+		showMessage("Room - ♜ or B - This is the briefcase.");
         showMessage("Extra Bullet - ➡  or E - Gives the player one more bullet for their gun.");
         showMessage("Invincibility - ⚡  or I - Allows the player to be invincible from the ninjas for 5 turns.");
-        showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.\n");
-        showMessage("\nOn \"Hard\" difficulty there are two additional powerups.");
+        showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.");
         showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninjas so they cannot track the player.");
         showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allows them to see more than the usual 2 blocks ahead.\n");     
 	}
