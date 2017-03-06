@@ -488,9 +488,9 @@ public class ConsoleInterface extends UserInterface{
 		String[] diffChoice = {"Easy", "Hard"};
 		int diffNum = displayMenu(diffChoice);
 		switch(diffNum) {
-			case 0: //TODO: easy setting
+			case 0: engine.setNINJA_TRACKING_DISTANCE(0);
 					break;
-			case 1: //TODO: hard setting
+			case 1: engine.setNINJA_TRACKING_DISTANCE(5);
 					break;
 		}			
 	}
