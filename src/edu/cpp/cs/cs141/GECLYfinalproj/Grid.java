@@ -77,7 +77,7 @@ public class Grid implements Serializable{
         int currentCol = l.getCol();
         int newRow = currentRow+d.getRow();
         int newCol = currentCol+d.getCol();
-        return boardState[newRow][newCol];
+        return getObject(newRow,newCol);
     }
 
     /**
