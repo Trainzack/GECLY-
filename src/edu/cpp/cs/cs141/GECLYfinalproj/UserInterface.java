@@ -91,26 +91,30 @@ public abstract class UserInterface {
 	/**
 	 * This method is the main loop in the game that represents each turn.
 	 */
-	public void gameLoop(){
-		while(!engine.checkWin()||!engine.checkLose()) {
-			hasLooked = false;
-			showLives();
-			displayGrid(null);
-			turnsLoop();
-			showEvent();
-            engine.getPlayer().setLastEvent(null);
-			showWin();
-			engine.moveNinjas();
-			showEvent();
-			showLoss();
-			if(engine.getPlayer().getInvincibilityCount()>0){
+	private void gameLoop(){
+		while(!engine.checkWin()&&!engine.checkLose()) {
+			hasLooked = false; //Allows the player to look once per turn.
+			showLives(); //Displays the player's life total.
+			displayGrid(null); //Displays the grid, the parameter "null" means there is no direction.
+			turnsLoop(); //Allows the play do perform actions until they move.
+			endOfTurn(); //A set of actions to perform after each turn.
+			engine.moveNinjas(); //Tells engine to move the ninjas.
+			endOfTurn();
+			if(engine.getPlayer().getInvincibilityCount()>0){ //Decreases invincibility if applicable.
 				engine.getPlayer().setInvincibilityCount(engine.getPlayer().getInvincibilityCount()-1);
 			}
-			engine.getPlayer().setLastEvent(null);
-			engine.addTurnCount();
 		}
 	}
 
+	public void endOfTurn(){
+		showEvent(); //Shows an event if any
+		engine.getPlayer().setLastEvent(null); //Sets the last event to null so it doesn't show twice.
+		checkForWinLoss(); //Checks if the player won or lost.
+	}
+	public void checkForWinLoss(){
+		showWin();
+		showLoss();
+	}
 	/**
 	 * This method loops the turn menu until the player moves.
 	 */

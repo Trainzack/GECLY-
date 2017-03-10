@@ -304,12 +304,12 @@ public class ConsoleInterface extends UserInterface{
 		showMessage("Player - ★ or P - This is the player.");
 		showMessage("Ninja - ♾ or N - This is a ninja.");
 		showMessage("Room - ◫ or R - This is a room and can contain the briefcase.");
-		showMessage("Room - ♜ or B - This is the briefcase.");
+		showMessage("Briefcase - ♜ or B - This is the briefcase.");
         showMessage("Extra Bullet - ➡  or E - Gives the player one more bullet for their gun.");
         showMessage("Invincibility - ⚡  or I - Allows the player to be invincible from the ninjas for 5 turns.");
         showMessage("Radar - ⚨  or R - Allows the player to see where the briefcase is.");
         showMessage("Camo - ✿  or C - Allows the player to be hidden from the ninjas so they cannot track the player.");
-        showMessage("NighVision - ☪  or V - Enhances the player's line of vision and allows them to see more than the usual 2 blocks ahead.\n");     
+        showMessage("NightVision - ☪  or V - Enhances the player's line of vision and allows them to see more than the usual 2 blocks ahead.\n");
 	}
 	
 	/**
@@ -404,10 +404,10 @@ public class ConsoleInterface extends UserInterface{
 	/**
 	 * Prompts the player to choose where to shoot, if possible.
 	 */
-	public void askShoot() {
+	public boolean askShoot() {
 		if(engine.getPlayer().getAmmo() == 0) {
 			showMessage("You can not shoot. You have no harpoons.");
-			return;
+			return false;
 		}
 		else{
 			askDirection("shoot");
@@ -421,8 +421,9 @@ public class ConsoleInterface extends UserInterface{
 			    showMessage("You didn't hit anything!");
             }
 			showMessage("\nYou have no harpoons left.");
-			showLives();
-			displayGrid(null);
+			return true;
+			/*showLives();
+			displayGrid(null);*/
 		}
 	}
 
@@ -449,7 +450,7 @@ public class ConsoleInterface extends UserInterface{
 			radar = "No";
 		}
 		String[] options = {"Look\t\t\t\tCamo: " + Camo, "Move\t\t\t\tAmmo: " + ammo,
-				"Shoot\t\t\t\tInvincibility Count: " + invincibility, "Game Options\t\tRadar: " + radar};
+				"Shoot\t\t\tInvincibility Count: " + invincibility, "Game Options\t\tRadar: " + radar};
 		int choice = displayMenu(options);
 		switch(choice) {
 			case 0: if(!hasLooked){
@@ -461,8 +462,8 @@ public class ConsoleInterface extends UserInterface{
 					return false;
 			case 1: askMove();
 					return true;
-			case 2: askShoot();
-					return false;
+			case 2:
+					return askShoot();
 			case 3: openOptions();
 					return false;
 		} return false;

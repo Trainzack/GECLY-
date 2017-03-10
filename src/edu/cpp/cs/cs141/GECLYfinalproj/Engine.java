@@ -48,11 +48,6 @@ public class Engine {
 	private Grid board;
 
 	/**
-	 * The number of turns that have taken place since play has started.
-	 */
-	private int turnCount;
-
-	/**
 	 * Random number generator for use with random things.
 	 */
 	Random RNG = new Random();
@@ -249,13 +244,6 @@ public class Engine {
 	 */
 	public ArrayList<Ninja> getNinjas() {
 		return ninjas;
-	}
-
-	/**
-	 * Adds one to {@link #turnCount} at the end of every turn.
-	 */
-	public void addTurnCount() {
-		this.turnCount +=1;
 	}
 
 	public void setNINJA_TRACKING_DISTANCE(int val){
